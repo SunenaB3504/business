@@ -7,10 +7,15 @@ const speakerStyles = {
 };
 
 const speakerVoicePrefs = {
-    "Neil": { pitch: 1.2, rate: 1.05, voicePref: ["en-GB", "en-US", "Male"] },
-    "Kanishq": { pitch: 0.95, rate: 1.1, voicePref: ["en-IN", "en-GB", "Male"] },
-    "Narrator": { pitch: 1, rate: 0.95, voicePref: ["en-US", "en-GB", "Female"] },
-    "System": { pitch: 1, rate: 1, volume: 1, voicePref: ["en-US", "en-GB", "Google", "Female"] }
+    // Use specific voice names for best cross-browser results
+    "Neil": { pitch: 1.2, rate: 1.05, voiceNames: [
+        "Google UK English Male", "Microsoft Ryan Online (Natural) - English (United States)", "Microsoft George Online (Natural) - English (Great Britain)", "Microsoft Ravi Online (Natural) - English (India)", "en-GB", "en-US"] },
+    "Kanishq": { pitch: 0.95, rate: 1.1, voiceNames: [
+        "Google हिन्दी", "Microsoft Ravi Online (Natural) - English (India)", "Google UK English Female", "en-IN", "en-GB", "en-US"] },
+    "Narrator": { pitch: 1, rate: 0.95, voiceNames: [
+        "Google US English", "Microsoft Aria Online (Natural) - English (United States)", "Microsoft Sonia Online (Natural) - English (Great Britain)", "en-US", "en-GB"] },
+    "System": { pitch: 1, rate: 1, volume: 1, voiceNames: [
+        "Google UK English Female", "Microsoft Zira Online (Natural) - English (United States)", "Microsoft Sonia Online (Natural) - English (Great Britain)", "en-GB", "en-US"] }
 };
 
 let storySegments = [];
@@ -23,24 +28,31 @@ let voicesReady = false;
 
 function assignVoices() {
     const voices = synth.getVoices();
-    // Try to assign a unique voice for each speaker
-    Object.keys(speakerVoicePrefs).forEach(speaker => {
-        const pref = speakerVoicePrefs[speaker].voicePref;
+    const usedVoices = new Set();
+    Object.keys(speakerVoicePrefs).forEach((speaker, idx) => {
+        const pref = speakerVoicePrefs[speaker].voiceNames;
         let found = null;
         if (voices.length > 0 && pref) {
-            for (let p of pref) {
-                found = voices.find(v => v.lang.includes(p) || v.name.includes(p));
-                if (found) break;
+            for (let name of pref) {
+                found = voices.find(v => v.name === name);
+                if (found && !usedVoices.has(found.name)) break;
+                found = null;
             }
         }
         // Fallback: assign a different voice by index if possible
         if (!found && voices.length > 0) {
-            const idx = Object.keys(speakerVoicePrefs).indexOf(speaker) % voices.length;
-            found = voices[idx];
+            for (let v of voices) {
+                if (!usedVoices.has(v.name)) {
+                    found = v;
+                    break;
+                }
+            }
         }
+        // Final fallback: just use any voice
+        if (!found && voices.length > 0) found = voices[idx % voices.length];
         speakerVoices[speaker] = found || null;
+        if (found) usedVoices.add(found.name);
     });
-}
 
 function openStoryModal(segments) {
     // Wait for voices to be ready before starting
@@ -122,8 +134,22 @@ function playStory() {
     utter = new SpeechSynthesisUtterance(seg.text);
     const prefs = speakerVoicePrefs[seg.speaker] || {};
     // Assign pitch, rate, volume
-    utter.pitch = prefs.pitch || 1;
-    utter.rate = prefs.rate || 1;
+    if (seg.speaker === 'Neil') {
+        utter.pitch = 1.2;
+        utter.rate = 1;
+    } else if (seg.speaker === 'Kanishq') {
+        utter.pitch = 1.3;
+        utter.rate = 1.05;
+    } else if (seg.speaker === 'Narrator') {
+        utter.pitch = 1;
+        utter.rate = 1;
+    } else if (seg.speaker === 'System') {
+        utter.pitch = 1.1;
+        utter.rate = 0.95;
+    } else {
+        utter.pitch = prefs.pitch || 1;
+        utter.rate = prefs.rate || 1;
+    }
     utter.volume = prefs.volume !== undefined ? prefs.volume : 1;
     // Assign pre-picked voice
     if (speakerVoices[seg.speaker]) utter.voice = speakerVoices[seg.speaker];
