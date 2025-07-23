@@ -18,7 +18,12 @@ async function loadChapter(chapterId) {
     `).join('');
     // Flashcards
     const flashDiv = document.getElementById('chapter-flashcards');
-    flashDiv.innerHTML = chapter.flashcards.map(f => `<div class="flashcard" onclick="alert('${f.back}')">${f.front}</div>`).join('');
+    flashDiv.innerHTML = chapter.flashcards.map((f, i) => `
+      <div class="flashcard" onclick="alert('${f.back}')">
+        <span class="flashcard-count">${i + 1}/${chapter.flashcards.length}</span>
+        ${f.front}
+      </div>
+    `).join('');
     // Exercises
     const exDiv = document.getElementById('chapter-exercises');
     exDiv.innerHTML = '<ul>' + chapter.exercises.map(e => `<li>${e}</li>`).join('') + '</ul>';

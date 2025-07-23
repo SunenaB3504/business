@@ -7,10 +7,10 @@ const speakerStyles = {
 };
 
 const speakerVoicePrefs = {
-    "Neil": { pitch: 1.2, rate: 1.05 },
-    "Kanishq": { pitch: 0.95, rate: 1.1 },
-    "Narrator": { pitch: 1, rate: 0.95 },
-    "System": { pitch: 1, rate: 1, volume: 1 }
+    "Neil": { pitch: 1.2, rate: 1.05, voicePref: ["en-GB", "en-US", "Male"] },
+    "Kanishq": { pitch: 0.95, rate: 1.1, voicePref: ["en-IN", "en-GB", "Male"] },
+    "Narrator": { pitch: 1, rate: 0.95, voicePref: ["en-US", "en-GB", "Female"] },
+    "System": { pitch: 1, rate: 1, volume: 1, voicePref: ["en-US", "en-GB", "Google", "Female"] }
 };
 
 let storySegments = [];
@@ -18,8 +18,38 @@ let currentSegment = 0;
 let isPlaying = false;
 let synth = window.speechSynthesis;
 let utter;
+let speakerVoices = {}; // Will hold assigned voices for each speaker
+let voicesReady = false;
+
+function assignVoices() {
+    const voices = synth.getVoices();
+    // Try to assign a unique voice for each speaker
+    Object.keys(speakerVoicePrefs).forEach(speaker => {
+        const pref = speakerVoicePrefs[speaker].voicePref;
+        let found = null;
+        if (voices.length > 0 && pref) {
+            for (let p of pref) {
+                found = voices.find(v => v.lang.includes(p) || v.name.includes(p));
+                if (found) break;
+            }
+        }
+        // Fallback: assign a different voice by index if possible
+        if (!found && voices.length > 0) {
+            const idx = Object.keys(speakerVoicePrefs).indexOf(speaker) % voices.length;
+            found = voices[idx];
+        }
+        speakerVoices[speaker] = found || null;
+    });
+}
 
 function openStoryModal(segments) {
+    // Wait for voices to be ready before starting
+    if (!voicesReady) {
+        // Try again after a short delay
+        setTimeout(() => openStoryModal(segments), 100);
+        return;
+    }
+    assignVoices();
     storySegments = segments;
     currentSegment = 0;
     isPlaying = false;
@@ -80,7 +110,8 @@ function playStory() {
     playSegment(currentSegment);
 }
 
-function playSegment(idx) {
+// No longer needed: pickVoice now handled in assignVoices
+
     if (idx >= storySegments.length) {
         stopStory();
         return;
@@ -90,7 +121,12 @@ function playSegment(idx) {
     const seg = storySegments[idx];
     utter = new SpeechSynthesisUtterance(seg.text);
     const prefs = speakerVoicePrefs[seg.speaker] || {};
-    Object.assign(utter, prefs);
+    // Assign pitch, rate, volume
+    utter.pitch = prefs.pitch || 1;
+    utter.rate = prefs.rate || 1;
+    utter.volume = prefs.volume !== undefined ? prefs.volume : 1;
+    // Assign pre-picked voice
+    if (speakerVoices[seg.speaker]) utter.voice = speakerVoices[seg.speaker];
     utter.onend = () => {
         if (isPlaying && !synth.paused) playSegment(idx + 1);
     };
@@ -111,6 +147,11 @@ function stopStory() {
     currentSegment = 0;
     highlightSegment(0);
     resetControls();
+    stopStory();
+    isPlaying = false;
+    currentSegment = 0;
+    highlightSegment(0);
+    resetControls();
 }
 
 function resetControls() {
@@ -124,6 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('story-play').onclick = playStory;
     document.getElementById('story-pause').onclick = pauseStory;
     document.getElementById('story-stop').onclick = stopStory;
+    // Wait for voices to be loaded before allowing playback
+    if (typeof speechSynthesis !== 'undefined') {
+        function setReady() {
+            voicesReady = true;
+        }
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = setReady;
+        }
+        // Call once in case voices are already loaded
+        if (speechSynthesis.getVoices().length > 0) setReady();
+    }
 });
 
 // To use: openStoryModal([{speaker: 'Neil', text: 'Hello!'}, ...])
