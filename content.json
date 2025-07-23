@@ -1,0 +1,69 @@
+{
+  "chapters": [
+    {
+      "id": "chapter1",
+      "title": "Nature and Significance of Management",
+      "story": [
+        {"title": "Tata Group", "text": "Founded in 1868 by Jamsetji Tata, the Tata Group is a global business conglomerate built on values, innovation, and social responsibility. Its management principles and legacy continue to guide its companies today."},
+        {"title": "Namchi Designer Candles", "text": "Smita Rai, an entrepreneur from Sikkim, empowered rural women by turning her candle-making hobby into a successful business, demonstrating the importance of management and coordination."}
+      ],
+      "mindmap": [
+        {"title": "Characteristics of Management", "points": ["Goal-oriented", "Universal", "Multidimensional", "Continuous process", "Group activity", "Dynamic function", "Intangible force"]},
+        {"title": "Nature of Management", "points": ["As an Art", "As a Science", "As a Profession"]},
+        {"title": "Functions of Management", "points": ["Planning", "Organising", "Staffing", "Directing", "Controlling"]},
+        {"title": "Importance of Coordination", "points": ["Ensures unity of action", "Improves efficiency", "Facilitates motivation", "Promotes growth"]}
+      ],
+      "flashcards": [
+        {"front": "Definition of Management", "back": "Management is a process of planning, organising, actuating and controlling to achieve objectives."},
+        {"front": "Universality of Management", "back": "Management is required in all types of organisations, business or non-business."},
+        {"front": "Importance of Coordination", "back": "Coordination is the essence of management, ensuring all activities are harmonised."},
+        {"front": "Functions of Management", "back": "Planning, Organising, Staffing, Directing, Controlling."},
+        {"front": "Characteristics of Management", "back": "Goal-oriented, Universal, Multidimensional, Continuous process, Group activity, Dynamic function, Intangible force."},
+        {"front": "Nature of Management as an Art", "back": "Management requires personal skills, creativity, and practice."},
+        {"front": "Nature of Management as a Science", "back": "Management is based on systematic knowledge, principles, and cause-effect relationships."},
+        {"front": "Nature of Management as a Profession", "back": "Management requires specialized knowledge, formal education, and adherence to a code of conduct."},
+        {"front": "Case Study: Tata Group", "back": "Tata Group's management is based on values, innovation, and social responsibility."},
+        {"front": "Case Study: Namchi Designer Candles", "back": "Smita Rai empowered rural women through effective management and coordination."}
+      ],
+      "exercises": [
+        "Describe the characteristics of management and its importance in an organisation.",
+        "Explain the nature of management as an art, science and profession.",
+        "Explain the functions of management.",
+        "Appreciate the nature and importance of coordination.",
+        "List the seven characteristics of management.",
+        "Differentiate between management as an art and as a science.",
+        "Discuss the importance of coordination in an organisation.",
+        "Write a short note on the Tata Group as an example of effective management.",
+        "How did Smita Rai demonstrate management skills in Namchi Designer Candles?",
+        "Give two definitions of management from well-known authors.",
+        "Why is management considered a group activity?",
+        "What is the role of a manager in achieving organisational goals?",
+        "Explain with examples how management is a continuous process.",
+        "State any three functions of management with examples."
+      ]
+    },
+    {
+      "id": "chapter2",
+      "title": "Principles of Management",
+      "story": [
+        {"title": "Toyota Motor Corporation", "text": "Toyota follows well-defined business principles such as respecting laws and cultures, contributing to society, providing quality products, fostering creativity and teamwork, and pursuing growth through innovative management. These principles guide Toyota's global vision and corporate activities."}
+      ],
+      "mindmap": [
+        {"title": "Meaning & Nature of Principles of Management", "points": ["Broad guidelines for decision-making and behaviour", "Not as rigid as pure science principles", "Must adapt to human behaviour and changing technology"]},
+        {"title": "Evolution of Management Thought", "points": ["Early Perspectives (Ancient times, e.g., Egyptian pyramids)", "Classical Management Theory (Taylor, Fayol, Weber)", "Neo Classical Theory – Human Relations Approach", "Behavioural Science Approach – Organisational Humanism", "Management Science/Operational Research", "Modern Management (Contingency approach, systems view)"]},
+        {"title": "Key Contributors", "points": ["F.W. Taylor – Scientific Management", "Henri Fayol – Administrative Principles"]}
+      ],
+      "flashcards": [
+        {"front": "Definition of Principle of Management", "back": "A managerial principle is a broad and general guideline for decision-making and behaviour."},
+        {"front": "Nature of Management Principles", "back": "Management principles must be applied creatively, adapting to human behaviour and changing situations."},
+        {"front": "Key Contributors", "back": "Taylor is known for Scientific Management; Fayol for Administrative Principles."}
+      ],
+      "exercises": [
+        "State the meaning, nature, and significance of principles of management.",
+        "Explain Taylor’s principles and techniques of Scientific Management.",
+        "Explain Fayol’s principles of management.",
+        "Describe the evolution of management thought."
+      ]
+    }
+  ]
+}

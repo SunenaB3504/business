@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Nature and Significance of Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-900 text-white py-6 px-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+                <h1 class="text-3xl font-bold mb-1">Class 12 - Business Studies</h1>
+                <p class="text-lg">Chapter 1: Nature and Significance of Management</p>
+            </div>
+            <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
+                <a href="index.html" class="text-white font-semibold hover:underline flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v6a2 2 0 002 2h4a2 2 0 002-2v-6m-6 0h6" />
+                    </svg>
+                    Home
+                </a>
+                <a href="chapter1.html" class="text-white font-semibold hover:underline">Chapter 1</a>
+                <a href="chapter2.html" class="text-white font-semibold hover:underline">Chapter 2</a>
+                <a href="#" onclick="openCompanyModal();return false;" class="text-white font-semibold hover:underline">Review KnowledgeCompass</a>
+                <a href="#" onclick="openSearchModal();return false;" class="text-white font-semibold hover:underline">Search (with audio)</a>
+                <div class="flex items-center gap-2">
+                    <span class="text-white font-semibold">Progress</span>
+                    <div class="relative w-10 h-10">
+                        <svg viewBox="0 0 40 40" class="w-10 h-10">
+                            <circle cx="20" cy="20" r="18" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                            <circle cx="20" cy="20" r="18" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="45" stroke-linecap="round" />
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-xs text-white font-bold">60%</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
+        <!-- Dramatic Story Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Dramatic Story</h2>
+            <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
+                <div id="story-content" class="mb-4"></div>
+                <div class="flex gap-4">
+                    <button onclick="playStory()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                    <button onclick="pauseStory()" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button onclick="stopStory()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                </div>
+            </div>
+        </section>
+        <!-- Drilldown Mindmap Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Drilldown Mindmap</h2>
+            <div id="mindmap" class="space-y-2"></div>
+        </section>
+        <!-- Flippable Flashcards Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Flippable Flashcards</h2>
+            <div id="flashcards" class="flex flex-wrap gap-4"></div>
+            <div class="mt-4 flex gap-2">
+                <button onclick="prevFlashcard()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Previous</button>
+                <button onclick="nextFlashcard()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Next</button>
+            </div>
+        </section>
+        <!-- Exercises Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Exercises</h2>
+            <div id="exercises" class="bg-indigo-50 rounded-lg p-4 shadow"></div>
+        </section>
+    </main>
+    <footer class="bg-blue-900 text-white text-center py-4 mt-8 rounded-b-lg">
+        &copy; 2025 GENZ Study Business | For Neil's Educational Needs
+    </footer>
+    <script>
+    // --- Dynamic Content Loader for Chapter 1 ---
+    let chapterData = null;
+    let storyIndex = 0;
+    let storySynth = window.speechSynthesis;
+    let storyPaused = false;
+    let currentUtterance = null;
+    let flashIndex = 0;
+    let flashcards = [];
+
+    fetch('content.json')
+        .then(res => res.json())
+        .then(data => {
+            chapterData = data.chapters.find(ch => ch.id === 'chapter1');
+            renderStory();
+            renderMindmap();
+            flashcards = chapterData.flashcards;
+            renderFlashcard();
+            renderExercises();
+        });
+
+    // --- Dramatic Story Render & Read-Aloud ---
+    function renderStory() {
+        const storyDiv = document.getElementById('story-content');
+        if (!chapterData || !chapterData.story) return;
+        storyDiv.innerHTML = chapterData.story.map(s => `<strong>${s.title}:</strong> ${s.text}`).join('<br><br>');
+        // Prepare utterances for read-aloud
+        storyUtterances = chapterData.story.map(s => ({ text: `${s.title}: ${s.text}`, voice: 'narrator' }));
+    }
+    let storyUtterances = [];
+    function playStory() {
+        if (storyPaused && currentUtterance) {
+            storySynth.resume();
+            storyPaused = false;
+            return;
+        }
+        stopStory();
+        storyIndex = 0;
+        speakNext();
+    }
+    function speakNext() {
+        if (storyIndex >= storyUtterances.length) return;
+        let u = new SpeechSynthesisUtterance(storyUtterances[storyIndex].text);
+        u.voice = storySynth.getVoices().find(v => v.name.toLowerCase().includes('english'));
+        u.onend = () => { storyIndex++; speakNext(); };
+        currentUtterance = u;
+        storySynth.speak(u);
+    }
+    function pauseStory() {
+        storySynth.pause();
+        storyPaused = true;
+    }
+    function stopStory() {
+        storySynth.cancel();
+        storyPaused = false;
+    }
+
+    // --- Mindmap Render ---
+    function renderMindmap() {
+        const mindmapDiv = document.getElementById('mindmap');
+        mindmapDiv.innerHTML = '';
+        if (!chapterData || !chapterData.mindmap) return;
+        chapterData.mindmap.forEach(main => {
+            const details = document.createElement('details');
+            details.className = 'bg-green-50 rounded-lg p-4 shadow';
+            details.innerHTML = `<summary class="font-semibold cursor-pointer">${main.title}</summary>` +
+                main.points.map(point => `<div class="ml-4 mt-2 text-gray-700">• ${point}</div>`).join('');
+            mindmapDiv.appendChild(details);
+        });
+    }
+
+    // --- Flashcards Render ---
+    function renderFlashcard() {
+        const fcDiv = document.getElementById('flashcards');
+        fcDiv.innerHTML = '';
+        if (!flashcards.length) return;
+        const card = document.createElement('div');
+        card.className = 'w-64 h-40 bg-yellow-100 border border-yellow-400 rounded-lg flex items-center justify-center text-xl font-semibold cursor-pointer transition-transform transform hover:rotate-y-180 shadow';
+        card.innerHTML = `<span>${flashcards[flashIndex].front}</span>`;
+        card.onclick = function() {
+            card.innerHTML = `<span>${flashcards[flashIndex].back}</span>`;
+        };
+        fcDiv.appendChild(card);
+    }
+    function prevFlashcard() {
+        flashIndex = (flashIndex - 1 + flashcards.length) % flashcards.length;
+        renderFlashcard();
+    }
+    function nextFlashcard() {
+        flashIndex = (flashIndex + 1) % flashcards.length;
+        renderFlashcard();
+    }
+
+    // --- Exercises Render ---
+    function renderExercises() {
+        const exDiv = document.getElementById('exercises');
+        if (!chapterData || !chapterData.exercises) return;
+        exDiv.innerHTML = '<ul class="list-disc ml-6 space-y-2">' +
+            chapterData.exercises.map(q => `<li>${q}</li>`).join('') + '</ul>';
+    }
+
+    // --- Case Study Read-Aloud (from story section if present) ---
+    function playCaseStudy() {
+        if (!chapterData || !chapterData.story || !chapterData.story.length) return;
+        let caseText = chapterData.story[chapterData.story.length-1].text;
+        let caseUtter = new SpeechSynthesisUtterance(caseText);
+        caseUtter.voice = storySynth.getVoices().find(v => v.name.toLowerCase().includes('english'));
+        storySynth.speak(caseUtter);
+    }
+    </script>
+</body>
+</html>
