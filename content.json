@@ -390,32 +390,32 @@
       ],
       "exercises": {
         "mcq": [
-          {"options": ["Management is a tangible force.", "Management is an intangible force.", "Management can be seen but not felt.", "Management only affects profit organizations."], "question": "Which of the following statements about the characteristics of management is correct?"},
-          {"options": ["Sales, Production, Marketing", "Customers, Employees, Government", "Survival, Profit, Growth", "Efficiency, Effectiveness, Coordination"], "question": "What are the three main organizational objectives of management?"},
-          {"options": ["Planning", "Organising", "Staffing", "Directing"], "question": "Which function of management involves finding the right people for the right job, including recruitment and selection?"},
-          {"options": ["Top management", "Middle management", "Supervisory management", "Operational management"], "question": "Which level of management is responsible for interpreting policies framed by top management and motivating first-line managers?"}
+          {"options": ["Management is a tangible force.", "Management is an intangible force.", "Management can be seen but not felt.", "Management only affects profit organizations."], "question": "Which of the following statements about the characteristics of management is correct?", "correctAnswerIndex": 1, "explanation": "Management is an intangible force; its presence is felt through results, not seen directly."},
+          {"options": ["Sales, Production, Marketing", "Customers, Employees, Government", "Survival, Profit, Growth", "Efficiency, Effectiveness, Coordination"], "question": "What are the three main organizational objectives of management?", "correctAnswerIndex": 2, "explanation": "Survival, profit, and growth are the three main organizational objectives."},
+          {"options": ["Planning", "Organising", "Staffing", "Directing"], "question": "Which function of management involves finding the right people for the right job, including recruitment and selection?", "correctAnswerIndex": 2, "explanation": "Staffing is the function that deals with recruitment and selection."},
+          {"options": ["Top management", "Middle management", "Supervisory management", "Operational management"], "question": "Which level of management is responsible for interpreting policies framed by top management and motivating first-line managers?", "correctAnswerIndex": 1, "explanation": "Middle management interprets policies and motivates first-line managers."}
         ],
         "oneWord": [
-          {"question": "What term refers to finishing the given task and achieving goals, concerned with the end result?"},
-          {"question": "What term means doing the task correctly and with minimum cost?"},
-          {"question": "What is considered the essence of management, synchronizing activities of different departments?"},
-          {"question": "What characteristic of management suggests it must adapt to the changing environment?"}
+          {"question": "What term refers to finishing the given task and achieving goals, concerned with the end result?", "correctAnswer": "Effectiveness", "explanation": "Effectiveness is about achieving goals and focusing on the end result."},
+          {"question": "What term means doing the task correctly and with minimum cost?", "correctAnswer": "Efficiency", "explanation": "Efficiency is about minimizing cost and optimizing resources."},
+          {"question": "What is considered the essence of management, synchronizing activities of different departments?", "correctAnswer": "Coordination", "explanation": "Coordination binds all management functions and ensures harmony."},
+          {"question": "What characteristic of management suggests it must adapt to the changing environment?", "correctAnswer": "Dynamic", "explanation": "Management is dynamic and adapts to changes in the environment."}
         ],
         "shortAnswer1": [
-          {"question": "What is the basic definition of management?"},
-          {"question": "How does coordination integrate group efforts?"},
-          {"question": "Why is management considered a multidimensional concept?"}
+          {"question": "What is the basic definition of management?", "answer": "Management is the process of getting things done with the aim of achieving goals effectively and efficiently.", "explanation": "This definition highlights both effectiveness and efficiency in achieving organizational goals."},
+          {"question": "How does coordination integrate group efforts?", "answer": "Coordination unifies individual efforts towards common goals, ensuring harmony and preventing duplication.", "explanation": "Coordination is the force that binds all functions and integrates group efforts."},
+          {"question": "Why is management considered a multidimensional concept?", "answer": "Management involves managing work, people, and operations.", "explanation": "It is multidimensional because it covers various aspects of an organization."}
         ],
         "shortAnswer2": [
-          {"question": "Explain why management is considered 'all pervasive'."},
-          {"question": "Briefly describe the key responsibilities of middle management."},
-          {"question": "Explain the situation when a business is efficient but not effective. Give an example."}
+          {"question": "Explain why management is considered 'all pervasive'.", "answer": "Management is practiced in all organizations and at all levels.", "explanation": "It is all pervasive because it is required everywhere, in every organization and department."},
+          {"question": "Briefly describe the key responsibilities of middle management.", "answer": "Middle management interprets policies, motivates first-line managers, and oversees departmental activities.", "explanation": "They act as a link between top and lower management."},
+          {"question": "Explain the situation when a business is efficient but not effective. Give an example.", "answer": "A business may produce goods at low cost (efficient) but fail to meet market demand (not effective).", "explanation": "Efficiency without effectiveness means resources are used well but goals are not achieved."}
         ],
         "trueFalse": [
-          {"question": "Management aims at guiding individual efforts towards achieving a common objective."},
-          {"question": "Efficiency is concerned with the end result, while effectiveness is concerned with doing the task correctly with minimum cost."},
-          {"question": "Management helps people adapt to changes in the environment, creating a dynamic organization."},
-          {"question": "Entry to the management profession is strictly restricted through examinations or specific degrees worldwide."}
+          {"question": "Management aims at guiding individual efforts towards achieving a common objective.", "correctAnswer": true, "explanation": "Management unites efforts towards a common goal."},
+          {"question": "Efficiency is concerned with the end result, while effectiveness is concerned with doing the task correctly with minimum cost.", "correctAnswer": false, "explanation": "Efficiency is about doing tasks correctly with minimum cost; effectiveness is about achieving the end result."},
+          {"question": "Management helps people adapt to changes in the environment, creating a dynamic organization.", "correctAnswer": true, "explanation": "Management creates a dynamic organization by helping people adapt to changes."},
+          {"question": "Entry to the management profession is strictly restricted through examinations or specific degrees worldwide.", "correctAnswer": false, "explanation": "Entry to management is not strictly restricted; professionalization is growing but not universal."}
         ]
       },
       "longAnswerQuestions": [
