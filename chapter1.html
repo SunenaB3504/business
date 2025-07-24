@@ -69,7 +69,8 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
                 <h1 class="text-3xl font-bold mb-1">Class 12 - Business Studies</h1>
-                <p class="text-lg">Chapter 1: Nature and Significance of Management</p>
+                <p class="text-lg mb-2">Chapter 1: Nature and Significance of Management</p>
+                <button id="knowledgeCompassBtn" class="mb-2 px-4 py-2 bg-yellow-500 text-blue-900 font-semibold rounded hover:bg-yellow-600 shadow">KnowledgeCompass</button>
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
                 <a href="index.html" class="text-white font-semibold hover:underline flex items-center">
@@ -80,8 +81,20 @@
                 </a>
                 <a href="chapter1.html" class="text-white font-semibold hover:underline">Chapter 1</a>
                 <a href="chapter2.html" class="text-white font-semibold hover:underline">Chapter 2</a>
-                <a href="#" id="reviewKnowledgeCompassBtn" class="text-white font-semibold hover:underline">Review KnowledgeCompass</a>
-                <a href="#" id="searchWithAudioBtn" class="text-white font-semibold hover:underline">Search (with audio)</a>
+                <a href="#" id="searchBtn" class="text-white font-semibold hover:underline">Search</a>
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
+            <button id="closeSearchModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-4 text-blue-900">Search</h3>
+            <div class="mb-4 flex gap-2">
+                <input id="searchInput" type="text" class="border rounded px-3 py-2 w-full" placeholder="Type your question here..." style="color: black; background: #f9fafb;" />
+                <button id="audioInputBtn" class="px-3 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-600" title="Ask by voice">🎤</button>
+                <button id="searchModalBtn" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Search</button>
+            </div>
+            <div id="searchAnswer" class="text-gray-800 text-base"></div>
+        </div>
+    </div>
                 <div class="flex items-center gap-2">
                     <span class="text-white font-semibold">Progress</span>
                     <div class="relative w-10 h-10">
@@ -173,6 +186,14 @@
     <footer class="bg-blue-900 text-white text-center py-4 mt-8 rounded-b-lg">
         &copy; 2025 GENZ Study Business | For Neil's Educational Needs
     </footer>
+    <!-- KnowledgeCompass Modal -->
+    <div id="knowledgeCompassModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
+            <button id="closeKnowledgeCompassModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-4 text-blue-900">KnowledgeCompass</h3>
+            <p class="text-gray-800 text-base">In August 2026, an entrepreneurial spark ignited between Kanishq, a visionary leader, and Neil, a methodical student, laying the foundation for KnowledgeCompass. Their bold idea aimed to revolutionize education by creating an innovative evaluation tool and custom apps designed to bridge student learning gaps and democratize personalized learning across India. What began as a humble partnership, born from overcoming the perils of unlimited liability and the need for pooled resources, quickly saw demand for their KnowledgeCompass Beta soar. Facing the monumental challenge of pan-India expansion and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as "KnowledgeCompass Ltd.". With strategic management, astute financial decisions, and a keen understanding of both micro and macroeconomic forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
+        </div>
+    </div>
     <script>
     // --- Global Variable Declarations ---
     let chapterData = null;
@@ -333,8 +354,87 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         document.getElementById('pauseCaseStudyBtn').addEventListener('click', pauseCaseStudy);
         document.getElementById('stopCaseStudyBtn').addEventListener('click', stopCaseStudy);
 
-        document.getElementById('reviewKnowledgeCompassBtn').addEventListener('click', openCompanyModal);
-        document.getElementById('searchWithAudioBtn').addEventListener('click', openSearchModal);
+        // KnowledgeCompass modal logic
+        const knowledgeCompassBtn = document.getElementById('knowledgeCompassBtn');
+        const knowledgeCompassModal = document.getElementById('knowledgeCompassModal');
+        const closeKnowledgeCompassModal = document.getElementById('closeKnowledgeCompassModal');
+        if (knowledgeCompassBtn && knowledgeCompassModal && closeKnowledgeCompassModal) {
+            knowledgeCompassBtn.addEventListener('click', function() {
+                knowledgeCompassModal.classList.remove('hidden');
+            });
+            closeKnowledgeCompassModal.addEventListener('click', function() {
+                knowledgeCompassModal.classList.add('hidden');
+            });
+            // Optional: close modal on outside click
+            knowledgeCompassModal.addEventListener('click', function(e) {
+                if (e.target === knowledgeCompassModal) {
+                    knowledgeCompassModal.classList.add('hidden');
+                }
+            });
+        }
+        // Search modal logic
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const closeSearchModal = document.getElementById('closeSearchModal');
+        const searchInput = document.getElementById('searchInput');
+        const audioInputBtn = document.getElementById('audioInputBtn');
+        const searchAnswer = document.getElementById('searchAnswer');
+        let recognition = null;
+        const searchModalBtn = document.getElementById('searchModalBtn');
+        if (searchBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
+            searchBtn.addEventListener('click', function() {
+                searchModal.classList.remove('hidden');
+                searchInput.value = '';
+                searchAnswer.textContent = '';
+            });
+            closeSearchModal.addEventListener('click', function() {
+                searchModal.classList.add('hidden');
+            });
+            searchModal.addEventListener('click', function(e) {
+                if (e.target === searchModal) {
+                    searchModal.classList.add('hidden');
+                }
+            });
+            // Search on Enter
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value.trim());
+                }
+            });
+            // Search on button click
+            searchModalBtn.addEventListener('click', function() {
+                performSearch(searchInput.value.trim());
+            });
+            // Audio input
+            audioInputBtn.addEventListener('click', function() {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    searchAnswer.textContent = 'Speech recognition not supported on this browser.';
+                    return;
+                }
+                if (recognition) {
+                    recognition.stop();
+                    recognition = null;
+                }
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.lang = 'en-IN';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    searchInput.value = transcript;
+                    performSearch(transcript);
+                };
+                recognition.onerror = function(event) {
+                    searchAnswer.textContent = 'Audio input error: ' + event.error;
+                };
+                recognition.onend = function() {
+                    recognition = null;
+                };
+                recognition.start();
+                searchAnswer.textContent = 'Listening...';
+            });
+        }
         document.getElementById('clearDebugBtn').addEventListener('click', clearGlobalDebug);
     });
 
@@ -1044,10 +1144,139 @@ function checkAnswers(type) {
         showGlobalDebug('Review KnowledgeCompass clicked.', false);
     }
 
-    function openSearchModal() {
-        alert('Search (with audio) modal would open here!');
-        showGlobalDebug('Search (with audio) clicked.', false);
-    }
+        // Search function: looks for answer in content.json
+        function performSearch(query) {
+            if (!query) {
+                searchAnswer.textContent = 'Please enter a question.';
+                return;
+            }
+            // Search all chapters for matching question
+            let found = null;
+            let foundType = '';
+            let foundChapter = '';
+            if (window.chapterData && window.chapterData.id) {
+                // Use already loaded chapterData and fetch full content.json if needed
+                fetch('content.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.chapters || !Array.isArray(data.chapters)) {
+                            searchAnswer.textContent = 'No chapters found.';
+                            return;
+                        }
+                        for (const chapter of data.chapters) {
+                            // MCQ
+                            if (chapter.exercises && chapter.exercises.mcq) {
+                                for (const q of chapter.exercises.mcq) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'MCQ';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // True/False
+                            if (!found && chapter.exercises && chapter.exercises.trueFalse) {
+                                for (const q of chapter.exercises.trueFalse) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'True/False';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // One Word
+                            if (!found && chapter.exercises && chapter.exercises.oneWord) {
+                                for (const q of chapter.exercises.oneWord) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'One Word';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Short Answer 1
+                            if (!found && chapter.exercises && chapter.exercises.shortAnswer1) {
+                                for (const q of chapter.exercises.shortAnswer1) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Short Answer 1';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Short Answer 2
+                            if (!found && chapter.exercises && chapter.exercises.shortAnswer2) {
+                                for (const q of chapter.exercises.shortAnswer2) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Short Answer 2';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Case Study
+                            if (!found && chapter.caseStudy) {
+                                for (const cs of chapter.caseStudy) {
+                                    if (cs.scenario && cs.scenario.toLowerCase().includes(query.toLowerCase())) {
+                                        found = cs;
+                                        foundType = 'Case Study';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                    if (!found && cs.questions) {
+                                        for (const q of cs.questions) {
+                                            if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                                found = q;
+                                                foundType = 'Case Study Question';
+                                                foundChapter = chapter.title || chapter.id;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // Long Answer
+                            if (!found && chapter.longAnswerQuestions) {
+                                for (const q of chapter.longAnswerQuestions) {
+                                    if (q.text && q.text.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Long Answer';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (found) break;
+                        }
+                        if (found) {
+                            let answerHtml = `<div class='mb-2'><b>Chapter:</b> ${foundChapter}</div><div class='mb-2'><b>Type:</b> ${foundType}</div>`;
+                            if (found.question) answerHtml += `<div class='mb-2'><b>Question:</b> ${found.question}</div>`;
+                            if (found.text) answerHtml += `<div class='mb-2'><b>Question:</b> ${found.text}</div>`;
+                            if (found.options) answerHtml += `<div class='mb-2'><b>Options:</b> ${found.options.join(', ')}</div>`;
+                            if (found.correctAnswer !== undefined) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.correctAnswer}</div>`;
+                            if (found.correctAnswerIndex !== undefined && found.options) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.options[found.correctAnswerIndex]}</div>`;
+                            if (found.answer) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.answer}</div>`;
+                            if (found.explanation) answerHtml += `<div class='mb-2'><b>Explanation:</b> ${found.explanation}</div>`;
+                            if (found.answer50To75Words) answerHtml += `<div class='mb-2'><b>50-75 Words Answer:</b> ${found.answer50To75Words}</div>`;
+                            if (found.answer150Words) answerHtml += `<div class='mb-2'><b>150 Words Answer:</b> ${found.answer150Words}</div>`;
+                            if (found.answer200Words) answerHtml += `<div class='mb-2'><b>200 Words Answer:</b> ${found.answer200Words}</div>`;
+                            searchAnswer.innerHTML = answerHtml;
+                        } else {
+                            searchAnswer.textContent = 'No answer found for your question.';
+                        }
+                    })
+                    .catch(() => {
+                        searchAnswer.textContent = 'Error searching for answer.';
+                    });
+            } else {
+                searchAnswer.textContent = 'Content not loaded.';
+            }
+        }
     </script>
 </body>
 </html>
