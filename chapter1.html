@@ -351,35 +351,32 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
         });
         fullStoryDiv.innerHTML = html;
-        // Prepare TTS for entire story
-        window.fullStoryUtterance = new window.SpeechSynthesisUtterance(
-            chapterData.story.map(s => `${s.title}: ${s.text}`).join(' ')
-        );
-        window.fullStoryUtterance.voice = voiceNarrator;
-        window.fullStoryUtterance.onstart = function() {
-            document.getElementById('storyAudioStatus').textContent = 'Playing...';
-        };
-        window.fullStoryUtterance.onend = function() {
-            document.getElementById('storyAudioStatus').textContent = 'Finished.';
-            window.fullStoryPaused = false;
-        };
-        window.fullStoryUtterance.onerror = function(event) {
-            // Only show error if not cancelled by stop button
-            if (event.error !== 'canceled') {
-                document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
-            }
-        };
+        // Use same implementation as Long Answer Questions for TTS
         window.fullStoryPaused = false;
         window.fullStorySpeaking = false;
+        window.fullStoryUtterance = null;
         document.getElementById('playFullStoryAudio').onclick = function() {
-            if (!window.speechSynthesis.speaking || window.fullStoryPaused) {
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.speak(window.fullStoryUtterance);
+            // Prepare utterance for the full story
+            const storyText = chapterData.story.map(s => `${s.title}: ${s.text}`).join(' ');
+            const utterance = new SpeechSynthesisUtterance(storyText);
+            utterance.voice = voiceNarrator;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            utterance.onstart = function() {
+                document.getElementById('storyAudioStatus').textContent = 'Playing...';
+            };
+            utterance.onend = function() {
+                document.getElementById('storyAudioStatus').textContent = 'Finished.';
                 window.fullStoryPaused = false;
-            } else if (window.speechSynthesis.paused) {
-                window.speechSynthesis.resume();
-                window.fullStoryPaused = false;
-            }
+            };
+            utterance.onerror = function(event) {
+                if (event.error !== 'canceled') {
+                    document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
+                }
+            };
+            window.fullStoryUtterance = utterance;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
         };
         document.getElementById('pauseFullStoryAudio').onclick = function() {
             if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
@@ -390,14 +387,9 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         };
         document.getElementById('stopFullStoryAudio').onclick = function() {
             if (window.speechSynthesis.speaking) {
-                // Remove error handler temporarily to avoid 'Error playing audio.' on cancel
-                const origOnError = window.fullStoryUtterance.onerror;
-                window.fullStoryUtterance.onerror = null;
                 window.speechSynthesis.cancel();
                 window.fullStoryPaused = false;
                 document.getElementById('storyAudioStatus').textContent = 'Stopped.';
-                // Restore error handler after short delay
-                setTimeout(() => { window.fullStoryUtterance.onerror = origOnError; }, 100);
             }
         };
     }
