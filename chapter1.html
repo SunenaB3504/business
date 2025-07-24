@@ -312,9 +312,13 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             });
 
         // --- Event Listeners ---
-        document.getElementById('playStoryBtn').addEventListener('click', playStory);
-        document.getElementById('pauseStoryBtn').addEventListener('click', pauseStory);
-        document.getElementById('stopStoryBtn').addEventListener('click', stopStory);
+        // Fix: Only add listeners if elements exist
+        const playStoryBtn = document.getElementById('playStoryBtn');
+        if (playStoryBtn) playStoryBtn.addEventListener('click', playStory);
+        const pauseStoryBtn = document.getElementById('pauseStoryBtn');
+        if (pauseStoryBtn) pauseStoryBtn.addEventListener('click', pauseStory);
+        const stopStoryBtn = document.getElementById('stopStoryBtn');
+        if (stopStoryBtn) stopStoryBtn.addEventListener('click', stopStory);
 
         document.getElementById('prevFlashcardBtn').addEventListener('click', prevFlashcard);
         document.getElementById('nextFlashcardBtn').addEventListener('click', nextFlashcard);
@@ -359,8 +363,11 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             document.getElementById('storyAudioStatus').textContent = 'Finished.';
             window.fullStoryPaused = false;
         };
-        window.fullStoryUtterance.onerror = function() {
-            document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
+        window.fullStoryUtterance.onerror = function(event) {
+            // Only show error if not cancelled by stop button
+            if (event.error !== 'canceled') {
+                document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
+            }
         };
         window.fullStoryPaused = false;
         window.fullStorySpeaking = false;
@@ -383,9 +390,14 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         };
         document.getElementById('stopFullStoryAudio').onclick = function() {
             if (window.speechSynthesis.speaking) {
+                // Remove error handler temporarily to avoid 'Error playing audio.' on cancel
+                const origOnError = window.fullStoryUtterance.onerror;
+                window.fullStoryUtterance.onerror = null;
                 window.speechSynthesis.cancel();
                 window.fullStoryPaused = false;
                 document.getElementById('storyAudioStatus').textContent = 'Stopped.';
+                // Restore error handler after short delay
+                setTimeout(() => { window.fullStoryUtterance.onerror = origOnError; }, 100);
             }
         };
     }
@@ -602,7 +614,13 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             chapterData.exercises.mcq.forEach((q, i) => {
                 const selected = document.querySelector(`input[name='mcq${i}']:checked`);
                 const feedback = document.getElementById(`mcq-feedback-${i}`);
-                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                if (!feedback) {
+                    showGlobalDebug(`MCQ feedback element not found for index ${i}`, true);
+                    return;
+                }
+                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                feedback.classList.remove('hidden'); // Always show feedback
+                feedback.style.display = 'block';
 
                 if (!selected) {
                     feedback.textContent = 'Please select an option.';
@@ -610,11 +628,15 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 } else {
                     const selectedValue = parseInt(selected.value);
                     if (q.correctAnswerIndex !== undefined && selectedValue === q.correctAnswerIndex) {
-                        feedback.textContent = 'Correct!';
-                        feedback.classList.add('text-green-700');
+                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else if (q.correctAnswerIndex !== undefined) {
-                        feedback.textContent = `Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.`;
-                        feedback.classList.add('text-red-600');
+                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else {
                         feedback.textContent = 'Answer submitted (no correctness check available).';
                         feedback.classList.add('text-gray-600'); // Neutral feedback
@@ -627,7 +649,13 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             chapterData.exercises.trueFalse.forEach((q, i) => {
                 const selected = document.querySelector(`input[name='tf${i}']:checked`);
                 const feedback = document.getElementById(`tf-feedback-${i}`);
-                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                if (!feedback) {
+                    showGlobalDebug(`True/False feedback element not found for index ${i}`, true);
+                    return;
+                }
+                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                feedback.classList.remove('hidden'); // Always show feedback
+                feedback.style.display = 'block';
 
                 if (!selected) {
                     feedback.textContent = 'Please select True or False.';
@@ -635,11 +663,15 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 } else {
                     const selectedValue = selected.value === 'true'; // Convert to boolean
                     if (q.correctAnswer !== undefined && selectedValue === q.correctAnswer) {
-                        feedback.textContent = 'Correct!';
-                        feedback.classList.add('text-green-700');
+                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else if (q.correctAnswer !== undefined) {
-                        feedback.textContent = `Incorrect. The correct answer was: ${q.correctAnswer}.`;
-                        feedback.classList.add('text-red-600');
+                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.correctAnswer}.</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else {
                         feedback.textContent = 'Answer submitted (no correctness check available).';
                         feedback.classList.add('text-gray-600'); // Neutral feedback
@@ -652,7 +684,13 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             chapterData.exercises.oneWord.forEach((q, i) => {
                 const input = document.getElementById(`oneword${i}`);
                 const feedback = document.getElementById(`oneword-feedback-${i}`);
-                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                if (!feedback) {
+                    showGlobalDebug(`One Word feedback element not found for index ${i}`, true);
+                    return;
+                }
+                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+                feedback.classList.remove('hidden'); // Always show feedback
+                feedback.style.display = 'block';
 
                 const userAnswer = input.value.trim();
                 if (!userAnswer) {
@@ -661,11 +699,15 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 } else {
                     // Case-insensitive comparison for one-word answers
                     if (q.correctAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
-                        feedback.textContent = 'Correct!';
-                        feedback.classList.add('text-green-700');
+                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else if (q.correctAnswer) {
-                        feedback.textContent = `Incorrect. The correct answer was: "${q.correctAnswer}".`;
-                        feedback.classList.add('text-red-600');
+                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: "${q.correctAnswer}".</span>`;
+                        if (q.explanation) {
+                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                        }
                     } else {
                         feedback.textContent = 'Answer submitted (no correctness check available).';
                         feedback.classList.add('text-gray-600'); // Neutral feedback
