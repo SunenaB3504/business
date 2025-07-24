@@ -68,43 +68,35 @@
     <header class="bg-blue-900 text-white py-6 px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-                <h1 class="text-3xl font-bold mb-1">Class 12 - Business Studies</h1>
-                <p class="text-lg mb-2">Chapter 1: Nature and Significance of Management</p>
+                <h1 class="text-3xl font-bold mb-1">CBSE Class 12</h1>
+                <p class="text-lg">Interactive learning for CBSE Business Studies</p>
                 <button id="knowledgeCompassBtn" class="mb-2 px-4 py-2 bg-yellow-500 text-blue-900 font-semibold rounded hover:bg-yellow-600 shadow">KnowledgeCompass</button>
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
-                <a href="index.html" class="text-white font-semibold hover:underline flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v6a2 2 0 002 2h4a2 2 0 002-2v-6m-6 0h6" />
-                    </svg>
-                    Home
-                </a>
-                <a href="chapter1.html" class="text-white font-semibold hover:underline">Chapter 1</a>
-                <a href="chapter2.html" class="text-white font-semibold hover:underline">Chapter 2</a>
-                <a href="#" id="searchBtn" class="text-white font-semibold hover:underline">Search</a>
-    <!-- Search Modal -->
-    <div id="searchModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
-            <button id="closeSearchModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-            <h3 class="text-xl font-bold mb-4 text-blue-900">Search</h3>
-            <div class="mb-4 flex gap-2">
-                <input id="searchInput" type="text" class="border rounded px-3 py-2 w-full" placeholder="Type your question here..." style="color: black; background: #f9fafb;" />
-                <button id="audioInputBtn" class="px-3 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-600" title="Ask by voice">🎤</button>
-                <button id="searchModalBtn" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Search</button>
-            </div>
-            <div id="searchAnswer" class="text-gray-800 text-base"></div>
-        </div>
-    </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-semibold">Progress</span>
-                    <div class="relative w-10 h-10">
-                        <svg viewBox="0 0 40 40" class="w-10 h-10" role="img" aria-label="Chapter progress 60 percent">
-                            <circle cx="20" cy="20" r="18" fill="none" stroke="#e5e7eb" stroke-width="4" />
-                            <circle cx="20" cy="20" r="18" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="45" stroke-linecap="round" />
-                        </svg>
-                        <span class="absolute inset-0 flex items-center justify-center text-xs text-white font-bold">60%</span>
+                <div class="relative group">
+                    <button class="text-white font-semibold hover:underline focus:outline-none">Part A: Principles & Functions</button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-20">
+                        <a href="chapter1.html" class="block px-4 py-2 hover:bg-blue-100">Unit 1: Nature and Significance of Management</a>
+                        <a href="chapter2.html" class="block px-4 py-2 hover:bg-blue-100">Unit 2: Principles of Management</a>
+                        <a href="chapter3.html" class="block px-4 py-2 hover:bg-blue-100">Unit 3: Business Environment</a>
+                        <a href="chapter4.html" class="block px-4 py-2 hover:bg-blue-100">Unit 4: Planning</a>
+                        <a href="chapter5.html" class="block px-4 py-2 hover:bg-blue-100">Unit 5: Organising</a>
+                        <a href="chapter6.html" class="block px-4 py-2 hover:bg-blue-100">Unit 6: Staffing</a>
+                        <a href="chapter7.html" class="block px-4 py-2 hover:bg-blue-100">Unit 7: Directing</a>
+                        <a href="chapter8.html" class="block px-4 py-2 hover:bg-blue-100">Unit 8: Controlling</a>
                     </div>
                 </div>
+                <div class="relative group">
+                    <button class="text-white font-semibold hover:underline focus:outline-none">Part B: Finance & Marketing</button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-20">
+                        <a href="chapter9.html" class="block px-4 py-2 hover:bg-blue-100">Unit 9: Financial Management</a>
+                        <a href="chapter10.html" class="block px-4 py-2 hover:bg-blue-100">Unit 10: Financial Markets</a>
+                        <a href="chapter11.html" class="block px-4 py-2 hover:bg-blue-100">Unit 11: Marketing Management</a>
+                        <a href="chapter12.html" class="block px-4 py-2 hover:bg-blue-100">Unit 12: Consumer Protection</a>
+                    </div>
+                </div>
+                <a href="#progress" class="text-white font-semibold hover:underline">Progress</a>
+                <a href="#login" class="text-white font-semibold hover:underline">Login</a>
             </nav>
         </div>
     </header>

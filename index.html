@@ -46,7 +46,7 @@
     <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
         <!-- KnowledgeCompass Details -->
         <section class="mb-8">
-            <button onclick="openCompanyModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Review KnowledgeCompass</button>
+            <button id="knowledgeCompassBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">KnowledgeCompass</button>
         </section>
         <!-- Search Engine -->
         <section class="mb-8">
@@ -90,6 +90,28 @@
         </section>
     </main>
     <!-- Modals -->
+    <!-- KnowledgeCompass Modal -->
+    <div id="knowledgeCompassModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
+            <button id="closeKnowledgeCompassModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-4 text-blue-900">KnowledgeCompass</h3>
+            <div id="knowledgeCompassContent" class="mb-4 text-gray-800">
+                <div class="space-y-4 leading-relaxed">
+                    <p><span class="font-semibold text-blue-800">In August 2026</span>, an entrepreneurial spark ignited between <span class="font-semibold text-blue-700">Kanishq</span>, a visionary leader, and <span class="font-semibold text-blue-700">Neil</span>, a methodical student, laying the foundation for <span class="font-semibold text-indigo-700">KnowledgeCompass</span>.</p>
+                    <p>Their bold idea aimed to revolutionize education by creating an <span class="text-green-700 font-medium">innovative evaluation tool</span> and custom apps designed to bridge student learning gaps and democratize personalized learning across India.</p>
+                    <p>What began as a humble partnership, born from overcoming the perils of <span class="italic text-yellow-700">unlimited liability</span> and the need for pooled resources, quickly saw demand for their <span class="font-semibold text-indigo-600">KnowledgeCompass Beta</span> soar.</p>
+                    <p>Facing the monumental challenge of <span class="font-semibold text-red-700">pan-India expansion</span> and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as <span class="font-bold text-indigo-800">"KnowledgeCompass Ltd."</span></p>
+                    <p>With <span class="font-semibold text-blue-700">strategic management</span>, astute financial decisions, and a keen understanding of both <span class="text-green-800">micro</span> and <span class="text-green-800">macroeconomic</span> forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-4">
+                <button id="playKnowledgeCompassAudio" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                <button id="pauseKnowledgeCompassAudio" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                <button id="stopKnowledgeCompassAudio" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                <span id="knowledgeCompassAudioStatus" class="ml-2 text-sm text-gray-600"></span>
+            </div>
+        </div>
+    </div>
     <!-- Company Modal -->
     <div id="company-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg p-8 max-w-lg w-full shadow-lg relative">
@@ -160,6 +182,60 @@
     function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
     function openMailModal() { document.getElementById('mail-modal').classList.remove('hidden'); }
     function closeMailModal() { document.getElementById('mail-modal').classList.add('hidden'); }
+
+    // --- KnowledgeCompass Modal Logic ---
+    let knowledgeCompassUtterance = null;
+    let knowledgeCompassPaused = false;
+    const knowledgeCompassBtn = document.getElementById('knowledgeCompassBtn');
+    const knowledgeCompassModal = document.getElementById('knowledgeCompassModal');
+    const closeKnowledgeCompassModal = document.getElementById('closeKnowledgeCompassModal');
+    const playKnowledgeCompassAudio = document.getElementById('playKnowledgeCompassAudio');
+    const pauseKnowledgeCompassAudio = document.getElementById('pauseKnowledgeCompassAudio');
+    const stopKnowledgeCompassAudio = document.getElementById('stopKnowledgeCompassAudio');
+    const knowledgeCompassAudioStatus = document.getElementById('knowledgeCompassAudioStatus');
+    const knowledgeCompassContent = document.getElementById('knowledgeCompassContent');
+    let synth = window.speechSynthesis;
+
+    if (knowledgeCompassBtn && knowledgeCompassModal && closeKnowledgeCompassModal) {
+        knowledgeCompassBtn.onclick = function() {
+            knowledgeCompassModal.classList.remove('hidden');
+        };
+        closeKnowledgeCompassModal.onclick = function() {
+            knowledgeCompassModal.classList.add('hidden');
+            if (synth.speaking) synth.cancel();
+            knowledgeCompassAudioStatus.textContent = '';
+        };
+        playKnowledgeCompassAudio.onclick = function() {
+            if (synth.speaking) synth.cancel();
+            const text = knowledgeCompassContent ? knowledgeCompassContent.textContent : '';
+            if (!text) return;
+            knowledgeCompassUtterance = new SpeechSynthesisUtterance(text);
+            knowledgeCompassUtterance.onstart = function() {
+                knowledgeCompassAudioStatus.textContent = 'Playing...';
+            };
+            knowledgeCompassUtterance.onend = function() {
+                knowledgeCompassAudioStatus.textContent = 'Finished.';
+            };
+            knowledgeCompassUtterance.onerror = function() {
+                knowledgeCompassAudioStatus.textContent = 'Error.';
+            };
+            synth.speak(knowledgeCompassUtterance);
+        };
+        pauseKnowledgeCompassAudio.onclick = function() {
+            if (synth.speaking && !synth.paused) {
+                synth.pause();
+                knowledgeCompassAudioStatus.textContent = 'Paused.';
+            } else if (synth.paused) {
+                synth.resume();
+                knowledgeCompassAudioStatus.textContent = 'Resumed.';
+            }
+        };
+        stopKnowledgeCompassAudio.onclick = function() {
+            if (synth.speaking) synth.cancel();
+            knowledgeCompassAudioStatus.textContent = 'Stopped.';
+        };
+    }
+
     // --- Resume Functionality (Demo) ---
     function resumeLastPoint() {
         alert('Resuming from your last accessed point... (Demo)');
