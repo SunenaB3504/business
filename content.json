@@ -2,6 +2,8 @@
   "chapters": [
     {
       "id": "chapter1",
+      "unitNumber": 1,
+      "unitName": "Nature and Significance of Management",
       "title": "NATURE AND SIGNIFICANCE OF MANAGEMENT",
       "story": [
         {"text": "Neil: Kanishq, remember those early days in the garage? It feels like another lifetime. We were just two guys with an idea, and now KnowledgeCompass is a leading EdTech firm. It makes you realize how vital management has been every step of the way.", "title": "The Genesis of KnowledgeCompass"},
@@ -18,127 +20,6 @@
         {"text": "Kanishq: And the 'levels of management' [24] became very real. We started as 'top management' [25], setting the vision. As we grew, we brought in 'middle management' [26]—our department heads in content, tech, marketing—to implement our strategies and manage their teams. And then, our 'supervisory or operational management' [27] oversees the day-to-day work, ensuring content quality and platform stability. Each level plays a crucial role.", "title": "Hierarchies Emerge"},
         {"text": "Neil: The functions themselves—'planning, organising, staffing, directing, and controlling' [28]—are what we do every day. 'Planning' [29] our quarterly roadmaps. 'Organising' [30] our teams into efficient units. 'Staffing' [31] for specialized roles like AI educators. 'Directing' [32] our teams through motivation and leadership. And 'controlling' [33] our performance against targets. It's a cycle, not a linear path.", "title": "Executing the Functions"},
         {"text": "Kanishq: And this all brings us back to 'coordination' [34]. It's the 'essence of management' [35], isn't it? Without it, our content, tech, and marketing teams would be pulling in different directions. Like the Mumbai Dabbawallas, whose complex delivery system relies entirely on perfect coordination, our success hinges on integrating diverse group efforts, ensuring unity of action, and harmonizing goals across all functional differentiations [36]. It's not a separate function, but the thread that weaves through everything we do.", "title": "The Essence of Success: Coordination"}
-      ],
-      "mindmap": [
-        {
-          "title": "Nature and Significance of Management",
-          "explanation": "Management is the process of achieving goals effectively and efficiently through planning, organizing, staffing, directing, and controlling resources.",
-          "example": "At KnowledgeCompass, management enabled the transition from a garage startup to a leading EdTech firm by balancing innovation with resource optimization.",
-          "keyPoints": [
-            "Management is goal-oriented and continuous.",
-            "It is both an art and a science.",
-            "Involves coordination of people, work, and operations."
-          ],
-          "definition": "Management: The process of getting things done with the aim of achieving goals effectively and efficiently.",
-          "points": [
-            {
-              "title": "Characteristics of Management",
-              "explanation": "Fundamental traits that define management.",
-              "points": [
-                {
-                  "title": "Goal-Oriented Process",
-                  "explanation": "Management unites efforts towards clear, basic goals.",
-                  "example": "KnowledgeCompass set a clear goal to revolutionize online learning.",
-                  "keyPoints": ["Exists for a set of basic goals.", "Unites efforts towards achieving these goals."],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "All Pervasive",
-                  "explanation": "Management is practiced in all organizations and at all levels.",
-                  "example": "From HR to marketing, every department at KnowledgeCompass uses management principles.",
-                  "keyPoints": ["Common to all types of organizations.", "Practiced globally."],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Multidimensional",
-                  "explanation": "Management involves work, people, and operations.",
-                  "example": "KnowledgeCompass manages content creation (work), team motivation (people), and platform delivery (operations).",
-                  "keyPoints": ["Management of Work", "Management of People", "Management of Operations"],
-                  "definition": null,
-                  "otherInfo": null
-                }
-              ]
-            },
-            {
-              "title": "Objectives of Management",
-              "explanation": "Management aims to achieve organizational, social, and personnel objectives.",
-              "points": [
-                {
-                  "title": "Organizational Objectives",
-                  "explanation": "Survival, profit, and growth are key.",
-                  "example": "KnowledgeCompass focused on user growth and profitability.",
-                  "keyPoints": ["Survival (cover costs)", "Profit (incentive, cover costs & risks)", "Growth (long-term prospects)"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Social Objectives",
-                  "explanation": "Creating value for society.",
-                  "example": "Providing affordable education to remote areas.",
-                  "keyPoints": ["Eco-friendly methods", "Employment opportunities", "Community amenities"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Personnel Objectives",
-                  "explanation": "Meeting employee needs and aligning them with company goals.",
-                  "example": "KnowledgeCompass offers growth opportunities and recognition.",
-                  "keyPoints": ["Competitive salaries", "Personal growth", "Peer recognition"],
-                  "definition": null,
-                  "otherInfo": null
-                }
-              ]
-            },
-            {
-              "title": "Functions of Management",
-              "explanation": "Core activities: planning, organizing, staffing, directing, controlling.",
-              "points": [
-                {
-                  "title": "Planning",
-                  "explanation": "Setting goals and developing ways to achieve them.",
-                  "example": "Quarterly roadmaps at KnowledgeCompass.",
-                  "keyPoints": ["Determining in advance 'what' and 'who'", "Setting goals", "Predicting and preparing for problems"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Organizing",
-                  "explanation": "Assigning duties, grouping tasks, allocating resources.",
-                  "example": "Team structuring for new product launches.",
-                  "keyPoints": ["Assigning duties", "Grouping tasks", "Allocating resources"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Staffing",
-                  "explanation": "Recruiting and developing personnel.",
-                  "example": "Hiring AI educators at KnowledgeCompass.",
-                  "keyPoints": ["Recruitment", "Selection", "Training"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Directing",
-                  "explanation": "Leading and motivating employees.",
-                  "example": "Motivating teams to meet deadlines.",
-                  "keyPoints": ["Motivation", "Leadership", "Communication"],
-                  "definition": null,
-                  "otherInfo": null
-                },
-                {
-                  "title": "Controlling",
-                  "explanation": "Monitoring performance and taking corrective action.",
-                  "example": "Tracking course completion rates.",
-                  "keyPoints": ["Setting standards", "Measuring performance", "Corrective action"],
-                  "definition": null,
-                  "otherInfo": null
-                }
-              ]
-            }
-          ]
-        }
       ],
       "mindmap": [
         {

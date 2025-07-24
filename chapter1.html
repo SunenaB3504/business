@@ -63,9 +63,9 @@
     <header class="bg-blue-900 text-white py-6 px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-                <h1 class="text-3xl font-bold mb-1">CBSE Class 12</h1>
-                <p class="text-lg">Interactive learning for CBSE Business Studies</p>
-                <button id="knowledgeCompassBtn" class="mb-2 px-4 py-2 bg-yellow-500 text-blue-900 font-semibold rounded hover:bg-yellow-600 shadow">KnowledgeCompass</button>
+                <h1 id="mainHeading" class="text-3xl font-bold mb-1">Business Studies</h1>
+                <p id="unitSubheading" class="text-lg"></p>
+
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
                 <button id="searchNavBtn" class="text-white font-semibold hover:underline focus:outline-none">Search</button>
@@ -110,13 +110,39 @@
         </div>
     </header>
     <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
-        <!-- Global Debug/Error Area -->
-        <div id="global-debug-area" class="mb-4 p-2 border rounded text-sm" style="display:none;">
-            <div id="debug-messages" class="mb-2 max-h-40 overflow-y-auto"></div>
-            <button id="clearDebugBtn" class="px-2 py-1 bg-gray-200 text-gray-800 rounded text-xs hover:bg-gray-300">Clear Debug</button>
-        </div>
+
+        <!-- KnowledgeCompass Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">KnowledgeCompass</h2>
+            <div class="accordion-item bg-yellow-50 rounded-lg p-4 mb-4 shadow">
+                <button id="knowledgeCompassAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-yellow-100 hover:bg-yellow-200 font-semibold rounded-t focus:outline-none" aria-expanded="false">
+                  KnowledgeCompass (Show/Hide)
+                </button>
+                <div id="knowledgeCompassAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                  <div class="text-gray-800 leading-relaxed">
+                    From a cluttered garage in Navi Mumbai to the boardrooms of a thriving company, Neil and Kanishq’s "KnowledgeCompass" journey blazes through the dramatic evolution from sole proprietorship, to partnership, and finally to a full-fledged corporation. Each transformation is powered by bold decisions and the real-world mastery of Business Studies, Accounting, and Economics, revealing how ambition and teamwork can turn a simple idea into an enterprise that shapes the future.
+                  </div>
+                </div>
+            </div>
+        </section>
+        
 
         <!-- Dramatic Story Section -->
+
+    <script>
+    // --- KnowledgeCompass accordion logic ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const knowledgeCompassAccordionBtn = document.getElementById('knowledgeCompassAccordionBtn');
+        const knowledgeCompassAccordionContent = document.getElementById('knowledgeCompassAccordionContent');
+        if (knowledgeCompassAccordionBtn && knowledgeCompassAccordionContent) {
+            knowledgeCompassAccordionBtn.addEventListener('click', function() {
+                const expanded = knowledgeCompassAccordionBtn.getAttribute('aria-expanded') === 'true';
+                knowledgeCompassAccordionBtn.setAttribute('aria-expanded', !expanded);
+                knowledgeCompassAccordionContent.classList.toggle('hidden');
+            });
+        }
+    });
+    </script>
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Dramatic Story</h2>
             <div class="accordion-item bg-blue-50 rounded-lg p-4 mb-4 shadow">
@@ -186,38 +212,10 @@
     <footer class="bg-blue-900 text-white text-center py-4 mt-8 rounded-b-lg">
         &copy; 2025 GENZ Study Business | For Neil's Educational Needs
     </footer>
-    <!-- KnowledgeCompass Modal -->
-    <div id="knowledgeCompassModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
-            <button id="closeKnowledgeCompassModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-            <h3 class="text-xl font-bold mb-4 text-blue-900">KnowledgeCompass</h3>
-            <div id="knowledgeCompassContent" class="mb-4 text-gray-800">
-                <div class="space-y-4 leading-relaxed">
-                    <p><span class="font-semibold text-blue-800">In August 2026</span>, an entrepreneurial spark ignited between <span class="font-semibold text-blue-700">Kanishq</span>, a visionary leader, and <span class="font-semibold text-blue-700">Neil</span>, a methodical student, laying the foundation for <span class="font-semibold text-indigo-700">KnowledgeCompass</span>.</p>
-                    <p>Their bold idea aimed to revolutionize education by creating an <span class="text-green-700 font-medium">innovative evaluation tool</span> and custom apps designed to bridge student learning gaps and democratize personalized learning across India.</p>
-                    <p>What began as a humble partnership, born from overcoming the perils of <span class="italic text-yellow-700">unlimited liability</span> and the need for pooled resources, quickly saw demand for their <span class="font-semibold text-indigo-600">KnowledgeCompass Beta</span> soar.</p>
-                    <p>Facing the monumental challenge of <span class="font-semibold text-red-700">pan-India expansion</span> and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as <span class="font-bold text-indigo-800">"KnowledgeCompass Ltd."</span></p>
-                    <p>With <span class="font-semibold text-blue-700">strategic management</span>, astute financial decisions, and a keen understanding of both <span class="text-green-800">micro</span> and <span class="text-green-800">macroeconomic</span> forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
-                </div>
-            </div>
-            <div class="flex gap-2 mt-4">
-                <button id="playKnowledgeCompassAudio" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
-                <button id="pauseKnowledgeCompassAudio" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
-                <button id="stopKnowledgeCompassAudio" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
-                <span id="knowledgeCompassAudioStatus" class="ml-2 text-sm text-gray-600"></span>
-            </div>
-        </div>
-    </div>
+
     <script>
     // --- Search Modal Logic ---
-    let recognition = null;
-    const searchNavBtn = document.getElementById('searchNavBtn');
-    const searchModal = document.getElementById('searchModal');
-    const closeSearchModal = document.getElementById('closeSearchModal');
-    const searchInput = document.getElementById('searchInput');
-    const audioInputBtn = document.getElementById('audioInputBtn');
-    const searchModalBtn = document.getElementById('searchModalBtn');
-    const searchAnswer = document.getElementById('searchAnswer');
+    // (All logic and variable declarations are now inside DOMContentLoaded event below)
 
     if (searchNavBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
         searchNavBtn.onclick = function() {
@@ -425,6 +423,10 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
           storyContent.classList.toggle('hidden');
         });
 
+        // Set dynamic subheading for unit
+        const mainHeading = document.getElementById('mainHeading');
+        const unitSubheading = document.getElementById('unitSubheading');
+
         showGlobalDebug('Fetching content.json...', false);
         fetch('content.json')
             .then(function(res) {
@@ -445,6 +447,12 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 if (!chapterData) {
                     showGlobalDebug('ERROR: chapter1 not found in content.json.', true);
                     return;
+                }
+                // Set subheading dynamically
+                if (unitSubheading && chapterData.unitNumber && chapterData.unitName) {
+                    unitSubheading.textContent = `Unit ${chapterData.unitNumber}: ${chapterData.unitName}`;
+                } else if (unitSubheading && chapterData.title) {
+                    unitSubheading.textContent = chapterData.title;
                 }
                 showGlobalDebug('chapter1 found. Rendering sections...', false);
                 try {
@@ -487,143 +495,72 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         document.getElementById('pauseCaseStudyBtn').addEventListener('click', pauseCaseStudy);
         document.getElementById('stopCaseStudyBtn').addEventListener('click', stopCaseStudy);
 
-        // KnowledgeCompass modal logic
-        const knowledgeCompassBtn = document.getElementById('knowledgeCompassBtn');
-        const knowledgeCompassModal = document.getElementById('knowledgeCompassModal');
-        const closeKnowledgeCompassModal = document.getElementById('closeKnowledgeCompassModal');
-        const playKnowledgeCompassAudio = document.getElementById('playKnowledgeCompassAudio');
-        const pauseKnowledgeCompassAudio = document.getElementById('pauseKnowledgeCompassAudio');
-        const stopKnowledgeCompassAudio = document.getElementById('stopKnowledgeCompassAudio');
-        const knowledgeCompassAudioStatus = document.getElementById('knowledgeCompassAudioStatus');
-        let knowledgeCompassUtterance = null;
-        let knowledgeCompassPaused = false;
-        if (knowledgeCompassBtn && knowledgeCompassModal && closeKnowledgeCompassModal) {
-            knowledgeCompassBtn.addEventListener('click', function() {
-                knowledgeCompassModal.classList.remove('hidden');
-            });
-            closeKnowledgeCompassModal.addEventListener('click', function() {
-                knowledgeCompassModal.classList.add('hidden');
-                if (window.speechSynthesis.speaking) {
-                    window.speechSynthesis.cancel();
-                    if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = '';
-                }
-            });
-            // Optional: close modal on outside click
-            knowledgeCompassModal.addEventListener('click', function(e) {
-                if (e.target === knowledgeCompassModal) {
-                    knowledgeCompassModal.classList.add('hidden');
-                    if (window.speechSynthesis.speaking) {
-                        window.speechSynthesis.cancel();
-                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = '';
-                    }
-                }
-            });
-            if (playKnowledgeCompassAudio && pauseKnowledgeCompassAudio && stopKnowledgeCompassAudio) {
-                playKnowledgeCompassAudio.onclick = function() {
-                    if (window.speechSynthesis.speaking) {
-                        window.speechSynthesis.cancel();
-                    }
-                    const storyText = 'In August 2026, an entrepreneurial spark ignited between Kanishq, a visionary leader, and Neil, a methodical student, laying the foundation for KnowledgeCompass. Their bold idea aimed to revolutionize education by creating an innovative evaluation tool and custom apps designed to bridge student learning gaps and democratize personalized learning across India. What began as a humble partnership, born from overcoming the perils of unlimited liability and the need for pooled resources, quickly saw demand for their KnowledgeCompass Beta soar. Facing the monumental challenge of pan-India expansion and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as KnowledgeCompass Ltd. With strategic management, astute financial decisions, and a keen understanding of both micro and macroeconomic forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.';
-                    knowledgeCompassUtterance = new SpeechSynthesisUtterance(storyText);
-                    knowledgeCompassUtterance.pitch = 1;
-                    knowledgeCompassUtterance.rate = 1;
-                    knowledgeCompassUtterance.onstart = function() {
-                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Playing...';
-                    };
-                    knowledgeCompassUtterance.onend = function() {
-                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Finished.';
-                        knowledgeCompassPaused = false;
-                    };
-                    knowledgeCompassUtterance.onerror = function(event) {
-                        if (event.error !== 'canceled') {
-                            if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Error playing audio.';
-                        }
-                    };
-                    window.speechSynthesis.speak(knowledgeCompassUtterance);
-                };
-                pauseKnowledgeCompassAudio.onclick = function() {
-                    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-                        window.speechSynthesis.pause();
-                        knowledgeCompassPaused = true;
-                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Paused.';
-                    }
-                };
-                stopKnowledgeCompassAudio.onclick = function() {
-                    if (window.speechSynthesis.speaking) {
-                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Stopped.';
-                        // Remove error handler to prevent 'Error playing audio.' on cancel
-                        if (knowledgeCompassUtterance) knowledgeCompassUtterance.onerror = null;
-                        window.speechSynthesis.cancel();
-                        knowledgeCompassPaused = false;
-                    }
-                };
-            }
-        }
-        // Search modal logic
-        const searchBtn = document.getElementById('searchBtn');
-        const searchModal = document.getElementById('searchModal');
-        const closeSearchModal = document.getElementById('closeSearchModal');
-        const searchInput = document.getElementById('searchInput');
-        const audioInputBtn = document.getElementById('audioInputBtn');
-        const searchAnswer = document.getElementById('searchAnswer');
-        let recognition = null;
-        const searchModalBtn = document.getElementById('searchModalBtn');
-        if (searchBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
-            searchBtn.addEventListener('click', function() {
-                searchModal.classList.remove('hidden');
-                searchInput.value = '';
-                searchAnswer.textContent = '';
-            });
-            closeSearchModal.addEventListener('click', function() {
-                searchModal.classList.add('hidden');
-            });
-            searchModal.addEventListener('click', function(e) {
-                if (e.target === searchModal) {
+
+            // Search modal logic
+            const searchBtn = document.getElementById('searchBtn');
+            const searchModal = document.getElementById('searchModal');
+            const closeSearchModal = document.getElementById('closeSearchModal');
+            const searchInput = document.getElementById('searchInput');
+            const audioInputBtn = document.getElementById('audioInputBtn');
+            const searchAnswer = document.getElementById('searchAnswer');
+            let recognition = null;
+            const searchModalBtn = document.getElementById('searchModalBtn');
+            if (searchBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
+                searchBtn.addEventListener('click', function() {
+                    searchModal.classList.remove('hidden');
+                    searchInput.value = '';
+                    searchAnswer.textContent = '';
+                });
+                closeSearchModal.addEventListener('click', function() {
                     searchModal.classList.add('hidden');
-                }
-            });
-            // Search on Enter
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
+                });
+                searchModal.addEventListener('click', function(e) {
+                    if (e.target === searchModal) {
+                        searchModal.classList.add('hidden');
+                    }
+                });
+                // Search on Enter
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch(searchInput.value.trim());
+                    }
+                });
+                // Search on button click
+                searchModalBtn.addEventListener('click', function() {
                     performSearch(searchInput.value.trim());
-                }
-            });
-            // Search on button click
-            searchModalBtn.addEventListener('click', function() {
-                performSearch(searchInput.value.trim());
-            });
-            // Audio input
-            audioInputBtn.addEventListener('click', function() {
-                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                    searchAnswer.textContent = 'Speech recognition not supported on this browser.';
-                    return;
-                }
-                if (recognition) {
-                    recognition.stop();
-                    recognition = null;
-                }
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                recognition = new SpeechRecognition();
-                recognition.lang = 'en-IN';
-                recognition.interimResults = false;
-                recognition.maxAlternatives = 1;
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    searchInput.value = transcript;
-                    performSearch(transcript);
-                };
-                recognition.onerror = function(event) {
-                    searchAnswer.textContent = 'Audio input error: ' + event.error;
-                };
-                recognition.onend = function() {
-                    recognition = null;
-                };
-                recognition.start();
-                searchAnswer.textContent = 'Listening...';
-            });
-        }
-        document.getElementById('clearDebugBtn').addEventListener('click', clearGlobalDebug);
-    });
+                });
+                // Audio input
+                audioInputBtn.addEventListener('click', function() {
+                    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                        searchAnswer.textContent = 'Speech recognition not supported on this browser.';
+                        return;
+                    }
+                    if (recognition) {
+                        recognition.stop();
+                        recognition = null;
+                    }
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    recognition = new SpeechRecognition();
+                    recognition.lang = 'en-IN';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        searchInput.value = transcript;
+                        performSearch(transcript);
+                    };
+                    recognition.onerror = function(event) {
+                        searchAnswer.textContent = 'Audio input error: ' + event.error;
+                    };
+                    recognition.onend = function() {
+                        recognition = null;
+                    };
+                    recognition.start();
+                    searchAnswer.textContent = 'Listening...';
+                });
+            }
+        });
+        // (All search modal logic and modal audio controls are now inside the DOMContentLoaded event above. Removed duplicate and misplaced code.)
 
     // --- Dramatic Story: Single Collapsible with Audio ---
     function renderFullStory() {
