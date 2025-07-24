@@ -5,19 +5,39 @@
     <!-- Favicon: Blue Book Emoji -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>%F0%9F%93%98</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENZ Study Business WebApp</title>
+    <title>Business Studies</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="bg-blue-900 text-white py-6 px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-                <h1 class="text-3xl font-bold mb-1">GENZ Study Business</h1>
+                <h1 class="text-3xl font-bold mb-1">CBSE Class 12</h1>
                 <p class="text-lg">Interactive learning for CBSE Business Studies</p>
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
-                <a href="chapter1.html" class="text-white font-semibold hover:underline">Chapter 1</a>
-                <a href="chapter2.html" class="text-white font-semibold hover:underline">Chapter 2</a>
+                <div class="relative group">
+                    <button class="text-white font-semibold hover:underline focus:outline-none">Part A: Principles & Functions</button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-20">
+                        <a href="chapter1.html" class="block px-4 py-2 hover:bg-blue-100">Unit 1: Nature and Significance of Management</a>
+                        <a href="chapter2.html" class="block px-4 py-2 hover:bg-blue-100">Unit 2: Principles of Management</a>
+                        <a href="chapter3.html" class="block px-4 py-2 hover:bg-blue-100">Unit 3: Business Environment</a>
+                        <a href="chapter4.html" class="block px-4 py-2 hover:bg-blue-100">Unit 4: Planning</a>
+                        <a href="chapter5.html" class="block px-4 py-2 hover:bg-blue-100">Unit 5: Organising</a>
+                        <a href="chapter6.html" class="block px-4 py-2 hover:bg-blue-100">Unit 6: Staffing</a>
+                        <a href="chapter7.html" class="block px-4 py-2 hover:bg-blue-100">Unit 7: Directing</a>
+                        <a href="chapter8.html" class="block px-4 py-2 hover:bg-blue-100">Unit 8: Controlling</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="text-white font-semibold hover:underline focus:outline-none">Part B: Finance & Marketing</button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-20">
+                        <a href="chapter9.html" class="block px-4 py-2 hover:bg-blue-100">Unit 9: Financial Management</a>
+                        <a href="chapter10.html" class="block px-4 py-2 hover:bg-blue-100">Unit 10: Financial Markets</a>
+                        <a href="chapter11.html" class="block px-4 py-2 hover:bg-blue-100">Unit 11: Marketing Management</a>
+                        <a href="chapter12.html" class="block px-4 py-2 hover:bg-blue-100">Unit 12: Consumer Protection</a>
+                    </div>
+                </div>
                 <a href="#progress" class="text-white font-semibold hover:underline">Progress</a>
                 <a href="#login" class="text-white font-semibold hover:underline">Login</a>
             </nav>
