@@ -192,6 +192,14 @@
             <button id="closeKnowledgeCompassModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
             <h3 class="text-xl font-bold mb-4 text-blue-900">KnowledgeCompass</h3>
             <p class="text-gray-800 text-base">In August 2026, an entrepreneurial spark ignited between Kanishq, a visionary leader, and Neil, a methodical student, laying the foundation for KnowledgeCompass. Their bold idea aimed to revolutionize education by creating an innovative evaluation tool and custom apps designed to bridge student learning gaps and democratize personalized learning across India. What began as a humble partnership, born from overcoming the perils of unlimited liability and the need for pooled resources, quickly saw demand for their KnowledgeCompass Beta soar. Facing the monumental challenge of pan-India expansion and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as "KnowledgeCompass Ltd.". With strategic management, astute financial decisions, and a keen understanding of both micro and macroeconomic forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
+            <div class="mt-6 flex flex-col items-center">
+                <div class="flex gap-4 mb-2">
+                    <button id="playKnowledgeCompassAudio" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Play</button>
+                    <button id="pauseKnowledgeCompassAudio" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button id="stopKnowledgeCompassAudio" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Stop</button>
+                </div>
+                <span id="knowledgeCompassAudioStatus" class="text-sm text-gray-600"></span>
+            </div>
         </div>
     </div>
     <script>
@@ -358,19 +366,73 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         const knowledgeCompassBtn = document.getElementById('knowledgeCompassBtn');
         const knowledgeCompassModal = document.getElementById('knowledgeCompassModal');
         const closeKnowledgeCompassModal = document.getElementById('closeKnowledgeCompassModal');
+        const playKnowledgeCompassAudio = document.getElementById('playKnowledgeCompassAudio');
+        const pauseKnowledgeCompassAudio = document.getElementById('pauseKnowledgeCompassAudio');
+        const stopKnowledgeCompassAudio = document.getElementById('stopKnowledgeCompassAudio');
+        const knowledgeCompassAudioStatus = document.getElementById('knowledgeCompassAudioStatus');
+        let knowledgeCompassUtterance = null;
+        let knowledgeCompassPaused = false;
         if (knowledgeCompassBtn && knowledgeCompassModal && closeKnowledgeCompassModal) {
             knowledgeCompassBtn.addEventListener('click', function() {
                 knowledgeCompassModal.classList.remove('hidden');
             });
             closeKnowledgeCompassModal.addEventListener('click', function() {
                 knowledgeCompassModal.classList.add('hidden');
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = '';
+                }
             });
             // Optional: close modal on outside click
             knowledgeCompassModal.addEventListener('click', function(e) {
                 if (e.target === knowledgeCompassModal) {
                     knowledgeCompassModal.classList.add('hidden');
+                    if (window.speechSynthesis.speaking) {
+                        window.speechSynthesis.cancel();
+                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = '';
+                    }
                 }
             });
+            if (playKnowledgeCompassAudio && pauseKnowledgeCompassAudio && stopKnowledgeCompassAudio) {
+                playKnowledgeCompassAudio.onclick = function() {
+                    if (window.speechSynthesis.speaking) {
+                        window.speechSynthesis.cancel();
+                    }
+                    const storyText = 'In August 2026, an entrepreneurial spark ignited between Kanishq, a visionary leader, and Neil, a methodical student, laying the foundation for KnowledgeCompass. Their bold idea aimed to revolutionize education by creating an innovative evaluation tool and custom apps designed to bridge student learning gaps and democratize personalized learning across India. What began as a humble partnership, born from overcoming the perils of unlimited liability and the need for pooled resources, quickly saw demand for their KnowledgeCompass Beta soar. Facing the monumental challenge of pan-India expansion and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as KnowledgeCompass Ltd. With strategic management, astute financial decisions, and a keen understanding of both micro and macroeconomic forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.';
+                    knowledgeCompassUtterance = new SpeechSynthesisUtterance(storyText);
+                    knowledgeCompassUtterance.pitch = 1;
+                    knowledgeCompassUtterance.rate = 1;
+                    knowledgeCompassUtterance.onstart = function() {
+                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Playing...';
+                    };
+                    knowledgeCompassUtterance.onend = function() {
+                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Finished.';
+                        knowledgeCompassPaused = false;
+                    };
+                    knowledgeCompassUtterance.onerror = function(event) {
+                        if (event.error !== 'canceled') {
+                            if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Error playing audio.';
+                        }
+                    };
+                    window.speechSynthesis.speak(knowledgeCompassUtterance);
+                };
+                pauseKnowledgeCompassAudio.onclick = function() {
+                    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+                        window.speechSynthesis.pause();
+                        knowledgeCompassPaused = true;
+                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Paused.';
+                    }
+                };
+                stopKnowledgeCompassAudio.onclick = function() {
+                    if (window.speechSynthesis.speaking) {
+                        if (knowledgeCompassAudioStatus) knowledgeCompassAudioStatus.textContent = 'Stopped.';
+                        // Remove error handler to prevent 'Error playing audio.' on cancel
+                        if (knowledgeCompassUtterance) knowledgeCompassUtterance.onerror = null;
+                        window.speechSynthesis.cancel();
+                        knowledgeCompassPaused = false;
+                    }
+                };
+            }
         }
         // Search modal logic
         const searchBtn = document.getElementById('searchBtn');
