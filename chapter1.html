@@ -538,43 +538,74 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             return;
         }
         let html = '';
-        // MCQ
+        // Accordion for MCQ
         if (chapterData.exercises.mcq && chapterData.exercises.mcq.length > 0) {
-            html += '<h3 class="text-xl font-semibold mb-3">Multiple Choice Questions</h3>';
-            chapterData.exercises.mcq.forEach((q, i) => {
-                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+            html += `<div class="accordion-item mb-4">
+                <button id="mcqAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Multiple Choice Questions (Show/Hide)</button>
+                <div id="mcqAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.mcq.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
                             <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
-                            <div class="space-y-1">`;
-                q.options.forEach((option, optIdx) => {
-                    html += `<label class="block">
-                                <input type="radio" name="mcq${i}" value="${optIdx}" class="mr-2">
-                                ${option}
-                            </label>`;
-                });
-                html += `   </div>
+                            <div class="space-y-1">
+                                ${q.options.map((option, optIdx) => `<label class="block"><input type="radio" name="mcq${i}" value="${optIdx}" class="mr-2">${option}</label>`).join('')}
+                            </div>
                             <div id="mcq-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
-                        </div>`;
-            });
+                        </div>
+                    `).join('')}
+                    <button id="checkMCQBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
         }
-        // True/False
+        // Accordion for True/False
         if (chapterData.exercises.trueFalse && chapterData.exercises.trueFalse.length > 0) {
-            html += '<h3 class="text-xl font-semibold mb-3 mt-6">True/False Questions</h3>';
-            chapterData.exercises.trueFalse.forEach((q, i) => {
-                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+            html += `<div class="accordion-item mb-4">
+                <button id="tfAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">True/False Questions (Show/Hide)</button>
+                <div id="tfAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.trueFalse.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
                             <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
                             <div class="space-x-4">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="tf${i}" value="true" class="mr-1"> True
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="tf${i}" value="false" class="mr-1"> False
-                                </label>
+                                <label class="inline-flex items-center"><input type="radio" name="tf${i}" value="true" class="mr-1"> True</label>
+                                <label class="inline-flex items-center"><input type="radio" name="tf${i}" value="false" class="mr-1"> False</label>
                             </div>
                             <div id="tf-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
-                        </div>`;
-            });
+                        </div>
+                    `).join('')}
+                    <button id="checkTFBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
         }
-        // One Word
+        // Accordion for Short Answer 1
+        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short1AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 1) (Show/Hide)</button>
+                <div id="short1AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer1.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <textarea id="short1${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
+                        </div>
+                    `).join('')}
+                    <button id="checkShort1Btn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // Accordion for Short Answer 2
+        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short2AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 2) (Show/Hide)</button>
+                <div id="short2AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer2.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <textarea id="short2${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
+                        </div>
+                    `).join('')}
+                    <button id="checkShort2Btn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // One Word (keep outside accordion for now)
         if (chapterData.exercises.oneWord && chapterData.exercises.oneWord.length > 0) {
             html += '<h3 class="text-xl font-semibold mb-3 mt-6">One Word Answers</h3>';
             chapterData.exercises.oneWord.forEach((q, i) => {
@@ -584,138 +615,163 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                             <div id="oneword-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
                         </div>`;
             });
-        }
-        // Short Answer 1
-        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
-            html += '<h3 class="text-xl font-semibold mb-3 mt-6">Short Answer Questions (Type 1)</h3>';
-            chapterData.exercises.shortAnswer1.forEach((q, i) => {
-                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
-                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
-                            <textarea id="short1${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
-                        </div>`;
-            });
-        }
-        // Short Answer 2
-        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
-            html += '<h3 class="text-xl font-semibold mb-3 mt-6">Short Answer Questions (Type 2)</h3>';
-            chapterData.exercises.shortAnswer2.forEach((q, i) => {
-                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
-                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
-                            <textarea id="short2${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
-                        </div>`;
-            });
+            html += '<button id="checkOneWordBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>';
         }
         exercisesDiv.innerHTML = html;
+        // Accordion logic
+        const mcqBtn = document.getElementById('mcqAccordionBtn');
+        const mcqContent = document.getElementById('mcqAccordionContent');
+        if (mcqBtn && mcqContent) {
+            mcqBtn.onclick = () => mcqContent.classList.toggle('hidden');
+        }
+        const tfBtn = document.getElementById('tfAccordionBtn');
+        const tfContent = document.getElementById('tfAccordionContent');
+        if (tfBtn && tfContent) {
+            tfBtn.onclick = () => tfContent.classList.toggle('hidden');
+        }
+        const short1Btn = document.getElementById('short1AccordionBtn');
+        const short1Content = document.getElementById('short1AccordionContent');
+        if (short1Btn && short1Content) {
+            short1Btn.onclick = () => short1Content.classList.toggle('hidden');
+        }
+        const short2Btn = document.getElementById('short2AccordionBtn');
+        const short2Content = document.getElementById('short2AccordionContent');
+        if (short2Btn && short2Content) {
+            short2Btn.onclick = () => short2Content.classList.toggle('hidden');
+        }
+        // Check answer buttons
+        const checkMCQBtn = document.getElementById('checkMCQBtn');
+        if (checkMCQBtn) checkMCQBtn.onclick = function() { checkAnswers('mcq'); };
+        const checkTFBtn = document.getElementById('checkTFBtn');
+        if (checkTFBtn) checkTFBtn.onclick = function() { checkAnswers('trueFalse'); };
+        const checkShort1Btn = document.getElementById('checkShort1Btn');
+        if (checkShort1Btn) checkShort1Btn.onclick = function() { checkAnswers('shortAnswer1'); };
+        const checkShort2Btn = document.getElementById('checkShort2Btn');
+        if (checkShort2Btn) checkShort2Btn.onclick = function() { checkAnswers('shortAnswer2'); };
+        const checkOneWordBtn = document.getElementById('checkOneWordBtn');
+        if (checkOneWordBtn) checkOneWordBtn.onclick = function() { checkAnswers('oneWord'); };
     }
 
-    function checkAnswers() {
-        // MCQ validation
-        if (chapterData.exercises.mcq) {
-            chapterData.exercises.mcq.forEach((q, i) => {
-                const selected = document.querySelector(`input[name='mcq${i}']:checked`);
-                const feedback = document.getElementById(`mcq-feedback-${i}`);
-                if (!feedback) {
-                    showGlobalDebug(`MCQ feedback element not found for index ${i}`, true);
-                    return;
-                }
-                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
-                feedback.classList.remove('hidden'); // Always show feedback
-                feedback.style.display = 'block';
-
-                if (!selected) {
-                    feedback.textContent = 'Please select an option.';
-                    feedback.classList.add('text-red-600');
-                } else {
-                    const selectedValue = parseInt(selected.value);
-                    if (q.correctAnswerIndex !== undefined && selectedValue === q.correctAnswerIndex) {
-                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else if (q.correctAnswerIndex !== undefined) {
-                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else {
-                        feedback.textContent = 'Answer submitted (no correctness check available).';
-                        feedback.classList.add('text-gray-600'); // Neutral feedback
+function checkAnswers(type) {
+    if (type === 'mcq' && chapterData.exercises.mcq) {
+        chapterData.exercises.mcq.forEach((q, i) => {
+            const selected = document.querySelector(`input[name='mcq${i}']:checked`);
+            const feedback = document.getElementById(`mcq-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`MCQ feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            if (!selected) {
+                feedback.textContent = 'Please select an option.';
+                feedback.classList.add('text-red-600');
+            } else {
+                const selectedValue = parseInt(selected.value);
+                if (q.correctAnswerIndex !== undefined && selectedValue === q.correctAnswerIndex) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
                     }
-                }
-            });
-        }
-        // True/False validation
-        if (chapterData.exercises.trueFalse) {
-            chapterData.exercises.trueFalse.forEach((q, i) => {
-                const selected = document.querySelector(`input[name='tf${i}']:checked`);
-                const feedback = document.getElementById(`tf-feedback-${i}`);
-                if (!feedback) {
-                    showGlobalDebug(`True/False feedback element not found for index ${i}`, true);
-                    return;
-                }
-                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
-                feedback.classList.remove('hidden'); // Always show feedback
-                feedback.style.display = 'block';
-
-                if (!selected) {
-                    feedback.textContent = 'Please select True or False.';
-                    feedback.classList.add('text-red-600');
-                } else {
-                    const selectedValue = selected.value === 'true'; // Convert to boolean
-                    if (q.correctAnswer !== undefined && selectedValue === q.correctAnswer) {
-                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else if (q.correctAnswer !== undefined) {
-                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.correctAnswer}.</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else {
-                        feedback.textContent = 'Answer submitted (no correctness check available).';
-                        feedback.classList.add('text-gray-600'); // Neutral feedback
+                } else if (q.correctAnswerIndex !== undefined) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
                     }
-                }
-            });
-        }
-        // One Word validation
-        if (chapterData.exercises.oneWord) {
-            chapterData.exercises.oneWord.forEach((q, i) => {
-                const input = document.getElementById(`oneword${i}`);
-                const feedback = document.getElementById(`oneword-feedback-${i}`);
-                if (!feedback) {
-                    showGlobalDebug(`One Word feedback element not found for index ${i}`, true);
-                    return;
-                }
-                feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
-                feedback.classList.remove('hidden'); // Always show feedback
-                feedback.style.display = 'block';
-
-                const userAnswer = input.value.trim();
-                if (!userAnswer) {
-                    feedback.textContent = 'Please enter your answer.';
-                    feedback.classList.add('text-red-600');
                 } else {
-                    // Case-insensitive comparison for one-word answers
-                    if (q.correctAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
-                        feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else if (q.correctAnswer) {
-                        feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: "${q.correctAnswer}".</span>`;
-                        if (q.explanation) {
-                            feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
-                        }
-                    } else {
-                        feedback.textContent = 'Answer submitted (no correctness check available).';
-                        feedback.classList.add('text-gray-600'); // Neutral feedback
-                    }
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
                 }
-            });
-        }
+            }
+        });
     }
+    if (type === 'trueFalse' && chapterData.exercises.trueFalse) {
+        chapterData.exercises.trueFalse.forEach((q, i) => {
+            const selected = document.querySelector(`input[name='tf${i}']:checked`);
+            const feedback = document.getElementById(`tf-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`True/False feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            if (!selected) {
+                feedback.textContent = 'Please select True or False.';
+                feedback.classList.add('text-red-600');
+            } else {
+                const selectedValue = selected.value === 'true';
+                if (q.correctAnswer !== undefined && selectedValue === q.correctAnswer) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else if (q.correctAnswer !== undefined) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.correctAnswer}.</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else {
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
+                }
+            }
+        });
+    }
+    if (type === 'oneWord' && chapterData.exercises.oneWord) {
+        chapterData.exercises.oneWord.forEach((q, i) => {
+            const input = document.getElementById(`oneword${i}`);
+            const feedback = document.getElementById(`oneword-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`One Word feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            const userAnswer = input.value.trim();
+            if (!userAnswer) {
+                feedback.textContent = 'Please enter your answer.';
+                feedback.classList.add('text-red-600');
+            } else {
+                if (q.correctAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else if (q.correctAnswer) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: "${q.correctAnswer}".</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else {
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
+                }
+            }
+        });
+    }
+    // For short answers, just show a message for now
+    if (type === 'shortAnswer1' && chapterData.exercises.shortAnswer1) {
+        chapterData.exercises.shortAnswer1.forEach((q, i) => {
+            const input = document.getElementById(`short1${i}`);
+            if (input) {
+                input.classList.add('border-green-400');
+            }
+        });
+        showGlobalDebug('Short Answer 1: Answers submitted. Manual review required.', false);
+    }
+    if (type === 'shortAnswer2' && chapterData.exercises.shortAnswer2) {
+        chapterData.exercises.shortAnswer2.forEach((q, i) => {
+            const input = document.getElementById(`short2${i}`);
+            if (input) {
+                input.classList.add('border-green-400');
+            }
+        });
+        showGlobalDebug('Short Answer 2: Answers submitted. Manual review required.', false);
+    }
+}
 
     // --- Long Answer Questions Render and TTS ---
     function renderLongAnswer() {
