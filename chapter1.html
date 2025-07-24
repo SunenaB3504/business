@@ -831,6 +831,8 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             return;
         }
         caseDiv.innerHTML = chapterData.caseStudy.map((cs, idx) => {
+            const btnId = `show-case-study-${idx}`;
+            const blockId = `case-study-block-${idx}`;
             let questionsHtml = '';
             if (cs.questions && cs.questions.length) {
                 questionsHtml = cs.questions.map((q, i) => `
@@ -842,12 +844,27 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             }
             return `
                 <div class="mb-6 p-4 bg-white rounded shadow">
-                    <h4 class="font-semibold mb-1">${cs.title}</h4>
-                    <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
-                    ${questionsHtml}
+                    <button id="${btnId}" class="mb-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs">Show/Hide Case Study</button>
+                    <div id="${blockId}" class="hidden">
+                        <h4 class="font-semibold mb-1">${cs.title}</h4>
+                        <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
+                        ${questionsHtml}
+                    </div>
                 </div>
             `;
         }).join('');
+        // Add event listeners for show/hide buttons
+        chapterData.caseStudy.forEach((cs, idx) => {
+            const btnId = `show-case-study-${idx}`;
+            const blockId = `case-study-block-${idx}`;
+            const btn = document.getElementById(btnId);
+            const block = document.getElementById(blockId);
+            if (btn && block) {
+                btn.onclick = function() {
+                    block.classList.toggle('hidden');
+                };
+            }
+        });
         caseStudyUtterances = chapterData.caseStudy.map((cs, idx) => {
             let text = `${cs.title}: ${cs.scenario}`;
             if (cs.questions && cs.questions.length) {
