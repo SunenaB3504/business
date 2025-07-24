@@ -262,102 +262,112 @@
         }
       ],
       "caseStudy": [
-        {
-          "title": "The Evolution of KnowledgeCompass: A Management Journey",
-          "scenario": "KnowledgeCompass, an EdTech startup founded by Neil and Kanishq, exemplifies effective management principles, navigating its growth from a garage operation to a significant corporation. Initially, their vision was to create a platform that revolutionizes learning through personalized, adaptive education. This clear, simple objective established a goal-oriented process from the outset. As the company expanded, so did its complexity. What began as a small team soon grew, necessitating a robust management structure.",
-          "questions": [
-            {
-              "type": "identify",
-              "question": "Identify the main management principle illustrated by the founders' initial goal and approach.",
-              "marks": 2,
-              "wordLimit": 30
-            },
-            {
-              "type": "explain",
-              "question": "Explain how the growth of KnowledgeCompass demonstrates the need for a robust management structure.",
-              "marks": 3,
-              "wordLimit": 50
-            }
-          ]
-        },
-        {
-          "title": "Multidimensional Management at Play",
-          "scenario": "A core challenge for KnowledgeCompass was to manage work, people, and operations synergistically. The management of work involved translating their educational vision into concrete product development cycles, content creation pipelines, and marketing campaigns. Decisions on platform features, curriculum design, and budget allocation were critical. Simultaneously, the management of people became paramount. Neil and Kanishq had to address their diverse workforce, comprising software developers, content creators, and educators, each with unique needs and behaviors, while fostering a cohesive group dynamic. Their approach ensured individual strengths were leveraged and weaknesses addressed. The management of operations focused on the continuous production process—from raw educational content acquisition to its transformation into interactive, digital learning modules and delivery to end-users. This integrated approach, linking work and people with the core service, was essential for survival and growth.",
-          "questions": [
-            {
-              "type": "identify",
-              "question": "Identify the three main dimensions of management highlighted in the scenario.",
-              "marks": 3,
-              "wordLimit": 30
-            },
-            {
-              "type": "explain",
-              "question": "Explain how KnowledgeCompass balanced these dimensions to achieve growth.",
-              "marks": 4,
-              "wordLimit": 75
-            }
-          ]
-        },
-        {
-          "title": "Dynamic and Continuous Operations",
-          "scenario": "KnowledgeCompass demonstrated management as a continuous process, with functions like planning, organizing, staffing, directing, and controlling being simultaneously performed. For instance, while planning a new module, they were also organizing resources, recruiting specialists (staffing), motivating teams (directing), and monitoring progress (controlling). This dynamic interplay ensured adaptability to the rapidly changing EdTech environment, from technological advancements to evolving student needs. Their ability to pivot and adapt, much like McDonald's adjusted its menu for the Indian market, ensured their competitive edge.",
-          "questions": [
-            {
-              "type": "identify",
-              "question": "Identify the five functions of management demonstrated in the scenario.",
-              "marks": 2,
-              "wordLimit": 30
-            },
-            {
-              "type": "explain",
-              "question": "Explain how adaptability contributed to KnowledgeCompass's success.",
-              "marks": 3,
-              "wordLimit": 50
-            }
-          ]
-        },
-        {
-          "title": "Achieving Multi-faceted Objectives",
-          "scenario": "Achieving organizational objectives—survival, profitability, and growth—was central to KnowledgeCompass's strategy. They ensured sustained revenue generation to cover costs, maintained profit margins for continued investment, and consistently grew by expanding their user base and product offerings. Beyond economic goals, KnowledgeCompass embraced social objectives, providing accessible education and employment opportunities in underserved communities, echoing the social responsibility efforts seen in companies like ITC’s E-Choupal. Furthermore, they addressed personnel objectives, striving to meet their employees' financial, social, and personal growth needs through competitive compensation, recognition, and development programs, thereby reconciling individual aspirations with company goals.",
-          "questions": [
-            {
-              "type": "identify",
-              "question": "Identify the three types of objectives KnowledgeCompass aimed to achieve.",
-              "marks": 3,
-              "wordLimit": 30
-            },
-            {
-              "type": "explain",
-              "question": "Explain how KnowledgeCompass balanced economic, social, and personnel objectives.",
-              "marks": 4,
-              "wordLimit": 75
-            }
-          ]
-        },
-        {
-          "title": "Management as Both Art and Science",
-          "scenario": "The success of KnowledgeCompass is also a testament to the art and science of management. As a science, their management practices were built on a systematized body of knowledge, drawing from management theories, economics, and psychology, applied through observation and experimentation, much like scientific principles. However, as an art, Neil and Kanishq applied this knowledge with personal skill, creativity, and intuition, adapting universal principles to unique situations, much like a musician interprets basic notes to create a unique composition. Their leadership style and problem-solving approaches showcased this personalized application. While not a full-fledged profession with restricted entry or statutory professional bodies, KnowledgeCompass actively sought individuals with specific management qualifications and experience, underscoring the growing professionalization of management.",
-          "questions": [
-            {
-              "type": "differentiate",
-              "question": "Differentiate between management as an art and as a science, as illustrated in the scenario.",
-              "marks": 4,
-              "wordLimit": 75
-            }
-          ]
-        },
-        {
-          "title": "Coordination: The Binding Force",
-          "scenario": "Coordination emerged as the true essence of KnowledgeCompass's management. With diverse departments—content development, engineering, marketing, sales, and support—interdependence was high. Coordination unified these disparate efforts, ensuring unity of action towards common goals. For example, marketing campaigns were synchronized with product launches, and content creation aligned with market demand. This continuous, pervasive, and deliberate function, exercised by all levels of management, prevented chaos and duplication of effort. Just as the Mumbai Dabbawallas rely on impeccable coordination, KnowledgeCompass’s ability to synchronize individual and departmental activities—from top-level strategy formulation to operational execution—was the key to achieving planned objectives with minimum conflict and maximum efficiency.",
-          "questions": [
-            {
-              "type": "explain",
-              "question": "Explain the importance of coordination in achieving organizational goals, as seen in the scenario.",
-              "marks": 3,
-              "wordLimit": 50
-            }
-          ]
-        }
+      {
+        "title": "The Evolution of KnowledgeCompass: A Management Journey",
+        "scenario": "KnowledgeCompass, an EdTech startup founded by Neil and Kanishq, exemplifies effective management principles, navigating its growth from a garage operation to a significant corporation. Initially, their vision was to create a platform that revolutionizes learning through personalized, adaptive education. This clear, simple objective established a goal-oriented process from the outset. As the company expanded, so did its complexity. What began as a small team soon grew, necessitating a robust management structure.",
+        "questions": [
+          {
+            "type": "identify",
+            "question": "Identify the main management principle illustrated by the founders' initial goal and approach.",
+            "marks": 2,
+            "wordLimit": 30,
+            "answer": "Goal-oriented process: The founders set a clear, simple objective to revolutionize learning, uniting efforts towards a specific goal."
+          },
+          {
+            "type": "explain",
+            "question": "Explain how the growth of KnowledgeCompass demonstrates the need for a robust management structure.",
+            "marks": 3,
+            "wordLimit": 50,
+            "answer": "As the company expanded, increased complexity required formal management structures to coordinate activities, allocate resources, and maintain efficiency and effectiveness."
+          }
+        ]
+      },
+      {
+        "title": "Multidimensional Management at Play",
+        "scenario": "A core challenge for KnowledgeCompass was to manage work, people, and operations synergistically. The management of work involved translating their educational vision into concrete product development cycles, content creation pipelines, and marketing campaigns. Decisions on platform features, curriculum design, and budget allocation were critical. Simultaneously, the management of people became paramount. Neil and Kanishq had to address their diverse workforce, comprising software developers, content creators, and educators, each with unique needs and behaviors, while fostering a cohesive group dynamic. Their approach ensured individual strengths were leveraged and weaknesses addressed. The management of operations focused on the continuous production process—from raw educational content acquisition to its transformation into interactive, digital learning modules and delivery to end-users. This integrated approach, linking work and people with the core service, was essential for survival and growth.",
+        "questions": [
+          {
+            "type": "identify",
+            "question": "Identify the three main dimensions of management highlighted in the scenario.",
+            "marks": 3,
+            "wordLimit": 30,
+            "answer": "Management of work, management of people, and management of operations."
+          },
+          {
+            "type": "explain",
+            "question": "Explain how KnowledgeCompass balanced these dimensions to achieve growth.",
+            "marks": 4,
+            "wordLimit": 75,
+            "answer": "By integrating product development (work), fostering a cohesive workforce (people), and streamlining content delivery (operations), KnowledgeCompass ensured synergy and growth."
+          }
+        ]
+      },
+      {
+        "title": "Dynamic and Continuous Operations",
+        "scenario": "KnowledgeCompass demonstrated management as a continuous process, with functions like planning, organizing, staffing, directing, and controlling being simultaneously performed. For instance, while planning a new module, they were also organizing resources, recruiting specialists (staffing), motivating teams (directing), and monitoring progress (controlling). This dynamic interplay ensured adaptability to the rapidly changing EdTech environment, from technological advancements to evolving student needs. Their ability to pivot and adapt, much like McDonald's adjusted its menu for the Indian market, ensured their competitive edge.",
+        "questions": [
+          {
+            "type": "identify",
+            "question": "Identify the five functions of management demonstrated in the scenario.",
+            "marks": 2,
+            "wordLimit": 30,
+            "answer": "Planning, organizing, staffing, directing, and controlling."
+          },
+          {
+            "type": "explain",
+            "question": "Explain how adaptability contributed to KnowledgeCompass's success.",
+            "marks": 3,
+            "wordLimit": 50,
+            "answer": "Adaptability allowed KnowledgeCompass to respond quickly to changes, innovate, and maintain a competitive edge in a dynamic environment."
+          }
+        ]
+      },
+      {
+        "title": "Achieving Multi-faceted Objectives",
+        "scenario": "Achieving organizational objectives—survival, profitability, and growth—was central to KnowledgeCompass's strategy. They ensured sustained revenue generation to cover costs, maintained profit margins for continued investment, and consistently grew by expanding their user base and product offerings. Beyond economic goals, KnowledgeCompass embraced social objectives, providing accessible education and employment opportunities in underserved communities, echoing the social responsibility efforts seen in companies like ITC’s E-Choupal. Furthermore, they addressed personnel objectives, striving to meet their employees' financial, social, and personal growth needs through competitive compensation, recognition, and development programs, thereby reconciling individual aspirations with company goals.",
+        "questions": [
+          {
+            "type": "identify",
+            "question": "Identify the three types of objectives KnowledgeCompass aimed to achieve.",
+            "marks": 3,
+            "wordLimit": 30,
+            "answer": "Organizational objectives, social objectives, and personnel objectives."
+          },
+          {
+            "type": "explain",
+            "question": "Explain how KnowledgeCompass balanced economic, social, and personnel objectives.",
+            "marks": 4,
+            "wordLimit": 75,
+            "answer": "By generating revenue and profit (economic), providing accessible education and jobs (social), and supporting employee growth and well-being (personnel), KnowledgeCompass balanced all objectives."
+          }
+        ]
+      },
+      {
+        "title": "Management as Both Art and Science",
+        "scenario": "The success of KnowledgeCompass is also a testament to the art and science of management. As a science, their management practices were built on a systematized body of knowledge, drawing from management theories, economics, and psychology, applied through observation and experimentation, much like scientific principles. However, as an art, Neil and Kanishq applied this knowledge with personal skill, creativity, and intuition, adapting universal principles to unique situations, much like a musician interprets basic notes to create a unique composition. Their leadership style and problem-solving approaches showcased this personalized application. While not a full-fledged profession with restricted entry or statutory professional bodies, KnowledgeCompass actively sought individuals with specific management qualifications and experience, underscoring the growing professionalization of management.",
+        "questions": [
+          {
+            "type": "differentiate",
+            "question": "Differentiate between management as an art and as a science, as illustrated in the scenario.",
+            "marks": 4,
+            "wordLimit": 75,
+            "answer": "Management as a science is based on systematized knowledge, principles, and theories applied through observation and experimentation. As an art, it involves personal skill, creativity, and intuition in applying these principles to unique situations. KnowledgeCompass used both: scientific methods for structure and creative leadership for problem-solving."
+          }
+        ]
+      },
+      {
+        "title": "Coordination: The Binding Force",
+        "scenario": "Coordination emerged as the true essence of KnowledgeCompass's management. With diverse departments—content development, engineering, marketing, sales, and support—interdependence was high. Coordination unified these disparate efforts, ensuring unity of action towards common goals. For example, marketing campaigns were synchronized with product launches, and content creation aligned with market demand. This continuous, pervasive, and deliberate function, exercised by all levels of management, prevented chaos and duplication of effort. Just as the Mumbai Dabbawallas rely on impeccable coordination, KnowledgeCompass’s ability to synchronize individual and departmental activities—from top-level strategy formulation to operational execution—was the key to achieving planned objectives with minimum conflict and maximum efficiency.",
+        "questions": [
+          {
+            "type": "explain",
+            "question": "Explain the importance of coordination in achieving organizational goals, as seen in the scenario.",
+            "marks": 3,
+            "wordLimit": 50,
+            "answer": "Coordination ensures unity of action, prevents duplication of effort, and harmonizes departmental activities, enabling organizations like KnowledgeCompass to achieve goals efficiently and with minimal conflict."
+          }
+        ]
+      }
       ],
       "flashcards": [
         {"back": "The process of getting things done with the aim of achieving organizational goals effectively and efficiently.", "front": "What is Management?"},
