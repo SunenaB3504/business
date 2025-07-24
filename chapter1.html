@@ -68,6 +68,7 @@
 
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
+                <a href="index.html" class="text-white font-semibold hover:underline focus:outline-none">Home</a>
                 <button id="searchNavBtn" class="text-white font-semibold hover:underline focus:outline-none">Search</button>
                 <div class="relative group">
                     <button class="text-white font-semibold hover:underline focus:outline-none">Part A: Principles & Functions</button>
@@ -144,10 +145,10 @@
     });
     </script>
         <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-4">Dramatic Story</h2>
+            <h2 class="text-2xl font-bold mb-4">Anecdote</h2>
             <div class="accordion-item bg-blue-50 rounded-lg p-4 mb-4 shadow">
                 <button id="storyAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-blue-100 hover:bg-blue-200 font-semibold rounded-t focus:outline-none" aria-expanded="false">
-                  Dramatic Story (Show/Hide)
+                  Anecdote (Show/Hide)
                 </button>
                 <div id="storyAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
                   <div id="storyAudioPlayer" class="mb-4 flex items-center gap-2">
@@ -473,27 +474,29 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 console.error(err);
             });
 
+
         // --- Event Listeners ---
-        // Fix: Only add listeners if elements exist
-        const playStoryBtn = document.getElementById('playStoryBtn');
-        if (playStoryBtn) playStoryBtn.addEventListener('click', playStory);
-        const pauseStoryBtn = document.getElementById('pauseStoryBtn');
-        if (pauseStoryBtn) pauseStoryBtn.addEventListener('click', pauseStory);
-        const stopStoryBtn = document.getElementById('stopStoryBtn');
-        if (stopStoryBtn) stopStoryBtn.addEventListener('click', stopStory);
+        // Attach only if elements exist
+        const prevFlashcardBtn = document.getElementById('prevFlashcardBtn');
+        if (prevFlashcardBtn) prevFlashcardBtn.addEventListener('click', prevFlashcard);
+        const nextFlashcardBtn = document.getElementById('nextFlashcardBtn');
+        if (nextFlashcardBtn) nextFlashcardBtn.addEventListener('click', nextFlashcard);
 
-        document.getElementById('prevFlashcardBtn').addEventListener('click', prevFlashcard);
-        document.getElementById('nextFlashcardBtn').addEventListener('click', nextFlashcard);
+        // Long Answer Questions audio controls
+        const playLongAnswerBtn = document.getElementById('playLongAnswerBtn');
+        if (playLongAnswerBtn) playLongAnswerBtn.addEventListener('click', playLongAnswer);
+        const pauseLongAnswerBtn = document.getElementById('pauseLongAnswerBtn');
+        if (pauseLongAnswerBtn) pauseLongAnswerBtn.addEventListener('click', pauseLongAnswer);
+        const stopLongAnswerBtn = document.getElementById('stopLongAnswerBtn');
+        if (stopLongAnswerBtn) stopLongAnswerBtn.addEventListener('click', stopLongAnswer);
 
-        document.getElementById('checkAnswersBtn').addEventListener('click', checkAnswers);
-
-        document.getElementById('playLongAnswerBtn').addEventListener('click', playLongAnswer);
-        document.getElementById('pauseLongAnswerBtn').addEventListener('click', pauseLongAnswer);
-        document.getElementById('stopLongAnswerBtn').addEventListener('click', stopLongAnswer);
-
-        document.getElementById('playCaseStudyBtn').addEventListener('click', playCaseStudy);
-        document.getElementById('pauseCaseStudyBtn').addEventListener('click', pauseCaseStudy);
-        document.getElementById('stopCaseStudyBtn').addEventListener('click', stopCaseStudy);
+        // Case Study audio controls
+        const playCaseStudyBtn = document.getElementById('playCaseStudyBtn');
+        if (playCaseStudyBtn) playCaseStudyBtn.addEventListener('click', playCaseStudy);
+        const pauseCaseStudyBtn = document.getElementById('pauseCaseStudyBtn');
+        if (pauseCaseStudyBtn) pauseCaseStudyBtn.addEventListener('click', pauseCaseStudy);
+        const stopCaseStudyBtn = document.getElementById('stopCaseStudyBtn');
+        if (stopCaseStudyBtn) stopCaseStudyBtn.addEventListener('click', stopCaseStudy);
 
 
             // Search modal logic
