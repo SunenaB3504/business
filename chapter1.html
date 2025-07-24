@@ -895,8 +895,14 @@ function checkAnswers(type) {
             caseDiv.innerHTML = '<em>No case study available.</em>';
             return;
         }
-        caseDiv.innerHTML = chapterData.caseStudy.map((cs, idx) => {
+        // Horizontal buttons for each case study
+        let caseStudyBtns = chapterData.caseStudy.map((cs, idx) => {
             const btnId = `show-case-study-${idx}`;
+            return `<button id="${btnId}" class="case-study-tab px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs mx-1 mb-2">Case Study ${idx + 1}</button>`;
+        }).join('');
+
+        // Case study windows (hidden by default)
+        let caseStudyWindows = chapterData.caseStudy.map((cs, idx) => {
             const blockId = `case-study-block-${idx}`;
             let questionsHtml = '';
             if (cs.questions && cs.questions.length) {
@@ -911,7 +917,6 @@ function checkAnswers(type) {
             let answersHtml = '';
             if (cs.questions && cs.questions.length) {
                 answersHtml = cs.questions.map((q, i) => {
-                    // Show answer only if present in content.json
                     if (q.answer) {
                         return `<div class='mt-2 p-2 bg-green-50 border border-green-200 rounded text-sm font-medium'><b>Q${i+1} Answer:</b> ${q.answer}</div>`;
                     } else {
@@ -922,18 +927,17 @@ function checkAnswers(type) {
             const perspectiveBtnId = `show-perspective-${idx}`;
             const perspectiveBlockId = `perspective-block-${idx}`;
             return `
-                <div class="mb-6 p-4 bg-white rounded shadow">
-                    <button id="${btnId}" class="mb-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs">Show/Hide Case Study</button>
-                    <div id="${blockId}" class="hidden">
-                        <h4 class="font-semibold mb-1">${cs.title}</h4>
-                        <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
-                        ${questionsHtml}
-                        <button id='${perspectiveBtnId}' class='mt-4 px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-xs'>Check my Perspective</button>
-                        <div id='${perspectiveBlockId}' class='hidden mt-2'>${answersHtml}</div>
-                    </div>
+                <div id="${blockId}" class="hidden mb-6 p-4 bg-white rounded shadow">
+                    <h4 class="font-semibold mb-1">${cs.title}</h4>
+                    <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
+                    ${questionsHtml}
+                    <button id='${perspectiveBtnId}' class='mt-4 px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-xs'>Check my Perspective</button>
+                    <div id='${perspectiveBlockId}' class='hidden mt-2'>${answersHtml}</div>
                 </div>
             `;
         }).join('');
+
+        caseDiv.innerHTML = `<div class="flex flex-wrap">${caseStudyBtns}</div>${caseStudyWindows}`;
         // Add event listeners for show/hide buttons
         chapterData.caseStudy.forEach((cs, idx) => {
             const btnId = `show-case-study-${idx}`;
@@ -946,7 +950,12 @@ function checkAnswers(type) {
             const perspectiveBlock = document.getElementById(perspectiveBlockId);
             if (btn && block) {
                 btn.onclick = function() {
-                    block.classList.toggle('hidden');
+                    // Hide all case study windows first
+                    chapterData.caseStudy.forEach((_, i) => {
+                        const otherBlock = document.getElementById(`case-study-block-${i}`);
+                        if (otherBlock) otherBlock.classList.add('hidden');
+                    });
+                    block.classList.remove('hidden');
                 };
             }
             if (perspectiveBtn && perspectiveBlock) {
