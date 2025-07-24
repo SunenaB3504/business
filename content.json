@@ -20,113 +20,344 @@
         {"text": "Kanishq: And this all brings us back to 'coordination' [34]. It's the 'essence of management' [35], isn't it? Without it, our content, tech, and marketing teams would be pulling in different directions. Like the Mumbai Dabbawallas, whose complex delivery system relies entirely on perfect coordination, our success hinges on integrating diverse group efforts, ensuring unity of action, and harmonizing goals across all functional differentiations [36]. It's not a separate function, but the thread that weaves through everything we do.", "title": "The Essence of Success: Coordination"}
       ],
       "mindmap": [
-        {"title": "Nature and Significance of Management", "points": [
-          {"title": "Concept of Management", "definition": "Management is the process of getting things done with the aim of achieving goals effectively and efficiently.", "explanation": "This definition emphasizes management as a continuous series of functions (process) to achieve goals using minimum resources (efficiency) and completing tasks (effectiveness).", "example": "KnowledgeCompass's entire operation, from developing new courses to acquiring users, is a managed process aimed at achieving educational impact (effectiveness) while optimizing development costs (efficiency).", "points": [
-            {"title": "Process (Functions of Management)", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Effectiveness (Doing the right things/End result)", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Efficiency (Doing things right/Minimum cost)", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Characteristics of Management", "explanation": "These are the fundamental traits that define management.", "points": [
-            {"title": "Goal-Oriented Process", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "All Pervasive", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Multidimensional", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Continuous Process", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Group Activity", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Dynamic Function", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Intangible Force", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Objectives of Management", "explanation": "Management aims to achieve various objectives.", "points": [
-            {"title": "Organisational Objectives (Economic)", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Social Objectives", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Personnel Objectives (Individual)", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Importance of Management", "explanation": "Why management is crucial for any organization.", "points": [
-            {"title": "Helps in Achieving Group Goals", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Increases Efficiency", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Creates a Dynamic Organisation", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Helps in Achieving Personal Objectives", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Helps in the Development of Society", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Nature of Management", "explanation": "Exploring whether management is an art, a science, or a profession.", "points": [
-            {"title": "Management as an Art", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Management as a Science", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Management as a Profession", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Levels of Management", "explanation": "The hierarchy of managerial positions within an organization.", "points": [
-            {"title": "Top Management", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Middle Management", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Supervisory or Operational Management", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Functions of Management", "explanation": "The core activities managers perform.", "points": [
-            {"title": "Planning", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Organising", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Staffing", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Directing", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Controlling", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]},
-          {"title": "Coordination – The Essence of Management", "explanation": "The process of integrating and synchronizing efforts.", "points": [
-            {"title": "Characteristics of Coordination", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null},
-            {"title": "Importance of Coordination", "definition": null, "explanation": null, "example": null, "importantPoints": null, "otherInfo": null}
-          ]}
-        ]},
-        {"title": "Detailed Characteristics of Management", "points": [
-          {"title": "Goal-Oriented Process", "explanation": "Management unites the efforts of different individuals in the organization towards achieving basic, simple, and clearly stated goals.", "importantPoints": ["Exists for a set of basic goals.", "Goals should be simple and clear.", "Unites efforts towards achieving these goals."], "otherInfo": null, "points": null},
-          {"title": "All Pervasive", "explanation": "The activities involved in managing an enterprise are common to all organizations, whether economic, social, or political, and are practiced globally.", "importantPoints": ["Common to all types of organizations (petrol pump, hospital, school).", "Practiced in all countries (India, USA, Germany, Japan).", "How they do it may differ due to culture, tradition, history."], "otherInfo": null, "points": null},
-          {"title": "Multidimensional", "explanation": "Management is a complex activity involving three main dimensions: work, people, and operations.", "importantPoints": ["Management of Work", "Management of People", "Management of Operations"], "points": [
-            {"title": "Management of Work"},
-            {"title": "Management of People"},
-            {"title": "Management of Operations"}
-          ]},
-          {"title": "Continuous Process", "explanation": "The process of management is a series of continuous, composite, but separate functions (planning, organising, directing, staffing, and controlling) performed simultaneously by all managers all the time.", "importantPoints": ["Series of interrelated functions.", "Performed by all managers continuously.", "Functions are intertwined and difficult to separate."], "otherInfo": null, "points": null},
-          {"title": "Group Activity", "explanation": "An organization is a collection of diverse individuals who work towards fulfilling a common organizational goal, requiring teamwork and coordination.", "importantPoints": ["Collection of diverse individuals.", "Common organizational goal.", "Requires teamwork and coordination of individual effort."], "otherInfo": null, "points": null},
-          {"title": "Dynamic Function", "explanation": "Management has to adapt itself to the changing external environment, which consists of various social, economic, and political factors, to remain successful and maintain competitive edge.", "importantPoints": ["Adapts to changing environment (social, economic, political factors).", "Organizations must change goals according to environmental needs.", "Helps maintain competitive edge."], "otherInfo": null, "points": null},
-          {"title": "Intangible Force", "explanation": "Management is an intangible force that cannot be seen but its presence can be felt through the way the organization functions, such as targets being met, happy employees, and orderliness.", "importantPoints": ["Cannot be seen but felt.", "Presence noticeable when targets are met.", "Indicated by happy employees and orderliness instead of chaos."], "otherInfo": null, "points": null}
-        ]},
-        {"title": "Detailed Objectives of Management", "points": [
-          {"title": "Organisational Objectives (Economic)", "explanation": "These are the main objectives related to the survival, profit, and growth of the business, ensuring optimal utilization of human and material resources.", "importantPoints": ["Survival (cover costs).", "Profit (incentive, cover costs & risks).", "Growth (long-run prospects, measured by sales, employees, products, capital)."], "otherInfo": null, "points": null},
-          {"title": "Social Objectives", "explanation": "Involves creating benefits for society by fulfilling social obligations, like using eco-friendly methods, providing employment, and offering basic amenities.", "importantPoints": ["Creating economic value for society.", "Using environmental-friendly production methods.", "Providing employment opportunities to underprivileged sections.", "Providing basic amenities (schools, healthcare) for the community."], "otherInfo": null, "points": null},
-          {"title": "Personnel Objectives (Individual)", "explanation": "Addressing the diverse needs of employees, ranging from financial to social and personal growth, and reconciling them with organizational objectives for harmony.", "importantPoints": ["Satisfy diverse needs of employees (financial, social, personal growth).", "Competitive salaries and perks.", "Peer recognition.", "Personal growth and development.", "Reconcile personal goals with organizational objectives."], "otherInfo": null, "points": null}
-        ]},
-        {"title": "Detailed Nature of Management", "points": [
-          {"title": "Management as an Art", "explanation": "Art is the skillful and personal application of existing knowledge to achieve desired results, acquired through study, observation, and experience, requiring ingenuity and creativity.", "importantPoints": ["Existence of theoretical knowledge (literature).", "Personalized application (varies individual to individual).", "Based on practice and creativity (improves with practice, unique interpretations)."], "otherInfo": null, "points": null},
-          {"title": "Management as a Science", "explanation": "Science is a systematized body of knowledge that explains certain general truths or the operation of general laws, based on observation and experimentation, with universal validity.", "importantPoints": ["Systematised body of knowledge (theory, principles, vocabulary).", "Principles based on experimentation (evolved from repeated observation).", "Universal validity (modified according to situation, provides standardized techniques)."], "otherInfo": "Management is an inexact science due to human behaviour.", "points": null},
-          {"title": "Management as a Profession", "explanation": "A profession is characterized by a well-defined body of knowledge, restricted entry, professional associations, ethical code of conduct, and a service motive.", "importantPoints": ["Well-defined body of knowledge (growing discipline, taught in institutes).", "Restricted entry (not strictly met in management, no mandatory degree).", "Professional association (AIMA in India, but no compulsion).", "Ethical code of conduct (some associations have them).", "Service motive (basic purpose is goal achievement, but also serves society)."], "otherInfo": "Management does not meet all criteria of a full-fledged profession but has some features.", "points": null}
-        ]},
-        {"title": "Detailed Levels of Management", "points": [
-          {"title": "Top Management", "explanation": "Senior-most executives responsible for the overall welfare and survival of the organization. They analyze the business environment, formulate goals and strategies, and are accountable for the business's impact on society.", "importantPoints": ["Chairman, CEO, COO, President, Vice-President.", "Integrate diverse elements, coordinate departments.", "Responsible for welfare and survival of the organization.", "Analyze business environment, formulate goals and strategies.", "Job is complex, stressful, demanding long hours."], "otherInfo": null, "points": null},
-          {"title": "Middle Management", "explanation": "The link between top and lower-level managers. They are responsible for implementing and controlling plans developed by top management and ensuring their departments have necessary personnel.", "importantPoints": ["Division heads (e.g., Production Manager, Marketing Manager).", "Implement and control plans from top management.", "Responsible for first-line managers' activities.", "Interpret policies, ensure personnel, assign duties, motivate, cooperate."], "otherInfo": null, "points": null},
-          {"title": "Supervisory or Operational Management", "explanation": "The lowest level in the hierarchy, comprising foremen and supervisors. They directly oversee the workforce, ensuring quality, minimizing wastage, and maintaining safety standards based on plans from top management.", "importantPoints": ["Foremen and supervisors.", "Directly oversee workforce efforts.", "Authority and responsibility limited by top management plans.", "Maintain quality, minimize wastage, maintain safety standards.", "Quality and quantity of output depend on their efforts."], "otherInfo": null, "points": null}
-        ]},
-        {"title": "Detailed Functions of Management", "points": [
-          {"title": "Planning", "explanation": "The primary function of determining in advance what is to be done and who is to do it. It involves setting goals and developing a way of achieving them efficiently and effectively.", "importantPoints": ["Determining in advance 'what' and 'who'.", "Setting goals and developing achievement ways.", "Cannot prevent problems, but can predict and prepare for them."], "otherInfo": null, "points": null},
-          {"title": "Organising", "explanation": "The function of assigning duties, grouping tasks, establishing authority, and allocating resources required to carry out a specific plan. It examines activities and resources needed to implement the plan.", "importantPoints": ["Assigning duties, grouping tasks.", "Establishing authority and allocating resources.", "Determines who, where, and when tasks are done.", "Promotes efficiency and effectiveness."], "otherInfo": null, "points": null},
-          {"title": "Staffing", "explanation": "Finding the right people for the right job. It ensures that individuals with the right qualifications are available at the right places and times to accomplish organizational goals.", "importantPoints": ["Human resource function.", "Involves recruitment, selection, placement, training of personnel.", "Right people, right job, right qualifications, right time."], "otherInfo": null, "points": null},
-          {"title": "Directing", "explanation": "Involves leading, influencing, and motivating employees to perform assigned tasks. It requires establishing an atmosphere that encourages employees to do their best, using motivation and leadership.", "importantPoints": ["Leading, influencing, motivating employees.", "Creating encouraging atmosphere.", "Key components: Motivation and Leadership.", "Also involves effective communication and supervision."], "otherInfo": null, "points": null},
-          {"title": "Controlling", "explanation": "The management function of monitoring organizational performance towards the attainment of organizational goals. It involves establishing standards, measuring performance, comparing, and taking corrective action.", "importantPoints": ["Monitoring organizational performance.", "Establishing performance standards.", "Measuring current performance.", "Comparing with standards and taking corrective action."], "otherInfo": null, "points": null}
-        ]},
-        {"title": "Detailed Coordination – The Essence of Management", "points": [
-          {"title": "Characteristics of Coordination", "explanation": "The defining features of coordination.", "points": [
-            {"title": "Integrates Group Efforts"},
-            {"title": "Ensures Unity of Action"},
-            {"title": "Continuous Process"},
-            {"title": "All Pervasive Function"},
-            {"title": "Responsibility of All Managers"},
-            {"title": "Deliberate Function"}
-          ]},
-          {"title": "Importance of Coordination", "explanation": "Why coordination is vital for effective management.", "points": [
-            {"title": "Growth in Size"},
-            {"title": "Functional Differentiation"},
-            {"title": "Specialisation"}
-          ]}
-        ]}
+        {
+          "title": "Nature and Significance of Management",
+          "explanation": "Management is the process of achieving goals effectively and efficiently through planning, organizing, staffing, directing, and controlling resources.",
+          "example": "At KnowledgeCompass, management enabled the transition from a garage startup to a leading EdTech firm by balancing innovation with resource optimization.",
+          "keyPoints": [
+            "Management is goal-oriented and continuous.",
+            "It is both an art and a science.",
+            "Involves coordination of people, work, and operations."
+          ],
+          "definition": "Management: The process of getting things done with the aim of achieving goals effectively and efficiently.",
+          "points": [
+            {
+              "title": "Characteristics of Management",
+              "explanation": "Fundamental traits that define management.",
+              "points": [
+                {
+                  "title": "Goal-Oriented Process",
+                  "explanation": "Management unites efforts towards clear, basic goals.",
+                  "example": "KnowledgeCompass set a clear goal to revolutionize online learning.",
+                  "keyPoints": ["Exists for a set of basic goals.", "Unites efforts towards achieving these goals."],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "All Pervasive",
+                  "explanation": "Management is practiced in all organizations and at all levels.",
+                  "example": "From HR to marketing, every department at KnowledgeCompass uses management principles.",
+                  "keyPoints": ["Common to all types of organizations.", "Practiced globally."],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Multidimensional",
+                  "explanation": "Management involves work, people, and operations.",
+                  "example": "KnowledgeCompass manages content creation (work), team motivation (people), and platform delivery (operations).",
+                  "keyPoints": ["Management of Work", "Management of People", "Management of Operations"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            },
+            {
+              "title": "Objectives of Management",
+              "explanation": "Management aims to achieve organizational, social, and personnel objectives.",
+              "points": [
+                {
+                  "title": "Organizational Objectives",
+                  "explanation": "Survival, profit, and growth are key.",
+                  "example": "KnowledgeCompass focused on user growth and profitability.",
+                  "keyPoints": ["Survival (cover costs)", "Profit (incentive, cover costs & risks)", "Growth (long-term prospects)"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Social Objectives",
+                  "explanation": "Creating value for society.",
+                  "example": "Providing affordable education to remote areas.",
+                  "keyPoints": ["Eco-friendly methods", "Employment opportunities", "Community amenities"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Personnel Objectives",
+                  "explanation": "Meeting employee needs and aligning them with company goals.",
+                  "example": "KnowledgeCompass offers growth opportunities and recognition.",
+                  "keyPoints": ["Competitive salaries", "Personal growth", "Peer recognition"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            },
+            {
+              "title": "Functions of Management",
+              "explanation": "Core activities: planning, organizing, staffing, directing, controlling.",
+              "points": [
+                {
+                  "title": "Planning",
+                  "explanation": "Setting goals and developing ways to achieve them.",
+                  "example": "Quarterly roadmaps at KnowledgeCompass.",
+                  "keyPoints": ["Determining in advance 'what' and 'who'", "Setting goals", "Predicting and preparing for problems"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Organizing",
+                  "explanation": "Assigning duties, grouping tasks, allocating resources.",
+                  "example": "Team structuring for new product launches.",
+                  "keyPoints": ["Assigning duties", "Grouping tasks", "Allocating resources"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Staffing",
+                  "explanation": "Recruiting and developing personnel.",
+                  "example": "Hiring AI educators at KnowledgeCompass.",
+                  "keyPoints": ["Recruitment", "Selection", "Training"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Directing",
+                  "explanation": "Leading and motivating employees.",
+                  "example": "Motivating teams to meet deadlines.",
+                  "keyPoints": ["Motivation", "Leadership", "Communication"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Controlling",
+                  "explanation": "Monitoring performance and taking corrective action.",
+                  "example": "Tracking course completion rates.",
+                  "keyPoints": ["Setting standards", "Measuring performance", "Corrective action"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mindmap": [
+        {
+          "title": "Nature and Significance of Management",
+          "explanation": "Management is the process of achieving goals effectively and efficiently through planning, organizing, staffing, directing, and controlling resources.",
+          "example": "At KnowledgeCompass, management enabled the transition from a garage startup to a leading EdTech firm by balancing innovation with resource optimization.",
+          "keyPoints": [
+            "Management is goal-oriented and continuous.",
+            "It is both an art and a science.",
+            "Involves coordination of people, work, and operations."
+          ],
+          "definition": "Management: The process of getting things done with the aim of achieving goals effectively and efficiently.",
+          "points": [
+            {
+              "title": "Characteristics of Management",
+              "explanation": "Fundamental traits that define management.",
+              "points": [
+                {
+                  "title": "Goal-Oriented Process",
+                  "explanation": "Management unites efforts towards clear, basic goals.",
+                  "example": "KnowledgeCompass set a clear goal to revolutionize online learning.",
+                  "keyPoints": ["Exists for a set of basic goals.", "Unites efforts towards achieving these goals."],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "All Pervasive",
+                  "explanation": "Management is practiced in all organizations and at all levels.",
+                  "example": "From HR to marketing, every department at KnowledgeCompass uses management principles.",
+                  "keyPoints": ["Common to all types of organizations.", "Practiced globally."],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Multidimensional",
+                  "explanation": "Management involves work, people, and operations.",
+                  "example": "KnowledgeCompass manages content creation (work), team motivation (people), and platform delivery (operations).",
+                  "keyPoints": ["Management of Work", "Management of People", "Management of Operations"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            },
+            {
+              "title": "Objectives of Management",
+              "explanation": "Management aims to achieve organizational, social, and personnel objectives.",
+              "points": [
+                {
+                  "title": "Organizational Objectives",
+                  "explanation": "Survival, profit, and growth are key.",
+                  "example": "KnowledgeCompass focused on user growth and profitability.",
+                  "keyPoints": ["Survival (cover costs)", "Profit (incentive, cover costs & risks)", "Growth (long-term prospects)"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Social Objectives",
+                  "explanation": "Creating value for society.",
+                  "example": "Providing affordable education to remote areas.",
+                  "keyPoints": ["Eco-friendly methods", "Employment opportunities", "Community amenities"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Personnel Objectives",
+                  "explanation": "Meeting employee needs and aligning them with company goals.",
+                  "example": "KnowledgeCompass offers growth opportunities and recognition.",
+                  "keyPoints": ["Competitive salaries", "Personal growth", "Peer recognition"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            },
+            {
+              "title": "Functions of Management",
+              "explanation": "Core activities: planning, organizing, staffing, directing, controlling.",
+              "points": [
+                {
+                  "title": "Planning",
+                  "explanation": "Setting goals and developing ways to achieve them.",
+                  "example": "Quarterly roadmaps at KnowledgeCompass.",
+                  "keyPoints": ["Determining in advance 'what' and 'who'", "Setting goals", "Predicting and preparing for problems"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Organizing",
+                  "explanation": "Assigning duties, grouping tasks, allocating resources.",
+                  "example": "Team structuring for new product launches.",
+                  "keyPoints": ["Assigning duties", "Grouping tasks", "Allocating resources"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Staffing",
+                  "explanation": "Recruiting and developing personnel.",
+                  "example": "Hiring AI educators at KnowledgeCompass.",
+                  "keyPoints": ["Recruitment", "Selection", "Training"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Directing",
+                  "explanation": "Leading and motivating employees.",
+                  "example": "Motivating teams to meet deadlines.",
+                  "keyPoints": ["Motivation", "Leadership", "Communication"],
+                  "definition": null,
+                  "otherInfo": null
+                },
+                {
+                  "title": "Controlling",
+                  "explanation": "Monitoring performance and taking corrective action.",
+                  "example": "Tracking course completion rates.",
+                  "keyPoints": ["Setting standards", "Measuring performance", "Corrective action"],
+                  "definition": null,
+                  "otherInfo": null
+                }
+              ]
+            }
+          ]
+        }
       ],
       "caseStudy": [
-        {"text": "KnowledgeCompass, an EdTech startup founded by Neil and Kanishq, exemplifies effective management principles, navigating its growth from a garage operation to a significant corporation. Initially, their vision was to create a platform that revolutionizes learning through personalized, adaptive education. This clear, simple objective established a goal-oriented process from the outset. As the company expanded, so did its complexity. What began as a small team soon grew, necessitating a robust management structure.", "title": "The Evolution of KnowledgeCompass: A Management Journey"},
-        {"text": "A core challenge for KnowledgeCompass was to manage work, people, and operations synergistically. The management of work involved translating their educational vision into concrete product development cycles, content creation pipelines, and marketing campaigns. Decisions on platform features, curriculum design, and budget allocation were critical. Simultaneously, the management of people became paramount. Neil and Kanishq had to address their diverse workforce, comprising software developers, content creators, and educators, each with unique needs and behaviors, while fostering a cohesive group dynamic. Their approach ensured individual strengths were leveraged and weaknesses addressed. The management of operations focused on the continuous production process—from raw educational content acquisition to its transformation into interactive, digital learning modules and delivery to end-users. This integrated approach, linking work and people with the core service, was essential for survival and growth.", "title": "Multidimensional Management at Play"},
-        {"text": "KnowledgeCompass demonstrated management as a continuous process, with functions like planning, organizing, staffing, directing, and controlling being simultaneously performed. For instance, while planning a new module, they were also organizing resources, recruiting specialists (staffing), motivating teams (directing), and monitoring progress (controlling). This dynamic interplay ensured adaptability to the rapidly changing EdTech environment, from technological advancements to evolving student needs. Their ability to pivot and adapt, much like McDonald's adjusted its menu for the Indian market, ensured their competitive edge.", "title": "Dynamic and Continuous Operations"},
-        {"text": "Achieving organizational objectives—survival, profitability, and growth—was central to KnowledgeCompass's strategy. They ensured sustained revenue generation to cover costs, maintained profit margins for continued investment, and consistently grew by expanding their user base and product offerings. Beyond economic goals, KnowledgeCompass embraced social objectives, providing accessible education and employment opportunities in underserved communities, echoing the social responsibility efforts seen in companies like ITC’s E-Choupal. Furthermore, they addressed personnel objectives, striving to meet their employees' financial, social, and personal growth needs through competitive compensation, recognition, and development programs, thereby reconciling individual aspirations with company goals.", "title": "Achieving Multi-faceted Objectives"},
-        {"text": "The success of KnowledgeCompass is also a testament to the art and science of management. As a science, their management practices were built on a systematized body of knowledge, drawing from management theories, economics, and psychology, applied through observation and experimentation, much like scientific principles. However, as an art, Neil and Kanishq applied this knowledge with personal skill, creativity, and intuition, adapting universal principles to unique situations, much like a musician interprets basic notes to create a unique composition. Their leadership style and problem-solving approaches showcased this personalized application. While not a full-fledged profession with restricted entry or statutory professional bodies, KnowledgeCompass actively sought individuals with specific management qualifications and experience, underscoring the growing professionalization of management.", "title": "Management as Both Art and Science"},
-        {"text": "Coordination emerged as the true essence of KnowledgeCompass's management. With diverse departments—content development, engineering, marketing, sales, and support—interdependence was high. Coordination unified these disparate efforts, ensuring unity of action towards common goals. For example, marketing campaigns were synchronized with product launches, and content creation aligned with market demand. This continuous, pervasive, and deliberate function, exercised by all levels of management, prevented chaos and duplication of effort. Just as the Mumbai Dabbawallas rely on impeccable coordination, KnowledgeCompass’s ability to synchronize individual and departmental activities—from top-level strategy formulation to operational execution—was the key to achieving planned objectives with minimum conflict and maximum efficiency.", "title": "Coordination: The Binding Force"}
+        {
+          "title": "The Evolution of KnowledgeCompass: A Management Journey",
+          "scenario": "KnowledgeCompass, an EdTech startup founded by Neil and Kanishq, exemplifies effective management principles, navigating its growth from a garage operation to a significant corporation. Initially, their vision was to create a platform that revolutionizes learning through personalized, adaptive education. This clear, simple objective established a goal-oriented process from the outset. As the company expanded, so did its complexity. What began as a small team soon grew, necessitating a robust management structure.",
+          "questions": [
+            {
+              "type": "identify",
+              "question": "Identify the main management principle illustrated by the founders' initial goal and approach.",
+              "marks": 2,
+              "wordLimit": 30
+            },
+            {
+              "type": "explain",
+              "question": "Explain how the growth of KnowledgeCompass demonstrates the need for a robust management structure.",
+              "marks": 3,
+              "wordLimit": 50
+            }
+          ]
+        },
+        {
+          "title": "Multidimensional Management at Play",
+          "scenario": "A core challenge for KnowledgeCompass was to manage work, people, and operations synergistically. The management of work involved translating their educational vision into concrete product development cycles, content creation pipelines, and marketing campaigns. Decisions on platform features, curriculum design, and budget allocation were critical. Simultaneously, the management of people became paramount. Neil and Kanishq had to address their diverse workforce, comprising software developers, content creators, and educators, each with unique needs and behaviors, while fostering a cohesive group dynamic. Their approach ensured individual strengths were leveraged and weaknesses addressed. The management of operations focused on the continuous production process—from raw educational content acquisition to its transformation into interactive, digital learning modules and delivery to end-users. This integrated approach, linking work and people with the core service, was essential for survival and growth.",
+          "questions": [
+            {
+              "type": "identify",
+              "question": "Identify the three main dimensions of management highlighted in the scenario.",
+              "marks": 3,
+              "wordLimit": 30
+            },
+            {
+              "type": "explain",
+              "question": "Explain how KnowledgeCompass balanced these dimensions to achieve growth.",
+              "marks": 4,
+              "wordLimit": 75
+            }
+          ]
+        },
+        {
+          "title": "Dynamic and Continuous Operations",
+          "scenario": "KnowledgeCompass demonstrated management as a continuous process, with functions like planning, organizing, staffing, directing, and controlling being simultaneously performed. For instance, while planning a new module, they were also organizing resources, recruiting specialists (staffing), motivating teams (directing), and monitoring progress (controlling). This dynamic interplay ensured adaptability to the rapidly changing EdTech environment, from technological advancements to evolving student needs. Their ability to pivot and adapt, much like McDonald's adjusted its menu for the Indian market, ensured their competitive edge.",
+          "questions": [
+            {
+              "type": "identify",
+              "question": "Identify the five functions of management demonstrated in the scenario.",
+              "marks": 2,
+              "wordLimit": 30
+            },
+            {
+              "type": "explain",
+              "question": "Explain how adaptability contributed to KnowledgeCompass's success.",
+              "marks": 3,
+              "wordLimit": 50
+            }
+          ]
+        },
+        {
+          "title": "Achieving Multi-faceted Objectives",
+          "scenario": "Achieving organizational objectives—survival, profitability, and growth—was central to KnowledgeCompass's strategy. They ensured sustained revenue generation to cover costs, maintained profit margins for continued investment, and consistently grew by expanding their user base and product offerings. Beyond economic goals, KnowledgeCompass embraced social objectives, providing accessible education and employment opportunities in underserved communities, echoing the social responsibility efforts seen in companies like ITC’s E-Choupal. Furthermore, they addressed personnel objectives, striving to meet their employees' financial, social, and personal growth needs through competitive compensation, recognition, and development programs, thereby reconciling individual aspirations with company goals.",
+          "questions": [
+            {
+              "type": "identify",
+              "question": "Identify the three types of objectives KnowledgeCompass aimed to achieve.",
+              "marks": 3,
+              "wordLimit": 30
+            },
+            {
+              "type": "explain",
+              "question": "Explain how KnowledgeCompass balanced economic, social, and personnel objectives.",
+              "marks": 4,
+              "wordLimit": 75
+            }
+          ]
+        },
+        {
+          "title": "Management as Both Art and Science",
+          "scenario": "The success of KnowledgeCompass is also a testament to the art and science of management. As a science, their management practices were built on a systematized body of knowledge, drawing from management theories, economics, and psychology, applied through observation and experimentation, much like scientific principles. However, as an art, Neil and Kanishq applied this knowledge with personal skill, creativity, and intuition, adapting universal principles to unique situations, much like a musician interprets basic notes to create a unique composition. Their leadership style and problem-solving approaches showcased this personalized application. While not a full-fledged profession with restricted entry or statutory professional bodies, KnowledgeCompass actively sought individuals with specific management qualifications and experience, underscoring the growing professionalization of management.",
+          "questions": [
+            {
+              "type": "differentiate",
+              "question": "Differentiate between management as an art and as a science, as illustrated in the scenario.",
+              "marks": 4,
+              "wordLimit": 75
+            }
+          ]
+        },
+        {
+          "title": "Coordination: The Binding Force",
+          "scenario": "Coordination emerged as the true essence of KnowledgeCompass's management. With diverse departments—content development, engineering, marketing, sales, and support—interdependence was high. Coordination unified these disparate efforts, ensuring unity of action towards common goals. For example, marketing campaigns were synchronized with product launches, and content creation aligned with market demand. This continuous, pervasive, and deliberate function, exercised by all levels of management, prevented chaos and duplication of effort. Just as the Mumbai Dabbawallas rely on impeccable coordination, KnowledgeCompass’s ability to synchronize individual and departmental activities—from top-level strategy formulation to operational execution—was the key to achieving planned objectives with minimum conflict and maximum efficiency.",
+          "questions": [
+            {
+              "type": "explain",
+              "question": "Explain the importance of coordination in achieving organizational goals, as seen in the scenario.",
+              "marks": 3,
+              "wordLimit": 50
+            }
+          ]
+        }
       ],
       "flashcards": [
         {"back": "The process of getting things done with the aim of achieving organizational goals effectively and efficiently.", "front": "What is Management?"},

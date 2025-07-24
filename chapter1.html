@@ -7,8 +7,64 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📘</text></svg>">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        /* Flashcard flip CSS */
+        .flashcard-container {
+            perspective: 1000px;
+            width: 24rem; /* Equivalent to w-96 */
+            height: 11rem; /* Equivalent to h-44 */
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Tailwind shadow-lg */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            border: 1px solid #fcd34d; /* Tailwind border-yellow-400 */
+            background-color: #fffbeb; /* Tailwind bg-yellow-100 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            cursor: pointer;
+        }
+        .flashcard-container.is-flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .flashcard-front {
+            background-color: #fffbeb; /* Tailwind bg-yellow-100 */
+            color: #333;
+            border-radius: 0.5rem;
+        }
+        .flashcard-back {
+            background-color: #dbeafe; /* Tailwind bg-blue-100 */
+            color: #333;
+            transform: rotateY(180deg);
+            border-radius: 0.5rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
+    <!-- Debug/Error Area -->
+    <div id="global-debug-area" class="mb-4 p-2 border rounded text-sm" style="display:none; background:#fffbe6; color:#333;">
+        <div id="debug-messages" class="mb-2 max-h-40 overflow-y-auto"></div>
+        <button id="clearDebugBtn" class="px-2 py-1 bg-gray-200 text-gray-800 rounded text-xs hover:bg-gray-300">Clear Debug</button>
+    </div>
     <header class="bg-blue-900 text-white py-6 px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
@@ -24,12 +80,12 @@
                 </a>
                 <a href="chapter1.html" class="text-white font-semibold hover:underline">Chapter 1</a>
                 <a href="chapter2.html" class="text-white font-semibold hover:underline">Chapter 2</a>
-                <a href="#" onclick="openCompanyModal();return false;" class="text-white font-semibold hover:underline">Review KnowledgeCompass</a>
-                <a href="#" onclick="openSearchModal();return false;" class="text-white font-semibold hover:underline">Search (with audio)</a>
+                <a href="#" id="reviewKnowledgeCompassBtn" class="text-white font-semibold hover:underline">Review KnowledgeCompass</a>
+                <a href="#" id="searchWithAudioBtn" class="text-white font-semibold hover:underline">Search (with audio)</a>
                 <div class="flex items-center gap-2">
                     <span class="text-white font-semibold">Progress</span>
                     <div class="relative w-10 h-10">
-                        <svg viewBox="0 0 40 40" class="w-10 h-10">
+                        <svg viewBox="0 0 40 40" class="w-10 h-10" role="img" aria-label="Chapter progress 60 percent">
                             <circle cx="20" cy="20" r="18" fill="none" stroke="#e5e7eb" stroke-width="4" />
                             <circle cx="20" cy="20" r="18" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="45" stroke-linecap="round" />
                         </svg>
@@ -40,43 +96,44 @@
         </div>
     </header>
     <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
+        <!-- Global Debug/Error Area -->
+        <div id="global-debug-area" class="mb-4 p-2 border rounded text-sm" style="display:none;">
+            <div id="debug-messages" class="mb-2 max-h-40 overflow-y-auto"></div>
+            <button id="clearDebugBtn" class="px-2 py-1 bg-gray-200 text-gray-800 rounded text-xs hover:bg-gray-300">Clear Debug</button>
+        </div>
+
         <!-- Dramatic Story Section -->
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Dramatic Story</h2>
             <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
                 <div id="story-content" class="mb-4"></div>
-                <div class="flex gap-4">
-                    <button onclick="playStory()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
-                    <button onclick="pauseStory()" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
-                    <button onclick="stopStory()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
-                </div>
+                <div class="flex gap-4"></div>
             </div>
         </section>
-        <!-- Case Study Section -->
+
+        <!-- Mindmap Section -->
         <section class="mb-10">
-            <!-- Case Study section will be moved below -->
+            <h2 class="text-2xl font-bold mb-4">Mindmap (Drilldown)</h2>
+            <div id="mindmap-content" class="bg-yellow-50 rounded-lg p-4 mb-4 shadow"></div>
         </section>
-        <!-- Drilldown Mindmap Section -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-4">Drilldown Mindmap</h2>
-            <div id="mindmap" class="space-y-2"></div>
-        </section>
+
         <!-- Flippable Flashcards Section -->
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Flippable Flashcards</h2>
             <div class="flex items-center mb-2">
                 <span id="flashcard-count" class="text-gray-600 text-sm"></span>
             </div>
-            <div id="flashcards" class="flex flex-wrap gap-4"></div>
+            <div id="flashcards" class="flex flex-wrap gap-4 justify-center"></div>
             <div class="mt-4 flex gap-2">
-                <button onclick="prevFlashcard()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Previous</button>
-                <button onclick="nextFlashcard()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Next</button>
+                <button id="prevFlashcardBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Previous</button>
+                <button id="nextFlashcardBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Next</button>
             </div>
         </section>
         <!-- Exercises Section -->
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Exercises</h2>
             <div id="exercises" class="bg-indigo-50 rounded-lg p-4 shadow space-y-6"></div>
+            <button id="checkAnswersBtn" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
         </section>
         <!-- Long Answer Questions Section -->
         <section class="mb-10">
@@ -84,21 +141,21 @@
             <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
                 <div id="long-answer-content" class="mb-4"></div>
                 <div class="flex gap-4">
-                    <button onclick="playLongAnswer()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
-                    <button onclick="pauseLongAnswer()" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
-                    <button onclick="stopLongAnswer()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                    <button id="playLongAnswerBtn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                    <button id="pauseLongAnswerBtn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button id="stopLongAnswerBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
                 </div>
             </div>
         </section>
-        <!-- Case Study Section (now correctly placed after Exercises) -->
+        <!-- Case Study Section -->
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Case Study</h2>
             <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
                 <div id="case-content" class="mb-4"></div>
                 <div class="flex gap-4">
-                    <button onclick="playCaseStudy()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
-                    <button onclick="pauseCaseStudy()" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
-                    <button onclick="stopCaseStudy()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                    <button id="playCaseStudyBtn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                    <button id="pauseCaseStudyBtn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button id="stopCaseStudyBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
                 </div>
             </div>
         </section>
@@ -107,242 +164,521 @@
         &copy; 2025 GENZ Study Business | For Neil's Educational Needs
     </footer>
     <script>
-    // --- Dynamic Content Loader for Chapter 1 ---
+    // --- Global Variable Declarations ---
     let chapterData = null;
-    let storyIndex = 0;
-    let storySynth = window.speechSynthesis;
-    let storyPaused = false;
-    let currentUtterance = null;
-    let flashIndex = 0;
     let flashcards = [];
+    let flashIndex = 0;
 
-    // --- Long Answer Questions Render & Read-Aloud ---
+    let storySynth = window.speechSynthesis;
+    let storyUtterances = [];
+    let storyIndex = 0;
+    let storyPaused = false;
+    let currentStoryUtterance = null;
+
+    let longAnswerSynth = window.speechSynthesis;
     let longAnswerUtterances = [];
     let longAnswerIndex = 0;
     let longAnswerPaused = false;
     let currentLongAnswerUtterance = null;
 
+    let caseStudySynth = window.speechSynthesis;
+    let caseStudyUtterances = [];
+    let caseStudyIndex = 0;
+    let caseStudyPaused = false;
+    let currentCaseStudyUtterance = null;
 
-    // --- Dramatic Story Render & Read-Aloud ---
-    function renderStory() {
-        const storyDiv = document.getElementById('story-content');
-        if (!chapterData || !chapterData.story) return;
-        storyDiv.innerHTML = chapterData.story.map(s => `<strong>${s.title}:</strong> ${s.text}`).join('<br><br>');
-        // Prepare utterances for read-aloud
-        storyUtterances = chapterData.story.map(s => ({ text: `${s.title}: ${s.text}`, voice: 'narrator' }));
-    }
+let availableVoices = [];
+let voiceNeil = null, voiceKanishq = null, voiceNarrator = null, voiceSystem = null;
 
-    // --- Mindmap Render ---
-    function renderMindmap() {
-        // ...existing code...
-    }
-
-    // --- Flashcard Render ---
-    function renderFlashcard() {
-        // ...existing code...
-    }
-
-    // --- Exercises Render ---
-    function renderExercises() {
-        // ...existing code...
-    }
-
-    // --- Long Answer Questions Render & Read-Aloud ---
-    function renderLongAnswer() {
-        // ...existing code...
-    }
-
-    // --- Case Study Render ---
-    function renderCaseStudy() {
-        // ...existing code...
-    }
-
-    fetch('content.json')
-        .then(res => res.json())
-        .then(data => {
-            chapterData = data.chapters.find(ch => ch.id === 'chapter1');
-            renderStory();
-            renderMindmap();
-            flashcards = chapterData.flashcards;
-            renderFlashcard();
-            renderExercises();
-            renderLongAnswer();
-            renderCaseStudy();
-        });
-
-    function renderLongAnswer() {
-        const laDiv = document.getElementById('long-answer-content');
-        if (!chapterData || !chapterData.longAnswerQuestions) {
-            laDiv.innerHTML = '<em>No long answer questions available.</em>';
-            return;
+    // --- Debug/Error Area ---
+    function showGlobalDebug(msg, isError) {
+        const area = document.getElementById('global-debug-area');
+        const messagesDiv = document.getElementById('debug-messages');
+        if (area && messagesDiv) {
+            area.style.display = 'block';
+            const p = document.createElement('p');
+            p.textContent = msg;
+            p.style.color = isError ? 'red' : 'black';
+            messagesDiv.appendChild(p);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
         }
-        laDiv.innerHTML = chapterData.longAnswerQuestions.map((s, idx) => {
-            let answerBtns = '';
-            let answerBlocks = '';
-            const answerTypes = [
-                { key: 'answer50To75Words', label: 'Show 50-75 Words Answer' },
-                { key: 'answer150Words', label: 'Show 150 Words Answer' },
-                { key: 'answer200Words', label: 'Show 200 Words Answer' }
-            ];
-            answerTypes.forEach(type => {
-                if (s[type.key]) {
-                    const btnId = `show-${type.key}-${idx}`;
-                    const ansId = `ans-${type.key}-${idx}`;
-                    answerBtns += `<button id="${btnId}" class="ml-2 mb-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs" onclick="document.getElementById('${ansId}').classList.toggle('hidden')">${type.label}</button>`;
-                    answerBlocks += `<div id="${ansId}" class="hidden bg-blue-50 border border-blue-200 rounded p-2 mt-1 text-sm">${s[type.key]}</div>`;
+    }
+
+    function clearGlobalDebug() {
+        const messagesDiv = document.getElementById('debug-messages');
+        if (messagesDiv) {
+            messagesDiv.innerHTML = '';
+            document.getElementById('global-debug-area').style.display = 'none';
+        }
+    }
+
+    // --- Web Speech API Voice Management ---
+function populateVoiceList() {
+    availableVoices = window.speechSynthesis.getVoices();
+    // Helper functions
+    const isMale = v => (v.gender === 'male') || (v.name && v.name.toLowerCase().includes('male')) || (v.name && /dan|john|mike|paul|david|tom|neil|kanishq|alex|fred|george|james|peter|steve|matt|mark|richard|robert|sam|will|ben|chris|ed|ian|jack|joe|kevin|luke|nick|oliver|ryan|scott|tim|tony|adam|brian|charlie|daniel|eric|frank|greg|harry|jason|jeff|josh|justin|liam|logan|mason|nathan|noah|owen|patrick|ray|ron|sean|shawn|simon|stuart|todd|tyler|zac|zach/.test(v.name.toLowerCase()));
+    const isFemale = v => (v.gender === 'female') || (v.name && v.name.toLowerCase().includes('female')) || (v.name && /amy|emma|olivia|ava|isabella|sophia|mia|charlotte|amelia|ella|abigail|emily|harper|lily|madison|chloe|grace|zoe|hannah|sarah|anna|jessica|ashley|elizabeth|melissa|nicole|rachel|samantha|stephanie|victoria|alexis|alyssa|brianna|kayla|lauren|megan|natasha|susan|tina|wendy|yvonne|zoey/.test(v.name.toLowerCase()));
+    const isGB = v => v.lang === 'en-GB';
+    const isUS = v => v.lang === 'en-US';
+    const isEnglish = v => v.lang && v.lang.startsWith('en');
+
+    // Kanishq
+    voiceKanishq = availableVoices.find(v => isGB(v) && isMale(v)) ||
+                   availableVoices.find(v => isEnglish(v) && !isUS(v) && isMale(v)) ||
+                   availableVoices.find(v => isMale(v)) ||
+                   availableVoices.find(v => isEnglish(v)) ||
+                   availableVoices[0];
+
+    // Neil
+    voiceNeil = availableVoices.find(v => isUS(v) && isMale(v) && v !== voiceKanishq) ||
+                availableVoices.find(v => isMale(v) && v !== voiceKanishq) ||
+                voiceKanishq;
+
+    // Narrator
+    voiceNarrator = availableVoices.find(v => isEnglish(v) && isFemale(v)) ||
+                    availableVoices.find(v => v !== voiceNeil && v !== voiceKanishq) ||
+                    voiceKanishq;
+
+    // System
+    voiceSystem = voiceNeil;
+
+    showGlobalDebug(`Voices selected: Neil=${voiceNeil ? voiceNeil.name : 'none'}, Kanishq=${voiceKanishq ? voiceKanishq.name : 'none'}, Narrator=${voiceNarrator ? voiceNarrator.name : 'none'}`, false);
+}
+
+populateVoiceList();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+    // --- Fetch content.json and render all sections ---
+    document.addEventListener('DOMContentLoaded', function() {
+        showGlobalDebug('Fetching content.json...', false);
+        fetch('content.json')
+            .then(function(res) {
+                if (!res.ok) {
+                    showGlobalDebug('ERROR: Failed to fetch content.json. Status: ' + res.status, true);
+                    throw new Error('Failed to fetch content.json');
                 }
+                showGlobalDebug('content.json fetched successfully.', false);
+                return res.json();
+            })
+            .then(function(data) {
+                showGlobalDebug('Parsing content.json and searching for chapter1...', false);
+                if (!data.chapters || !Array.isArray(data.chapters)) {
+                    showGlobalDebug('ERROR: content.json does not contain a "chapters" array.', true);
+                    return;
+                }
+                chapterData = data.chapters.find(function(ch) { return ch.id === 'chapter1'; });
+                if (!chapterData) {
+                    showGlobalDebug('ERROR: chapter1 not found in content.json.', true);
+                    return;
+                }
+                showGlobalDebug('chapter1 found. Rendering sections...', false);
+                try {
+                    renderStory();
+                    renderMindmap();
+                    flashcards = chapterData.flashcards || [];
+                    renderFlashcard();
+                    renderExercises();
+                    renderLongAnswer();
+                    renderCaseStudy();
+                } catch (e) {
+                    showGlobalDebug('ERROR: Exception during rendering: ' + e.message, true);
+                    console.error(e);
+                }
+            })
+            .catch(function(err) {
+                showGlobalDebug('ERROR: Exception during fetch or render: ' + err.message, true);
+                console.error(err);
             });
-            return `<div class="mb-6"><strong>${s.title}:</strong> ${s.text}<br>${answerBtns}${answerBlocks}</div>`;
-        }).join('');
-        longAnswerUtterances = chapterData.longAnswerQuestions.map(s => ({ text: `${s.title}: ${s.text}`, voice: 'narrator' }));
-    // removed extra bracket
-    function playLongAnswer() {
-        if (longAnswerPaused && currentLongAnswerUtterance) {
-            storySynth.resume();
-            longAnswerPaused = false;
-            return;
-        }
-        stopLongAnswer();
-        longAnswerIndex = 0;
-        speakLongAnswerNext();
-    }
-    function speakLongAnswerNext() {
-        if (longAnswerIndex >= longAnswerUtterances.length) return;
-        let u = new SpeechSynthesisUtterance(longAnswerUtterances[longAnswerIndex].text);
-        u.voice = storySynth.getVoices().find(v => v.name.toLowerCase().includes('english'));
-        u.onend = () => { longAnswerIndex++; speakLongAnswerNext(); };
-        currentLongAnswerUtterance = u;
-        storySynth.speak(u);
-    }
-    function pauseLongAnswer() {
-        storySynth.pause();
-        longAnswerPaused = true;
-    }
-    function stopLongAnswer() {
-        storySynth.cancel();
-        longAnswerPaused = false;
-    }
 
-    // --- Dramatic Story Render & Read-Aloud ---
+        // --- Event Listeners ---
+        document.getElementById('playStoryBtn').addEventListener('click', playStory);
+        document.getElementById('pauseStoryBtn').addEventListener('click', pauseStory);
+        document.getElementById('stopStoryBtn').addEventListener('click', stopStory);
+
+        document.getElementById('prevFlashcardBtn').addEventListener('click', prevFlashcard);
+        document.getElementById('nextFlashcardBtn').addEventListener('click', nextFlashcard);
+
+        document.getElementById('checkAnswersBtn').addEventListener('click', checkAnswers);
+
+        document.getElementById('playLongAnswerBtn').addEventListener('click', playLongAnswer);
+        document.getElementById('pauseLongAnswerBtn').addEventListener('click', pauseLongAnswer);
+        document.getElementById('stopLongAnswerBtn').addEventListener('click', stopLongAnswer);
+
+        document.getElementById('playCaseStudyBtn').addEventListener('click', playCaseStudy);
+        document.getElementById('pauseCaseStudyBtn').addEventListener('click', pauseCaseStudy);
+        document.getElementById('stopCaseStudyBtn').addEventListener('click', stopCaseStudy);
+
+        document.getElementById('reviewKnowledgeCompassBtn').addEventListener('click', openCompanyModal);
+        document.getElementById('searchWithAudioBtn').addEventListener('click', openSearchModal);
+        document.getElementById('clearDebugBtn').addEventListener('click', clearGlobalDebug);
+    });
+
+    // --- Story Section ---
     function renderStory() {
         const storyDiv = document.getElementById('story-content');
-        if (!chapterData || !chapterData.story) return;
-        storyDiv.innerHTML = chapterData.story.map(s => `<strong>${s.title}:</strong> ${s.text}`).join('<br><br>');
-        // Prepare utterances for read-aloud
-        storyUtterances = chapterData.story.map(s => ({ text: `${s.title}: ${s.text}`, voice: 'narrator' }));
-    }
-    let storyUtterances = [];
-    function playStory() {
-        if (storyPaused && currentUtterance) {
-            storySynth.resume();
-            storyPaused = false;
+        if (!chapterData || !chapterData.story) {
+            storyDiv.innerHTML = '<em>No dramatic story available.</em>';
             return;
         }
-        stopStory();
-        storyIndex = 0;
-        speakNext();
-    }
-    function speakNext() {
-        if (storyIndex >= storyUtterances.length) return;
-        let u = new SpeechSynthesisUtterance(storyUtterances[storyIndex].text);
-        u.voice = storySynth.getVoices().find(v => v.name.toLowerCase().includes('english'));
-        u.onend = () => { storyIndex++; speakNext(); };
-        currentUtterance = u;
-        storySynth.speak(u);
-    }
-    function pauseStory() {
-        storySynth.pause();
-        storyPaused = true;
-    }
-    function stopStory() {
-        storySynth.cancel();
-        storyPaused = false;
-    }
+        storyDiv.innerHTML = '';
+        chapterData.story.forEach((s, idx) => {
+            const container = document.createElement('div');
+            container.className = 'mb-2';
+            const header = document.createElement('button');
+            header.className = 'w-full text-left font-semibold py-2 px-3 rounded bg-blue-100 hover:bg-blue-200 border border-blue-300';
+            header.textContent = s.title || 'Untitled';
+            header.setAttribute('aria-expanded', 'false');
+            header.setAttribute('aria-controls', `story-${idx}-body`);
+            header.onclick = function() {
+                body.classList.toggle('hidden');
+                header.setAttribute('aria-expanded', body.classList.contains('hidden') ? 'false' : 'true');
+            };
+            container.appendChild(header);
 
-    // --- Case Study Render & Read-Aloud ---
-    let caseUtterances = [];
-    let caseIndex = 0;
-    let casePaused = false;
-    let currentCaseUtterance = null;
-    function renderCaseStudy() {
-        const caseDiv = document.getElementById('case-content');
-        if (!chapterData || !chapterData.caseStudy) {
-            caseDiv.innerHTML = '<em>No case studies available.</em>';
-            return;
-        }
-        caseDiv.innerHTML = chapterData.caseStudy.map(s => `<strong>${s.title}:</strong> ${s.text}`).join('<br><br>');
-        caseUtterances = chapterData.caseStudy.map(s => ({ text: `${s.title}: ${s.text}`, voice: 'narrator' }));
-    }
-    function playCaseStudy() {
-        if (casePaused && currentCaseUtterance) {
-            storySynth.resume();
-            casePaused = false;
-            return;
-        }
-        stopCaseStudy();
-        caseIndex = 0;
-        speakCaseNext();
-    }
-    function speakCaseNext() {
-        if (caseIndex >= caseUtterances.length) return;
-        let u = new SpeechSynthesisUtterance(caseUtterances[caseIndex].text);
-        u.voice = storySynth.getVoices().find(v => v.name.toLowerCase().includes('english'));
-        u.onend = () => { caseIndex++; speakCaseNext(); };
-        currentCaseUtterance = u;
-        storySynth.speak(u);
-    }
-    function pauseCaseStudy() {
-        storySynth.pause();
-        casePaused = true;
-    }
-    function stopCaseStudy() {
-        storySynth.cancel();
-        casePaused = false;
-    }
-
-    // --- Mindmap Render ---
-    function renderMindmap() {
-        const mindmapDiv = document.getElementById('mindmap');
-        mindmapDiv.innerHTML = '';
-        if (!chapterData || !chapterData.mindmap) return;
-        chapterData.mindmap.forEach(main => {
-            const details = document.createElement('details');
-            details.className = 'bg-green-50 rounded-lg p-4 shadow';
-            details.innerHTML = `<summary class="font-semibold cursor-pointer">${main.title}</summary>` +
-                main.points.map(point => `<div class="ml-4 mt-2 text-gray-700">• ${point}</div>`).join('');
-            mindmapDiv.appendChild(details);
+            const body = document.createElement('div');
+            body.className = 'hidden bg-white border border-blue-200 rounded p-3 mt-1';
+            body.id = `story-${idx}-body`;
+            body.innerHTML = `<div>${s.text}</div>`;
+            container.appendChild(body);
+            storyDiv.appendChild(container);
         });
+        // Assign speakers based on story content (example: alternate or use metadata if available)
+        storyUtterances = chapterData.story.map((s, idx) => {
+            // Simple logic: alternate speakers, or use s.speaker if present
+            let speaker = 'Narrator';
+            if (s.speaker) {
+                speaker = s.speaker;
+            } else if (idx % 2 === 0) {
+                speaker = 'Neil';
+            } else {
+                speaker = 'Kanishq';
+            }
+            const utterance = new SpeechSynthesisUtterance(`${s.title}: ${s.text}`);
+            if (speaker === 'Neil') {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1.2;
+                utterance.rate = 1;
+            } else if (speaker === 'Kanishq') {
+                utterance.voice = voiceKanishq;
+                utterance.pitch = 1.3;
+                utterance.rate = 1.05;
+            } else if (speaker === 'Narrator') {
+                utterance.voice = voiceNarrator;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            } else if (speaker === 'System') {
+                utterance.voice = voiceSystem;
+                utterance.pitch = 1.1;
+                utterance.rate = 0.95;
+            } else {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            }
+            utterance.onend = () => {
+                storyIndex++;
+                if (storyIndex < storyUtterances.length && !storyPaused) {
+                    currentStoryUtterance = storyUtterances[storyIndex];
+                    storySynth.speak(currentStoryUtterance);
+                } else if (storyIndex >= storyUtterances.length) {
+                    stopStory(); // Story finished
+                }
+            };
+            utterance.onerror = (event) => {
+                showGlobalDebug(`Speech synthesis error for story: ${event.error}`, true);
+            };
+            return utterance;
+        });
+    }
+
+    function playStory() {
+        if (!storySynth.speaking && storyIndex < storyUtterances.length) {
+            storyPaused = false;
+            currentStoryUtterance = storyUtterances[storyIndex];
+            storySynth.speak(currentStoryUtterance);
+        } else if (storySynth.paused && currentStoryUtterance) {
+            storyPaused = false;
+            storySynth.resume();
+        }
+    }
+
+    function pauseStory() {
+        if (storySynth.speaking && !storySynth.paused) {
+            storyPaused = true;
+            storySynth.pause();
+        }
+    }
+
+    function stopStory() {
+        if (storySynth.speaking) {
+            storySynth.cancel();
+        }
+        storyIndex = 0;
+        storyPaused = false;
+        currentStoryUtterance = null;
+    }
+
+    // --- Mindmap Drilldown Render ---
+    function renderMindmap() {
+        const mindmapDiv = document.getElementById('mindmap-content');
+        if (!chapterData || !chapterData.mindmap || !chapterData.mindmap.length) {
+            mindmapDiv.innerHTML = '<em>No mindmap available.</em>';
+            return;
+        }
+        mindmapDiv.innerHTML = '';
+        chapterData.mindmap.forEach((root, idx) => {
+            mindmapDiv.appendChild(createMindmapNode(root, 0, `root-${idx}`));
+        });
+    }
+
+    function createMindmapNode(node, level, idPrefix) {
+        const container = document.createElement('div');
+        container.className = `mb-2 ml-${level * 4}`;
+        const header = document.createElement('button');
+        header.className = 'w-full text-left font-semibold py-2 px-3 rounded bg-yellow-100 hover:bg-yellow-200 border border-yellow-300';
+        header.textContent = node.title || 'Untitled';
+        header.setAttribute('aria-expanded', 'false');
+        header.setAttribute('aria-controls', `${idPrefix}-body`);
+        header.onclick = function() {
+            body.classList.toggle('hidden');
+            header.setAttribute('aria-expanded', body.classList.contains('hidden') ? 'false' : 'true');
+        };
+        container.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'hidden bg-white border border-yellow-200 rounded p-3 mt-1';
+        body.id = `${idPrefix}-body`;
+
+        // Details for this node
+        if (node.definition) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Definition:</strong> ${node.definition}</div>`;
+        }
+        if (node.explanation) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Explanation:</strong> ${node.explanation}</div>`;
+        }
+        if (node.example) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Example:</strong> ${node.example}</div>`;
+        }
+        if (node.keyPoints && node.keyPoints.length) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Key Points:</strong><ul class=\"list-disc ml-6\">${node.keyPoints.map(kp => `<li>${kp}</li>`).join('')}</ul></div>`;
+        }
+        if (node.otherInfo) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Other Info:</strong> ${node.otherInfo}</div>`;
+        }
+
+        // Drilldown for sub-points
+        if (node.points && node.points.length) {
+            body.innerHTML += `<div class=\"mt-2\"><strong>Sub-Points:</strong></div>`;
+            node.points.forEach((subNode, subIdx) => {
+                body.appendChild(createMindmapNode(subNode, level + 1, `${idPrefix}-sub${subIdx}`));
+            });
+        }
+        container.appendChild(body);
+        return container;
     }
 
     // --- Flashcards Render ---
     function renderFlashcard() {
         const fcDiv = document.getElementById('flashcards');
         const countSpan = document.getElementById('flashcard-count');
+
         fcDiv.innerHTML = '';
         if (!flashcards.length) {
-            if (countSpan) countSpan.textContent = '';
+            if (countSpan) countSpan.textContent = 'No flashcards available.';
             return;
         }
-        // Show count like 1/12
         if (countSpan) countSpan.textContent = `${flashIndex + 1} / ${flashcards.length}`;
-        const card = document.createElement('div');
-        card.className = 'w-96 h-44 bg-yellow-100 border border-yellow-400 rounded-lg flex items-center justify-center text-lg font-semibold cursor-pointer transition-transform transform hover:rotate-y-180 shadow';
-        card.innerHTML = `<span>${flashcards[flashIndex].front}</span>`;
-        card.onclick = function() {
-            card.innerHTML = `<span>${flashcards[flashIndex].back}</span>`;
-        };
-        fcDiv.appendChild(card);
+        const cardData = flashcards[flashIndex];
+        // Flippable card
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'flashcard-container';
+        const cardInner = document.createElement('div');
+        cardInner.className = 'flashcard-inner';
+        const cardFront = document.createElement('div');
+        cardFront.className = 'flashcard-face flashcard-front';
+        cardFront.innerHTML = `<span>${cardData.front}</span>`;
+        const cardBack = document.createElement('div');
+        cardBack.className = 'flashcard-face flashcard-back';
+        cardBack.innerHTML = `<span>${cardData.back}</span>`;
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardContainer.appendChild(cardInner);
+        cardContainer.addEventListener('click', function() {
+            this.classList.toggle('is-flipped');
+        });
+        fcDiv.appendChild(cardContainer);
     }
-    window.prevFlashcard = function() {
+
+    function prevFlashcard() {
         flashIndex = (flashIndex - 1 + flashcards.length) % flashcards.length;
         renderFlashcard();
     }
-    window.nextFlashcard = function() {
+
+    function nextFlashcard() {
         flashIndex = (flashIndex + 1) % flashcards.length;
         renderFlashcard();
     }
 
     // --- Exercises Render ---
+    function renderExercises() {
+        const exercisesDiv = document.getElementById('exercises');
+        if (!chapterData || !chapterData.exercises) {
+            exercisesDiv.innerHTML = '<em>No exercises available.</em>';
+            return;
+        }
+        let html = '';
+        // MCQ
+        if (chapterData.exercises.mcq && chapterData.exercises.mcq.length > 0) {
+            html += '<h3 class="text-xl font-semibold mb-3">Multiple Choice Questions</h3>';
+            chapterData.exercises.mcq.forEach((q, i) => {
+                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="space-y-1">`;
+                q.options.forEach((option, optIdx) => {
+                    html += `<label class="block">
+                                <input type="radio" name="mcq${i}" value="${optIdx}" class="mr-2">
+                                ${option}
+                            </label>`;
+                });
+                html += `   </div>
+                            <div id="mcq-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>`;
+            });
+        }
+        // True/False
+        if (chapterData.exercises.trueFalse && chapterData.exercises.trueFalse.length > 0) {
+            html += '<h3 class="text-xl font-semibold mb-3 mt-6">True/False Questions</h3>';
+            chapterData.exercises.trueFalse.forEach((q, i) => {
+                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="tf${i}" value="true" class="mr-1"> True
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="tf${i}" value="false" class="mr-1"> False
+                                </label>
+                            </div>
+                            <div id="tf-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>`;
+            });
+        }
+        // One Word
+        if (chapterData.exercises.oneWord && chapterData.exercises.oneWord.length > 0) {
+            html += '<h3 class="text-xl font-semibold mb-3 mt-6">One Word Answers</h3>';
+            chapterData.exercises.oneWord.forEach((q, i) => {
+                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <input type="text" id="oneword${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your answer here">
+                            <div id="oneword-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>`;
+            });
+        }
+        // Short Answer 1
+        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
+            html += '<h3 class="text-xl font-semibold mb-3 mt-6">Short Answer Questions (Type 1)</h3>';
+            chapterData.exercises.shortAnswer1.forEach((q, i) => {
+                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <textarea id="short1${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
+                        </div>`;
+            });
+        }
+        // Short Answer 2
+        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
+            html += '<h3 class="text-xl font-semibold mb-3 mt-6">Short Answer Questions (Type 2)</h3>';
+            chapterData.exercises.shortAnswer2.forEach((q, i) => {
+                html += `<div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <textarea id="short2${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
+                        </div>`;
+            });
+        }
+        exercisesDiv.innerHTML = html;
+    }
+
+    function checkAnswers() {
+        // MCQ validation
+        if (chapterData.exercises.mcq) {
+            chapterData.exercises.mcq.forEach((q, i) => {
+                const selected = document.querySelector(`input[name='mcq${i}']:checked`);
+                const feedback = document.getElementById(`mcq-feedback-${i}`);
+                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+
+                if (!selected) {
+                    feedback.textContent = 'Please select an option.';
+                    feedback.classList.add('text-red-600');
+                } else {
+                    const selectedValue = parseInt(selected.value);
+                    if (q.correctAnswerIndex !== undefined && selectedValue === q.correctAnswerIndex) {
+                        feedback.textContent = 'Correct!';
+                        feedback.classList.add('text-green-700');
+                    } else if (q.correctAnswerIndex !== undefined) {
+                        feedback.textContent = `Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.`;
+                        feedback.classList.add('text-red-600');
+                    } else {
+                        feedback.textContent = 'Answer submitted (no correctness check available).';
+                        feedback.classList.add('text-gray-600'); // Neutral feedback
+                    }
+                }
+            });
+        }
+        // True/False validation
+        if (chapterData.exercises.trueFalse) {
+            chapterData.exercises.trueFalse.forEach((q, i) => {
+                const selected = document.querySelector(`input[name='tf${i}']:checked`);
+                const feedback = document.getElementById(`tf-feedback-${i}`);
+                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+
+                if (!selected) {
+                    feedback.textContent = 'Please select True or False.';
+                    feedback.classList.add('text-red-600');
+                } else {
+                    const selectedValue = selected.value === 'true'; // Convert to boolean
+                    if (q.correctAnswer !== undefined && selectedValue === q.correctAnswer) {
+                        feedback.textContent = 'Correct!';
+                        feedback.classList.add('text-green-700');
+                    } else if (q.correctAnswer !== undefined) {
+                        feedback.textContent = `Incorrect. The correct answer was: ${q.correctAnswer}.`;
+                        feedback.classList.add('text-red-600');
+                    } else {
+                        feedback.textContent = 'Answer submitted (no correctness check available).';
+                        feedback.classList.add('text-gray-600'); // Neutral feedback
+                    }
+                }
+            });
+        }
+        // One Word validation
+        if (chapterData.exercises.oneWord) {
+            chapterData.exercises.oneWord.forEach((q, i) => {
+                const input = document.getElementById(`oneword${i}`);
+                const feedback = document.getElementById(`oneword-feedback-${i}`);
+                feedback.classList.remove('hidden', 'text-green-700', 'text-red-600', 'text-gray-600'); // Reset classes
+
+                const userAnswer = input.value.trim();
+                if (!userAnswer) {
+                    feedback.textContent = 'Please enter your answer.';
+                    feedback.classList.add('text-red-600');
+                } else {
+                    // Case-insensitive comparison for one-word answers
+                    if (q.correctAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
+                        feedback.textContent = 'Correct!';
+                        feedback.classList.add('text-green-700');
+                    } else if (q.correctAnswer) {
+                        feedback.textContent = `Incorrect. The correct answer was: "${q.correctAnswer}".`;
+                        feedback.classList.add('text-red-600');
+                    } else {
+                        feedback.textContent = 'Answer submitted (no correctness check available).';
+                        feedback.classList.add('text-gray-600'); // Neutral feedback
+                    }
+                }
+            });
+        }
+    }
+
+    // --- Long Answer Questions Render and TTS ---
     function renderLongAnswer() {
         const laDiv = document.getElementById('long-answer-content');
         if (!chapterData || !chapterData.longAnswerQuestions) {
@@ -367,76 +703,201 @@
             });
             return `<div class=\"mb-6\"><strong>${s.title}:</strong> ${s.text}<br>${answerBtns}${answerBlocks}</div>`;
         }).join('');
+
         // For TTS, include the question and all available answers
-        longAnswerUtterances = chapterData.longAnswerQuestions.map(s => {
+        longAnswerUtterances = chapterData.longAnswerQuestions.map((s, idx) => {
             let answerText = '';
             if (s.answer50To75Words) answerText += ' 50 to 75 words answer: ' + s.answer50To75Words + '. ';
             if (s.answer150Words) answerText += ' 150 words answer: ' + s.answer150Words + '. ';
             if (s.answer200Words) answerText += ' 200 words answer: ' + s.answer200Words + '. ';
-            return { text: `${s.title}: ${s.text}. ${answerText}`, voice: 'narrator' };
+            // Speaker logic: alternate Neil/Kanishq, or use s.speaker if present
+            let speaker = 'Narrator';
+            if (s.speaker) {
+                speaker = s.speaker;
+            } else if (idx % 2 === 0) {
+                speaker = 'Neil';
+            } else {
+                speaker = 'Kanishq';
+            }
+            const utterance = new SpeechSynthesisUtterance(`${s.title}: ${s.text}. ${answerText}`);
+            if (speaker === 'Neil') {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1.2;
+                utterance.rate = 1;
+            } else if (speaker === 'Kanishq') {
+                utterance.voice = voiceKanishq;
+                utterance.pitch = 1.3;
+                utterance.rate = 1.05;
+            } else if (speaker === 'Narrator') {
+                utterance.voice = voiceNarrator;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            } else if (speaker === 'System') {
+                utterance.voice = voiceSystem;
+                utterance.pitch = 1.1;
+                utterance.rate = 0.95;
+            } else {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            }
+            utterance.onend = () => {
+                longAnswerIndex++;
+                if (longAnswerIndex < longAnswerUtterances.length && !longAnswerPaused) {
+                    currentLongAnswerUtterance = longAnswerUtterances[longAnswerIndex];
+                    longAnswerSynth.speak(currentLongAnswerUtterance);
+                } else if (longAnswerIndex >= longAnswerUtterances.length) {
+                    stopLongAnswer(); // All questions finished
+                }
+            };
+            utterance.onerror = (event) => {
+                showGlobalDebug(`Speech synthesis error for long answer: ${event.error}`, true);
+            };
+            return utterance;
         });
     }
-}
 
-    function checkAnswers() {
-        // MCQ validation
-        if (chapterData.exercises.mcq) {
-            chapterData.exercises.mcq.forEach((q, i) => {
-                const selected = document.querySelector(`input[name='mcq${i}']:checked`);
-                const feedback = document.getElementById(`mcq-feedback-${i}`);
-                if (!selected) {
-                    feedback.textContent = 'Please select an option.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-green-700');
-                    feedback.classList.add('text-red-600');
-                } else {
-                    // No answer in JSON, so just mark as answered
-                    feedback.textContent = 'Answer submitted.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-red-600');
-                    feedback.classList.add('text-green-700');
-                }
-            });
-        }
-        // True/False validation
-        if (chapterData.exercises.trueFalse) {
-            chapterData.exercises.trueFalse.forEach((q, i) => {
-                const selected = document.querySelector(`input[name='tf${i}']:checked`);
-                const feedback = document.getElementById(`tf-feedback-${i}`);
-                if (!selected) {
-                    feedback.textContent = 'Please select True or False.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-green-700');
-                    feedback.classList.add('text-red-600');
-                } else {
-                    feedback.textContent = 'Answer submitted.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-red-600');
-                    feedback.classList.add('text-green-700');
-                }
-            });
-        }
-        // One Word validation
-        if (chapterData.exercises.oneWord) {
-            chapterData.exercises.oneWord.forEach((q, i) => {
-                const input = document.getElementById(`oneword${i}`);
-                const feedback = document.getElementById(`oneword-feedback-${i}`);
-                if (!input.value.trim()) {
-                    feedback.textContent = 'Please enter your answer.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-green-700');
-                    feedback.classList.add('text-red-600');
-                } else {
-                    feedback.textContent = 'Answer submitted.';
-                    feedback.classList.remove('hidden');
-                    feedback.classList.remove('text-red-600');
-                    feedback.classList.add('text-green-700');
-                }
-            });
+    function playLongAnswer() {
+        if (!longAnswerSynth.speaking && longAnswerIndex < longAnswerUtterances.length) {
+            longAnswerPaused = false;
+            currentLongAnswerUtterance = longAnswerUtterances[longAnswerIndex];
+            longAnswerSynth.speak(currentLongAnswerUtterance);
+        } else if (longAnswerSynth.paused && currentLongAnswerUtterance) {
+            longAnswerPaused = false;
+            longAnswerSynth.resume();
         }
     }
 
-    // (No-op: Removed duplicate playCaseStudy function to avoid conflicts)
+    function pauseLongAnswer() {
+        if (longAnswerSynth.speaking && !longAnswerSynth.paused) {
+            longAnswerPaused = true;
+            longAnswerSynth.pause();
+        }
+    }
+
+    function stopLongAnswer() {
+        if (longAnswerSynth.speaking) {
+            longAnswerSynth.cancel();
+        }
+        longAnswerIndex = 0;
+        longAnswerPaused = false;
+        currentLongAnswerUtterance = null;
+    }
+
+    // --- Case Study Section ---
+    function renderCaseStudy() {
+        const caseDiv = document.getElementById('case-content');
+        if (!chapterData || !chapterData.caseStudy) {
+            caseDiv.innerHTML = '<em>No case study available.</em>';
+            return;
+        }
+        caseDiv.innerHTML = chapterData.caseStudy.map((cs, idx) => {
+            let questionsHtml = '';
+            if (cs.questions && cs.questions.length) {
+                questionsHtml = cs.questions.map((q, i) => `
+                    <div class="mb-2">
+                        <strong>Q${i+1} (${q.marks} marks, ${q.wordLimit} words):</strong> ${q.question}
+                        <textarea class="border rounded px-3 py-2 w-full mt-1" rows="2" placeholder="Type your answer here"></textarea>
+                    </div>
+                `).join('');
+            }
+            return `
+                <div class="mb-6 p-4 bg-white rounded shadow">
+                    <h4 class="font-semibold mb-1">${cs.title}</h4>
+                    <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
+                    ${questionsHtml}
+                </div>
+            `;
+        }).join('');
+        caseStudyUtterances = chapterData.caseStudy.map((cs, idx) => {
+            let text = `${cs.title}: ${cs.scenario}`;
+            if (cs.questions && cs.questions.length) {
+                text += ' Questions: ' + cs.questions.map(q => q.question).join(' ');
+            }
+            // Speaker logic: alternate Neil/Kanishq, or use cs.speaker if present
+            let speaker = 'Narrator';
+            if (cs.speaker) {
+                speaker = cs.speaker;
+            } else if (idx % 2 === 0) {
+                speaker = 'Neil';
+            } else {
+                speaker = 'Kanishq';
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            if (speaker === 'Neil') {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1.2;
+                utterance.rate = 1;
+            } else if (speaker === 'Kanishq') {
+                utterance.voice = voiceKanishq;
+                utterance.pitch = 1.3;
+                utterance.rate = 1.05;
+            } else if (speaker === 'Narrator') {
+                utterance.voice = voiceNarrator;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            } else if (speaker === 'System') {
+                utterance.voice = voiceSystem;
+                utterance.pitch = 1.1;
+                utterance.rate = 0.95;
+            } else {
+                utterance.voice = voiceNeil;
+                utterance.pitch = 1;
+                utterance.rate = 1;
+            }
+            utterance.onend = () => {
+                caseStudyIndex++;
+                if (caseStudyIndex < caseStudyUtterances.length && !caseStudyPaused) {
+                    currentCaseStudyUtterance = caseStudyUtterances[caseStudyIndex];
+                    caseStudySynth.speak(currentCaseStudyUtterance);
+                } else if (caseStudyIndex >= caseStudyUtterances.length) {
+                    stopCaseStudy(); // Case study finished
+                }
+            };
+            utterance.onerror = (event) => {
+                showGlobalDebug(`Speech synthesis error for case study: ${event.error}`, true);
+            };
+            return utterance;
+        });
+    }
+
+    function playCaseStudy() {
+        if (!caseStudySynth.speaking && caseStudyIndex < caseStudyUtterances.length) {
+            caseStudyPaused = false;
+            currentCaseStudyUtterance = caseStudyUtterances[caseStudyIndex];
+            caseStudySynth.speak(currentCaseStudyUtterance);
+        } else if (caseStudySynth.paused && currentCaseStudyUtterance) {
+            caseStudyPaused = false;
+            caseStudySynth.resume();
+        }
+    }
+
+    function pauseCaseStudy() {
+        if (caseStudySynth.speaking && !caseStudySynth.paused) {
+            caseStudyPaused = true;
+            caseStudySynth.pause();
+        }
+    }
+
+    function stopCaseStudy() {
+        if (caseStudySynth.speaking) {
+            caseStudySynth.cancel();
+        }
+        caseStudyIndex = 0;
+        caseStudyPaused = false;
+        currentCaseStudyUtterance = null;
+    }
+
+    // --- Placeholder Modal Functions ---
+    function openCompanyModal() {
+        alert('Review KnowledgeCompass modal would open here!');
+        showGlobalDebug('Review KnowledgeCompass clicked.', false);
+    }
+
+    function openSearchModal() {
+        alert('Search (with audio) modal would open here!');
+        showGlobalDebug('Search (with audio) clicked.', false);
+    }
     </script>
 </body>
 </html>
