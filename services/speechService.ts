@@ -50,28 +50,32 @@ export class SpeechService {
   public speak(text: string, speaker: Speaker = 'Narrator', onStart?: () => void, onEnd?: () => void, onError?: (e: any) => void) {
     this.stop();
     const utter = new SpeechSynthesisUtterance(text);
+    // If all voices are the same, still apply pitch/rate per speaker
+    let selectedVoice = this.voiceNarrator;
     switch (speaker) {
       case 'Neil':
-        utter.voice = this.voiceNeil;
+        selectedVoice = this.voiceNeil || this.voiceNarrator || this.voices[0] || null;
         utter.pitch = 1.2;
         utter.rate = 1;
         break;
       case 'Kanishq':
-        utter.voice = this.voiceKanishq;
+        selectedVoice = this.voiceKanishq || this.voiceNarrator || this.voices[0] || null;
         utter.pitch = 1.3;
         utter.rate = 1.05;
         break;
       case 'Narrator':
-        utter.voice = this.voiceNarrator;
+        selectedVoice = this.voiceNarrator || this.voices[0] || null;
         utter.pitch = 1;
         utter.rate = 1;
         break;
       case 'System':
-        utter.voice = this.voiceSystem;
+        selectedVoice = this.voiceSystem || this.voiceNarrator || this.voices[0] || null;
         utter.pitch = 1.1;
         utter.rate = 0.95;
         break;
     }
+    // If all voices are the same, selectedVoice may be the same for all, but pitch/rate will differ
+    if (selectedVoice) utter.voice = selectedVoice;
     if (onStart) utter.onstart = onStart;
     if (onEnd) utter.onend = onEnd;
     if (onError) utter.onerror = onError;

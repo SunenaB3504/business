@@ -7,6 +7,11 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📘</text></svg>">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Attach SpeechService to window for browser global use -->
+    <script type="module">
+      import { SpeechService } from './services/speechService.js';
+      window.SpeechService = SpeechService;
+    </script>
     <style>
         /* Flashcard flip CSS */
         .flashcard-container {
@@ -131,6 +136,7 @@
         <!-- Dramatic Story Section -->
 
     <script>
+    // SpeechService is now attached to window via <script type="module"> in <head>
     // --- KnowledgeCompass accordion logic ---
     document.addEventListener('DOMContentLoaded', function() {
         const knowledgeCompassAccordionBtn = document.getElementById('knowledgeCompassAccordionBtn');
@@ -569,7 +575,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     function renderFullStory() {
         const fullStoryDiv = document.getElementById('fullStoryContent');
         if (!chapterData || !chapterData.story) {
-            fullStoryDiv.innerHTML = '<em>No dramatic story available.</em>';
+            fullStoryDiv.innerHTML = '<em>No anecdote available.</em>';
             return;
         }
         // Render all story entries as a single block
@@ -578,44 +584,101 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
         });
         fullStoryDiv.innerHTML = html;
-        // Use same implementation as Long Answer Questions for TTS
-        window.fullStoryPaused = false;
-        window.fullStorySpeaking = false;
-        window.fullStoryUtterance = null;
-        document.getElementById('playFullStoryAudio').onclick = function() {
-            // Prepare utterance for the full story
-            const storyText = chapterData.story.map(s => `${s.title}: ${s.text}`).join(' ');
-            const utterance = new SpeechSynthesisUtterance(storyText);
-            utterance.voice = voiceNarrator;
-            utterance.pitch = 1;
-            utterance.rate = 1;
-            utterance.onstart = function() {
-                document.getElementById('storyAudioStatus').textContent = 'Playing...';
+
+        // --- Improved SpeechService-based TTS for Anecdote ---
+        if (!window.SpeechService) {
+            document.getElementById('storyAudioStatus').textContent = 'SpeechService not loaded. Please check your setup.';
+            return;
+        }
+        if (!window.speechService) {
+            window.speechService = new window.SpeechService();
+        }
+        const speechService = window.speechService;
+
+        // Prepare utterances: one per story entry, with speaker
+        let storyUtterances = chapterData.story.map(s => {
+            // Improved speaker detection: check s.speaker, s.title, and keywords in text
+            let speaker = 'Narrator';
+            const validSpeakers = ['Neil','Kanishq','Narrator','System'];
+            if (s.speaker && validSpeakers.includes(s.speaker)) {
+                speaker = s.speaker;
+            } else if (s.title) {
+                const t = s.title.toLowerCase();
+                if (t.includes('neil')) speaker = 'Neil';
+                else if (t.includes('kanishq')) speaker = 'Kanishq';
+                else if (t.includes('system')) speaker = 'System';
+            } else if (s.text) {
+                const txt = s.text.toLowerCase();
+                if (txt.startsWith('neil:') || txt.includes('says neil') || txt.includes('neil replied')) speaker = 'Neil';
+                else if (txt.startsWith('kanishq:') || txt.includes('says kanishq') || txt.includes('kanishq replied')) speaker = 'Kanishq';
+                else if (txt.startsWith('system:')) speaker = 'System';
+            }
+            return {
+                text: `${s.title}: ${s.text}`,
+                speaker
             };
-            utterance.onend = function() {
+        });
+        let currentIdx = 0;
+        let isPaused = false;
+        let isPlaying = false;
+        let isStopped = true;
+
+        function playFrom(idx) {
+            if (idx >= storyUtterances.length) {
                 document.getElementById('storyAudioStatus').textContent = 'Finished.';
-                window.fullStoryPaused = false;
-            };
-            utterance.onerror = function(event) {
-                if (event.error !== 'canceled') {
+                isPlaying = false;
+                isStopped = true;
+                return;
+            }
+            isPlaying = true;
+            isStopped = false;
+            const { text, speaker } = storyUtterances[idx];
+            speechService.speak(
+                text,
+                speaker,
+                () => {
+                    document.getElementById('storyAudioStatus').textContent = `Playing (${speaker})...`;
+                },
+                () => {
+                    if (!isPaused && !isStopped) {
+                        currentIdx++;
+                        playFrom(currentIdx);
+                    }
+                },
+                () => {
                     document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
                 }
-            };
-            window.fullStoryUtterance = utterance;
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(utterance);
+            );
+        }
+
+        document.getElementById('playFullStoryAudio').onclick = function() {
+            if (isPaused) {
+                isPaused = false;
+                isStopped = false;
+                speechService.resume();
+                document.getElementById('storyAudioStatus').textContent = 'Resumed.';
+            } else if (!isPlaying || isStopped) {
+                isPaused = false;
+                isStopped = false;
+                isPlaying = true;
+                currentIdx = 0;
+                playFrom(currentIdx);
+            }
         };
         document.getElementById('pauseFullStoryAudio').onclick = function() {
-            if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-                window.speechSynthesis.pause();
-                window.fullStoryPaused = true;
+            if (isPlaying && !isPaused && !isStopped) {
+                speechService.pause();
+                isPaused = true;
                 document.getElementById('storyAudioStatus').textContent = 'Paused.';
             }
         };
         document.getElementById('stopFullStoryAudio').onclick = function() {
-            if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-                window.fullStoryPaused = false;
+            if (isPlaying && !isStopped) {
+                speechService.stop();
+                isPaused = false;
+                isPlaying = false;
+                isStopped = true;
+                currentIdx = 0;
                 document.getElementById('storyAudioStatus').textContent = 'Stopped.';
             }
         };
