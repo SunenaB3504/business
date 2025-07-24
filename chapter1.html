@@ -60,11 +60,6 @@
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <!-- Debug/Error Area -->
-    <div id="global-debug-area" class="mb-4 p-2 border rounded text-sm" style="display:none; background:#fffbe6; color:#333;">
-        <div id="debug-messages" class="mb-2 max-h-40 overflow-y-auto"></div>
-        <button id="clearDebugBtn" class="px-2 py-1 bg-gray-200 text-gray-800 rounded text-xs hover:bg-gray-300">Clear Debug</button>
-    </div>
     <header class="bg-blue-900 text-white py-6 px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
@@ -73,6 +68,7 @@
                 <button id="knowledgeCompassBtn" class="mb-2 px-4 py-2 bg-yellow-500 text-blue-900 font-semibold rounded hover:bg-yellow-600 shadow">KnowledgeCompass</button>
             </div>
             <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
+                <button id="searchNavBtn" class="text-white font-semibold hover:underline focus:outline-none">Search</button>
                 <div class="relative group">
                     <button class="text-white font-semibold hover:underline focus:outline-none">Part A: Principles & Functions</button>
                     <div class="absolute left-0 mt-2 w-64 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-20">
@@ -98,6 +94,19 @@
                 <a href="#progress" class="text-white font-semibold hover:underline">Progress</a>
                 <a href="#login" class="text-white font-semibold hover:underline">Login</a>
             </nav>
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
+            <button id="closeSearchModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-4 text-blue-900">Search the Contents</h3>
+            <div class="mb-4 flex gap-2">
+                <input id="searchInput" type="text" class="border rounded px-3 py-2 w-full" placeholder="Type your question here..." style="color: black; background: #f9fafb;" />
+                <button id="audioInputBtn" class="px-3 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-600" title="Ask by voice">🎤</button>
+                <button id="searchModalBtn" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Search</button>
+            </div>
+            <div id="searchAnswer" class="text-gray-900 text-base"></div>
+        </div>
+    </div>
         </div>
     </header>
     <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
@@ -182,18 +191,143 @@
         <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
             <button id="closeKnowledgeCompassModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
             <h3 class="text-xl font-bold mb-4 text-blue-900">KnowledgeCompass</h3>
-            <p class="text-gray-800 text-base">In August 2026, an entrepreneurial spark ignited between Kanishq, a visionary leader, and Neil, a methodical student, laying the foundation for KnowledgeCompass. Their bold idea aimed to revolutionize education by creating an innovative evaluation tool and custom apps designed to bridge student learning gaps and democratize personalized learning across India. What began as a humble partnership, born from overcoming the perils of unlimited liability and the need for pooled resources, quickly saw demand for their KnowledgeCompass Beta soar. Facing the monumental challenge of pan-India expansion and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as "KnowledgeCompass Ltd.". With strategic management, astute financial decisions, and a keen understanding of both micro and macroeconomic forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
-            <div class="mt-6 flex flex-col items-center">
-                <div class="flex gap-4 mb-2">
-                    <button id="playKnowledgeCompassAudio" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Play</button>
-                    <button id="pauseKnowledgeCompassAudio" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
-                    <button id="stopKnowledgeCompassAudio" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Stop</button>
+            <div id="knowledgeCompassContent" class="mb-4 text-gray-800">
+                <div class="space-y-4 leading-relaxed">
+                    <p><span class="font-semibold text-blue-800">In August 2026</span>, an entrepreneurial spark ignited between <span class="font-semibold text-blue-700">Kanishq</span>, a visionary leader, and <span class="font-semibold text-blue-700">Neil</span>, a methodical student, laying the foundation for <span class="font-semibold text-indigo-700">KnowledgeCompass</span>.</p>
+                    <p>Their bold idea aimed to revolutionize education by creating an <span class="text-green-700 font-medium">innovative evaluation tool</span> and custom apps designed to bridge student learning gaps and democratize personalized learning across India.</p>
+                    <p>What began as a humble partnership, born from overcoming the perils of <span class="italic text-yellow-700">unlimited liability</span> and the need for pooled resources, quickly saw demand for their <span class="font-semibold text-indigo-600">KnowledgeCompass Beta</span> soar.</p>
+                    <p>Facing the monumental challenge of <span class="font-semibold text-red-700">pan-India expansion</span> and the need for massive capital, they underwent a pivotal transformation, bravely stepping into the corporate world as <span class="font-bold text-indigo-800">"KnowledgeCompass Ltd."</span></p>
+                    <p>With <span class="font-semibold text-blue-700">strategic management</span>, astute financial decisions, and a keen understanding of both <span class="text-green-800">micro</span> and <span class="text-green-800">macroeconomic</span> forces, KnowledgeCompass emerged as a thriving entity, ceaselessly expanding its reach in the vast, interconnected world of commerce and education.</p>
                 </div>
-                <span id="knowledgeCompassAudioStatus" class="text-sm text-gray-600"></span>
+            </div>
+            <div class="flex gap-2 mt-4">
+                <button id="playKnowledgeCompassAudio" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                <button id="pauseKnowledgeCompassAudio" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                <button id="stopKnowledgeCompassAudio" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                <span id="knowledgeCompassAudioStatus" class="ml-2 text-sm text-gray-600"></span>
             </div>
         </div>
     </div>
     <script>
+    // --- Search Modal Logic ---
+    let recognition = null;
+    const searchNavBtn = document.getElementById('searchNavBtn');
+    const searchModal = document.getElementById('searchModal');
+    const closeSearchModal = document.getElementById('closeSearchModal');
+    const searchInput = document.getElementById('searchInput');
+    const audioInputBtn = document.getElementById('audioInputBtn');
+    const searchModalBtn = document.getElementById('searchModalBtn');
+    const searchAnswer = document.getElementById('searchAnswer');
+
+    if (searchNavBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
+        searchNavBtn.onclick = function() {
+            searchModal.classList.remove('hidden');
+            searchInput.value = '';
+            searchAnswer.textContent = '';
+        };
+        closeSearchModal.onclick = function() {
+            searchModal.classList.add('hidden');
+            if (recognition) recognition.stop();
+        };
+        audioInputBtn.onclick = function() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Speech recognition not supported in this browser.');
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-IN';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            recognition.onresult = function(event) {
+                searchInput.value = event.results[0][0].transcript;
+            };
+            recognition.onerror = function(event) {
+                alert('Audio input error: ' + event.error);
+            };
+            recognition.start();
+        };
+        searchModalBtn.onclick = function() {
+            performSearch(searchInput.value);
+        };
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+    }
+
+    // --- Search Logic: Search content.json for answer ---
+    function performSearch(query) {
+        if (!query || !query.trim()) {
+            searchAnswer.textContent = 'Please enter a question.';
+            return;
+        }
+        fetch('content.json')
+            .then(res => res.json())
+            .then(data => {
+                let answer = findAnswerInContent(data, query);
+                searchAnswer.innerHTML = answer ? answer : '<span class="text-red-600">No answer found for your question.</span>';
+            })
+            .catch(() => {
+                searchAnswer.innerHTML = '<span class="text-red-600">Error loading content data.</span>';
+            });
+    }
+
+    // --- Helper: Find answer in content.json ---
+    function findAnswerInContent(data, query) {
+        query = query.toLowerCase();
+        // Search all chapters, sections, exercises, flashcards, etc.
+        let results = [];
+        for (const chapter of (Array.isArray(data.chapters) ? data.chapters : Object.values(data))) {
+            // Search story
+            if (chapter.story) {
+                for (const s of chapter.story) {
+                    if (s.text && s.text.toLowerCase().includes(query)) results.push(`<b>Story:</b> ${s.text}`);
+                }
+            }
+            // Search mindmap
+            if (chapter.mindmap) {
+                for (const node of chapter.mindmap) {
+                    if (node.title && node.title.toLowerCase().includes(query)) results.push(`<b>Mindmap:</b> ${node.title}`);
+                    if (node.definition && node.definition.toLowerCase().includes(query)) results.push(`<b>Definition:</b> ${node.definition}`);
+                    if (node.explanation && node.explanation.toLowerCase().includes(query)) results.push(`<b>Explanation:</b> ${node.explanation}`);
+                }
+            }
+            // Search flashcards
+            if (chapter.flashcards) {
+                for (const fc of chapter.flashcards) {
+                    if (fc.front && fc.front.toLowerCase().includes(query)) results.push(`<b>Flashcard:</b> ${fc.front} <br><i>${fc.back}</i>`);
+                    if (fc.back && fc.back.toLowerCase().includes(query)) results.push(`<b>Flashcard:</b> ${fc.front} <br><i>${fc.back}</i>`);
+                }
+            }
+            // Search exercises
+            if (chapter.exercises) {
+                for (const type in chapter.exercises) {
+                    for (const ex of chapter.exercises[type] || []) {
+                        if (ex.question && ex.question.toLowerCase().includes(query)) results.push(`<b>Exercise:</b> ${ex.question}<br><i>${ex.answer || ''}</i>`);
+                        if (ex.text && ex.text.toLowerCase().includes(query)) results.push(`<b>Exercise:</b> ${ex.text}<br><i>${ex.answer || ''}</i>`);
+                        if (ex.answer && ex.answer.toLowerCase().includes(query)) results.push(`<b>Answer:</b> ${ex.answer}`);
+                    }
+                }
+            }
+            // Search long answers
+            if (chapter.longAnswerQuestions) {
+                for (const la of chapter.longAnswerQuestions) {
+                    if (la.title && la.title.toLowerCase().includes(query)) results.push(`<b>Long Answer:</b> ${la.title}<br><i>${la.text}</i>`);
+                    if (la.text && la.text.toLowerCase().includes(query)) results.push(`<b>Long Answer:</b> ${la.title}<br><i>${la.text}</i>`);
+                }
+            }
+            // Search case studies
+            if (chapter.caseStudy) {
+                for (const cs of chapter.caseStudy) {
+                    if (cs.title && cs.title.toLowerCase().includes(query)) results.push(`<b>Case Study:</b> ${cs.title}<br><i>${cs.scenario}</i>`);
+                    if (cs.scenario && cs.scenario.toLowerCase().includes(query)) results.push(`<b>Case Study:</b> ${cs.title}<br><i>${cs.scenario}</i>`);
+                }
+            }
+        }
+        return results.length ? results.join('<hr class="my-2">') : null;
+    }
     // --- Global Variable Declarations ---
     let chapterData = null;
     let flashcards = [];
