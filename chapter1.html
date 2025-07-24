@@ -105,9 +105,19 @@
         <!-- Dramatic Story Section -->
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Dramatic Story</h2>
-            <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
-                <div id="story-content" class="mb-4"></div>
-                <div class="flex gap-4"></div>
+            <div class="accordion-item bg-blue-50 rounded-lg p-4 mb-4 shadow">
+                <button id="storyAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-blue-100 hover:bg-blue-200 font-semibold rounded-t focus:outline-none" aria-expanded="false">
+                  Dramatic Story (Show/Hide)
+                </button>
+                <div id="storyAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                  <div id="storyAudioPlayer" class="mb-4 flex items-center gap-2">
+                    <button id="playFullStoryAudio" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">🔊 Play</button>
+                    <button id="pauseFullStoryAudio" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">⏸ Pause</button>
+                    <button id="stopFullStoryAudio" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">⏹ Stop</button>
+                    <span id="storyAudioStatus" class="text-xs text-gray-500"></span>
+                  </div>
+                  <div id="fullStoryContent"></div>
+                </div>
             </div>
         </section>
 
@@ -252,6 +262,15 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 
     // --- Fetch content.json and render all sections ---
     document.addEventListener('DOMContentLoaded', function() {
+        // Accordion logic for Dramatic Story
+        const storyBtn = document.getElementById('storyAccordionBtn');
+        const storyContent = document.getElementById('storyAccordionContent');
+        storyBtn.addEventListener('click', () => {
+          const expanded = storyBtn.getAttribute('aria-expanded') === 'true';
+          storyBtn.setAttribute('aria-expanded', !expanded);
+          storyContent.classList.toggle('hidden');
+        });
+
         showGlobalDebug('Fetching content.json...', false);
         fetch('content.json')
             .then(function(res) {
@@ -275,7 +294,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 }
                 showGlobalDebug('chapter1 found. Rendering sections...', false);
                 try {
-                    renderStory();
+                    renderFullStory();
                     renderMindmap();
                     flashcards = chapterData.flashcards || [];
                     renderFlashcard();
@@ -315,82 +334,60 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         document.getElementById('clearDebugBtn').addEventListener('click', clearGlobalDebug);
     });
 
-    // --- Story Section ---
-    function renderStory() {
-        const storyDiv = document.getElementById('story-content');
+    // --- Dramatic Story: Single Collapsible with Audio ---
+    function renderFullStory() {
+        const fullStoryDiv = document.getElementById('fullStoryContent');
         if (!chapterData || !chapterData.story) {
-            storyDiv.innerHTML = '<em>No dramatic story available.</em>';
+            fullStoryDiv.innerHTML = '<em>No dramatic story available.</em>';
             return;
         }
-        storyDiv.innerHTML = '';
+        // Render all story entries as a single block
+        let html = '';
         chapterData.story.forEach((s, idx) => {
-            const container = document.createElement('div');
-            container.className = 'mb-2';
-            const header = document.createElement('button');
-            header.className = 'w-full text-left font-semibold py-2 px-3 rounded bg-blue-100 hover:bg-blue-200 border border-blue-300';
-            header.textContent = s.title || 'Untitled';
-            header.setAttribute('aria-expanded', 'false');
-            header.setAttribute('aria-controls', `story-${idx}-body`);
-            header.onclick = function() {
-                body.classList.toggle('hidden');
-                header.setAttribute('aria-expanded', body.classList.contains('hidden') ? 'false' : 'true');
-            };
-            container.appendChild(header);
-
-            const body = document.createElement('div');
-            body.className = 'hidden bg-white border border-blue-200 rounded p-3 mt-1';
-            body.id = `story-${idx}-body`;
-            body.innerHTML = `<div>${s.text}</div>`;
-            container.appendChild(body);
-            storyDiv.appendChild(container);
+            html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
         });
-        // Assign speakers based on story content (example: alternate or use metadata if available)
-        storyUtterances = chapterData.story.map((s, idx) => {
-            // Simple logic: alternate speakers, or use s.speaker if present
-            let speaker = 'Narrator';
-            if (s.speaker) {
-                speaker = s.speaker;
-            } else if (idx % 2 === 0) {
-                speaker = 'Neil';
-            } else {
-                speaker = 'Kanishq';
+        fullStoryDiv.innerHTML = html;
+        // Prepare TTS for entire story
+        window.fullStoryUtterance = new window.SpeechSynthesisUtterance(
+            chapterData.story.map(s => `${s.title}: ${s.text}`).join(' ')
+        );
+        window.fullStoryUtterance.voice = voiceNarrator;
+        window.fullStoryUtterance.onstart = function() {
+            document.getElementById('storyAudioStatus').textContent = 'Playing...';
+        };
+        window.fullStoryUtterance.onend = function() {
+            document.getElementById('storyAudioStatus').textContent = 'Finished.';
+            window.fullStoryPaused = false;
+        };
+        window.fullStoryUtterance.onerror = function() {
+            document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
+        };
+        window.fullStoryPaused = false;
+        window.fullStorySpeaking = false;
+        document.getElementById('playFullStoryAudio').onclick = function() {
+            if (!window.speechSynthesis.speaking || window.fullStoryPaused) {
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(window.fullStoryUtterance);
+                window.fullStoryPaused = false;
+            } else if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                window.fullStoryPaused = false;
             }
-            const utterance = new SpeechSynthesisUtterance(`${s.title}: ${s.text}`);
-            if (speaker === 'Neil') {
-                utterance.voice = voiceNeil;
-                utterance.pitch = 1.2;
-                utterance.rate = 1;
-            } else if (speaker === 'Kanishq') {
-                utterance.voice = voiceKanishq;
-                utterance.pitch = 1.3;
-                utterance.rate = 1.05;
-            } else if (speaker === 'Narrator') {
-                utterance.voice = voiceNarrator;
-                utterance.pitch = 1;
-                utterance.rate = 1;
-            } else if (speaker === 'System') {
-                utterance.voice = voiceSystem;
-                utterance.pitch = 1.1;
-                utterance.rate = 0.95;
-            } else {
-                utterance.voice = voiceNeil;
-                utterance.pitch = 1;
-                utterance.rate = 1;
+        };
+        document.getElementById('pauseFullStoryAudio').onclick = function() {
+            if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+                window.speechSynthesis.pause();
+                window.fullStoryPaused = true;
+                document.getElementById('storyAudioStatus').textContent = 'Paused.';
             }
-            utterance.onend = () => {
-                storyIndex++;
-                if (storyIndex < storyUtterances.length && !storyPaused) {
-                    currentStoryUtterance = storyUtterances[storyIndex];
-                    storySynth.speak(currentStoryUtterance);
-                } else if (storyIndex >= storyUtterances.length) {
-                    stopStory(); // Story finished
-                }
-            };
-            utterance.onerror = (event) => {
-                showGlobalDebug(`Speech synthesis error for story: ${event.error}`, true);
-            };
-            return utterance;
-        });
+        };
+        document.getElementById('stopFullStoryAudio').onclick = function() {
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                window.fullStoryPaused = false;
+                document.getElementById('storyAudioStatus').textContent = 'Stopped.';
+            }
+        };
     }
 
     function playStory() {
