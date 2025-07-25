@@ -56,8 +56,9 @@ async function loadChapter(chapterId) {
         if (chapter.exercises.shortAnswer1 && chapter.exercises.shortAnswer1.length) {
             exercisesHtml += '<h4 class="font-semibold mt-4">Short Answer Questions</h4>';
             chapter.exercises.shortAnswer1.forEach((q, i) => {
-                exercisesHtml += `<div class="mb-2">${i+1}. ${q.question}<br><textarea class="border rounded px-2 py-1 w-full" rows="2" id="shortanswer1${i}"></textarea><div class="text-sm text-red-500 mt-1" id="shortanswer1-feedback-${i}"></div></div>`;
+                exercisesHtml += `<div class=\"mb-2\">${i+1}. ${q.question}<br><div class=\"bg-gray-50 border rounded px-2 py-1 mt-1\"><strong>Answer:</strong> ${q.answer || ''}</div></div>`;
             });
+            // No 'Check Answers' button for Short Answer 1
         }
         // Short Answer 2
         if (chapter.exercises.shortAnswer2 && chapter.exercises.shortAnswer2.length) {

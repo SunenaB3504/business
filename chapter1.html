@@ -118,37 +118,14 @@
     <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
 
         <!-- KnowledgeCompass Section -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-4">KnowledgeCompass</h2>
-            <div class="accordion-item bg-yellow-50 rounded-lg p-4 mb-4 shadow">
-                <button id="knowledgeCompassAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-yellow-100 hover:bg-yellow-200 font-semibold rounded-t focus:outline-none" aria-expanded="false">
-                  KnowledgeCompass (Show/Hide)
-                </button>
-                <div id="knowledgeCompassAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
-                  <div class="text-gray-800 leading-relaxed">
-                    From a cluttered garage in Navi Mumbai to the boardrooms of a thriving company, Neil and Kanishq’s "KnowledgeCompass" journey blazes through the dramatic evolution from sole proprietorship, to partnership, and finally to a full-fledged corporation. Each transformation is powered by bold decisions and the real-world mastery of Business Studies, Accounting, and Economics, revealing how ambition and teamwork can turn a simple idea into an enterprise that shapes the future.
-                  </div>
-                </div>
-            </div>
-        </section>
+        
         
 
         <!-- Dramatic Story Section -->
 
     <script>
     // SpeechService is now attached to window via <script type="module"> in <head>
-    // --- KnowledgeCompass accordion logic ---
-    document.addEventListener('DOMContentLoaded', function() {
-        const knowledgeCompassAccordionBtn = document.getElementById('knowledgeCompassAccordionBtn');
-        const knowledgeCompassAccordionContent = document.getElementById('knowledgeCompassAccordionContent');
-        if (knowledgeCompassAccordionBtn && knowledgeCompassAccordionContent) {
-            knowledgeCompassAccordionBtn.addEventListener('click', function() {
-                const expanded = knowledgeCompassAccordionBtn.getAttribute('aria-expanded') === 'true';
-                knowledgeCompassAccordionBtn.setAttribute('aria-expanded', !expanded);
-                knowledgeCompassAccordionContent.classList.toggle('hidden');
-            });
-        }
-    });
+    
     </script>
         <section class="mb-10">
             <h2 class="text-2xl font-bold mb-4">Anecdote</h2>
@@ -861,36 +838,6 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 </div>
             </div>`;
         }
-        // Accordion for Short Answer 1
-        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
-            html += `<div class="accordion-item mb-4">
-                <button id="short1AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 1) (Show/Hide)</button>
-                <div id="short1AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
-                    ${chapterData.exercises.shortAnswer1.map((q, i) => `
-                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
-                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
-                            <textarea id="short1${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
-                        </div>
-                    `).join('')}
-                    <button id="checkShort1Btn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
-                </div>
-            </div>`;
-        }
-        // Accordion for Short Answer 2
-        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
-            html += `<div class="accordion-item mb-4">
-                <button id="short2AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 2) (Show/Hide)</button>
-                <div id="short2AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
-                    ${chapterData.exercises.shortAnswer2.map((q, i) => `
-                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
-                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
-                            <textarea id="short2${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Type your answer here"></textarea>
-                        </div>
-                    `).join('')}
-                    <button id="checkShort2Btn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
-                </div>
-            </div>`;
-        }
         // One Word (now as an accordion)
         if (chapterData.exercises.oneWord && chapterData.exercises.oneWord.length > 0) {
             html += `<div class="accordion-item mb-4">
@@ -904,6 +851,34 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                         </div>
                     `).join('')}
                     <button id="checkOneWordBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // Accordion for Short Answer 1
+        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short1AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 1) (Show/Hide)</button>
+                <div id="short1AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer1.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="bg-gray-50 border rounded px-3 py-2 mt-2"><strong>Answer:</strong> ${q.answer || ''}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+        // Accordion for Short Answer 2
+        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short2AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 2) (Show/Hide)</button>
+                <div id="short2AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer2.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="bg-gray-50 border rounded px-3 py-2 mt-2"><strong>Answer:</strong> ${q.answer || ''}</div>
+                        </div>
+                    `).join('')}
                 </div>
             </div>`;
         }
@@ -1091,7 +1066,10 @@ function checkAnswers(type) {
                     answerBlocks += `<div id=\"${ansId}\" class=\"hidden bg-blue-50 border border-blue-200 rounded p-2 mt-1 text-sm\">${s[type.key]}</div>`;
                 }
             });
-            return `<div class=\"mb-6\"><strong>${s.title}:</strong> ${s.text}<br>${answerBtns}${answerBlocks}</div>`;
+            // Add question number before the title and remove 'undefined' if present
+            const title = (s.title && s.title !== 'undefined') ? s.title : '';
+            const text = (s.text && s.text !== 'undefined') ? s.text : '';
+            return `<div class=\"mb-6\"><strong>Q${idx + 1}. ${title}:</strong> ${text}<br>${answerBtns}${answerBlocks}</div>`;
         }).join('');
 
         // Remove global utterances, will generate per-window on play
