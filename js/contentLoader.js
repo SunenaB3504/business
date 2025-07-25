@@ -7,7 +7,13 @@ async function loadChapter(chapterId) {
     document.getElementById('chapter-title').textContent = chapter.title;
     // Story
     const storyDiv = document.getElementById('chapter-story');
-    storyDiv.innerHTML = chapter.story.map(s => `<p><strong>${s.title}:</strong> ${s.text}</p>`).join('');
+    storyDiv.innerHTML = chapter.story.map(s => {
+        if (s.richHtml) {
+            return `<div class="story-rich-html"><strong>${s.title}:</strong> ${s.richHtml}</div>`;
+        } else {
+            return `<p><strong>${s.title}:</strong> ${s.text}</p>`;
+        }
+    }).join('');
     // Mindmap
     const mindmapDiv = document.getElementById('chapter-mindmap');
     mindmapDiv.innerHTML = chapter.mindmap.map(m => `

@@ -578,10 +578,14 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
             fullStoryDiv.innerHTML = '<em>No anecdote available.</em>';
             return;
         }
-        // Render all story entries as a single block
+        // Render all story entries as a single block, using richHtml if present
         let html = '';
         chapterData.story.forEach((s, idx) => {
-            html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
+            if (s.richHtml) {
+                html += `<div class="mb-2">${s.richHtml}</div>`;
+            } else {
+                html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
+            }
         });
         fullStoryDiv.innerHTML = html;
 
