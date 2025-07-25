@@ -1,8 +1,23 @@
 // Loads content from content.json and renders the selected chapter
 async function loadChapter(chapterId) {
-    const res = await fetch('content.json');
-    const data = await res.json();
-    const chapter = data.chapters.find(c => c.id === chapterId);
+    // Try to load per-chapter JSON if available, else fallback to content.json
+    let data;
+    let chapter = null;
+    const chapterJsonFile = `${chapterId}.json`;
+    try {
+        const res = await fetch(chapterJsonFile);
+        if (res.ok) {
+            data = await res.json();
+            if (data.chapters && Array.isArray(data.chapters)) {
+                chapter = data.chapters[0];
+            }
+        }
+    } catch (e) {}
+    if (!chapter) {
+        const res = await fetch('content.json');
+        data = await res.json();
+        chapter = data.chapters.find(c => c.id === chapterId);
+    }
     if (!chapter) return;
     document.getElementById('chapter-title').textContent = chapter.title;
     // Story
