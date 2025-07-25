@@ -551,17 +551,17 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     // --- Dramatic Story: Single Collapsible with Audio ---
     function renderFullStory() {
         const fullStoryDiv = document.getElementById('fullStoryContent');
-        if (!chapterData || !chapterData.story) {
+        if (!chapterData || !chapterData.story || !chapterData.story[0] || !chapterData.story[0].storyParts) {
             fullStoryDiv.innerHTML = '<em>No anecdote available.</em>';
             return;
         }
-        // Render all story entries as a single block, using richHtml if present
+        // Render all storyParts as a single block, using richHtml if present
         let html = '';
-        chapterData.story.forEach((s, idx) => {
-            if (s.richHtml) {
-                html += `<div class="mb-2">${s.richHtml}</div>`;
+        chapterData.story[0].storyParts.forEach((part, idx) => {
+            if (part.richHtml) {
+                html += `<div class="mb-2">${part.richHtml}</div>`;
             } else {
-                html += `<div class="mb-2"><span class="font-semibold">${s.title}:</span> ${s.text}</div>`;
+                html += `<div class="mb-2"><span class="font-semibold">${part.speaker}:</span> ${part.text}</div>`;
             }
         });
         fullStoryDiv.innerHTML = html;
@@ -576,29 +576,11 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         }
         const speechService = window.speechService;
 
-        // Prepare utterances: one per story entry, with speaker
-        let storyUtterances = chapterData.story.map(s => {
-            // Improved speaker detection: check s.speaker, s.title, and keywords in text
-            let speaker = 'Narrator';
-            const validSpeakers = ['Neil','Kanishq','Narrator','System'];
-            if (s.speaker && validSpeakers.includes(s.speaker)) {
-                speaker = s.speaker;
-            } else if (s.title) {
-                const t = s.title.toLowerCase();
-                if (t.includes('neil')) speaker = 'Neil';
-                else if (t.includes('kanishq')) speaker = 'Kanishq';
-                else if (t.includes('system')) speaker = 'System';
-            } else if (s.text) {
-                const txt = s.text.toLowerCase();
-                if (txt.startsWith('neil:') || txt.includes('says neil') || txt.includes('neil replied')) speaker = 'Neil';
-                else if (txt.startsWith('kanishq:') || txt.includes('says kanishq') || txt.includes('kanishq replied')) speaker = 'Kanishq';
-                else if (txt.startsWith('system:')) speaker = 'System';
-            }
-            return {
-                text: `${s.title}: ${s.text}`,
-                speaker
-            };
-        });
+        // Prepare utterances: one per story part, with speaker
+        let storyUtterances = chapterData.story[0].storyParts.map(part => ({
+            text: part.text,
+            speaker: part.speaker || 'Narrator'
+        }));
         let currentIdx = 0;
         let isPaused = false;
         let isPlaying = false;
@@ -622,8 +604,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 },
                 () => {
                     if (!isPaused && !isStopped) {
-                        currentIdx++;
-                        playFrom(currentIdx);
+                        playFrom(idx + 1);
                     }
                 },
                 () => {
@@ -663,6 +644,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 document.getElementById('storyAudioStatus').textContent = 'Stopped.';
             }
         };
+    // End of renderFullStory
     }
 
     function playStory() {
