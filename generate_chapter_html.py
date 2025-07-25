@@ -46,16 +46,28 @@ def patch_chapter_json(chapter_json_path, chapter_num):
 def generate_chapter_html(chapter_num):
     new_html = CHAPTER_HTML_TEMPLATE.format(num=chapter_num)
     shutil.copyfile(TEMPLATE_FILE, new_html)
-    # Patch fetches to use chapterX.json
+    # Patch fetches, debug, and search logic to use chapterX.json and update all related comments/messages
     with open(new_html, 'r', encoding='utf-8') as f:
         html = f.read()
-    html = re.sub(r"fetch\(['\"]content\\.json['\"]\)", f"fetch('chapter{chapter_num}.json')", html)
+    # Replace all fetch('content.json') and content.json references with chapterX.json (including unescaped dot)
+    html = re.sub(r"fetch\(['\"]content\.json['\"]\)", f"fetch('chapter{chapter_num}.json')", html)
+    html = re.sub(r"fetch\(['\"]content.json['\"]\)", f"fetch('chapter{chapter_num}.json')", html)
     html = re.sub(r'Fetching content\\.json', f'Fetching chapter{chapter_num}.json', html)
+    html = re.sub(r'Fetching content.json', f'Fetching chapter{chapter_num}.json', html)
     html = re.sub(r'content\\.json fetched successfully', f'chapter{chapter_num}.json fetched successfully', html)
+    html = re.sub(r'content.json fetched successfully', f'chapter{chapter_num}.json fetched successfully', html)
     html = re.sub(r'Parsing content\\.json and searching for chapter1', f'Parsing chapter{chapter_num}.json and searching for chapter{chapter_num}', html)
+    html = re.sub(r'Parsing content.json and searching for chapter1', f'Parsing chapter{chapter_num}.json and searching for chapter{chapter_num}', html)
     html = re.sub(r'content\\.json does not contain a \\"chapters\\" array', f'chapter{chapter_num}.json does not contain a "chapters" array', html)
+    html = re.sub(r'content.json does not contain a "chapters" array', f'chapter{chapter_num}.json does not contain a "chapters" array', html)
     html = re.sub(r'chapter1 not found in content\\.json', f'chapter{chapter_num} not found in chapter{chapter_num}.json', html)
+    html = re.sub(r'chapter1 not found in content.json', f'chapter{chapter_num} not found in chapter{chapter_num}.json', html)
     html = re.sub(r'chapter1 found. Rendering sections', f'chapter{chapter_num} found. Rendering sections', html)
+    html = re.sub(r'// --- Search Logic: Search content.json for answer ---', f'// --- Search Logic: Search chapter{chapter_num}.json for answer ---', html)
+    html = re.sub(r'// --- Helper: Find answer in content.json ---', f'// --- Helper: Find answer in chapter{chapter_num}.json ---', html)
+    html = re.sub(r'// --- Fetch content.json and render all sections ---', f'// --- Fetch chapter{chapter_num}.json and render all sections ---', html)
+    html = re.sub(r'// Search function: looks for answer in content.json', f'// Search function: looks for answer in chapter{chapter_num}.json', html)
+    html = re.sub(r'Use already loaded chapterData and fetch full content.json if needed', f'Use already loaded chapterData and fetch full chapter{chapter_num}.json if needed', html)
     html = re.sub(r'<title>Chapter [^<]*</title>', f'<title>Chapter {chapter_num}</title>', html)
     with open(new_html, 'w', encoding='utf-8') as f:
         f.write(html)
@@ -117,8 +129,19 @@ def main():
     patch_chapter_json(chapter_json, chapter_num)
     generate_chapter_html(chapter_num)
     update_index_html(chapter_num)
-    merge_chapter_to_content(chapter_json, chapter_num)
-    print("All steps completed.")
+
+    # --- Recheck: Ensure generated HTML fetches correct chapter JSON ---
+    html_path = CHAPTER_HTML_TEMPLATE.format(num=chapter_num)
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html_content = f.read()
+    expected_fetch = f"fetch('chapter{chapter_num}.json')"
+    if expected_fetch in html_content:
+        print(f"Recheck passed: {html_path} fetches {expected_fetch} as expected.")
+    else:
+        print(f"Recheck failed: {html_path} does not fetch {expected_fetch}. Please check integration.")
+        sys.exit(2)
+
+    print(f"All steps completed. {html_path} is fully integrated with chapter{chapter_num}.json.")
 
 if __name__ == '__main__':
     main()

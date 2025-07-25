@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 3</title>
+    <title>Chapter 4</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📘</text></svg>">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -215,13 +215,13 @@
         });
     }
 
-    // --- Search Logic: Search chapter3.json for answer ---
+    // --- Search Logic: Search chapter4.json for answer ---
     function performSearch(query) {
         if (!query || !query.trim()) {
             searchAnswer.textContent = 'Please enter a question.';
             return;
         }
-        fetch('chapter3.json')
+        fetch('chapter4.json')
             .then(res => res.json())
             .then(data => {
                 let answer = findAnswerInContent(data, query);
@@ -232,7 +232,7 @@
             });
     }
 
-    // --- Helper: Find answer in chapter3.json ---
+    // --- Helper: Find answer in chapter4.json ---
     function findAnswerInContent(data, query) {
         query = query.toLowerCase();
         // Search all chapters, sections, exercises, flashcards, etc.
@@ -372,7 +372,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = populateVoiceList;
 }
 
-    // --- Fetch chapter3.json and render all sections ---
+    // --- Fetch chapter4.json and render all sections ---
     document.addEventListener('DOMContentLoaded', function() {
         // Accordion logic for Dramatic Story
         const storyBtn = document.getElementById('storyAccordionBtn');
@@ -387,25 +387,25 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
         const mainHeading = document.getElementById('mainHeading');
         const unitSubheading = document.getElementById('unitSubheading');
 
-        showGlobalDebug('Fetching chapter3.json...', false);
-        fetch('chapter3.json')
+        showGlobalDebug('Fetching chapter4.json...', false);
+        fetch('chapter4.json')
             .then(function(res) {
                 if (!res.ok) {
-                    showGlobalDebug('ERROR: Failed to fetch chapter3.json. Status: ' + res.status, true);
-                    throw new Error('Failed to fetch chapter3.json');
+                    showGlobalDebug('ERROR: Failed to fetch chapter4.json. Status: ' + res.status, true);
+                    throw new Error('Failed to fetch chapter4.json');
                 }
-                showGlobalDebug('chapter3.json fetched successfully.', false);
+                showGlobalDebug('chapter4.json fetched successfully.', false);
                 return res.json();
             })
             .then(function(data) {
-                showGlobalDebug('Parsing chapter3.json and searching for chapter3...', false);
+                showGlobalDebug('Parsing chapter4.json and searching for chapter4...', false);
                 if (!data.chapters || !Array.isArray(data.chapters)) {
-                    showGlobalDebug('ERROR: chapter3.json does not contain a "chapters" array.', true);
+                    showGlobalDebug('ERROR: chapter4.json does not contain a "chapters" array.', true);
                     return;
                 }
-                chapterData = data.chapters.find(function(ch) { return ch.id === 'chapter3'; });
+                chapterData = data.chapters.find(function(ch) { return ch.id === 'chapter4'; });
                 if (!chapterData) {
-                    showGlobalDebug('ERROR: chapter3 not found in chapter3.json.', true);
+                    showGlobalDebug('ERROR: chapter4 not found in chapter4.json.', true);
                     return;
                 }
                 // Set subheading dynamically
@@ -414,7 +414,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
                 } else if (unitSubheading && chapterData.title) {
                     unitSubheading.textContent = chapterData.title;
                 }
-            showGlobalDebug('chapter3 found. Rendering sections...', false);
+                showGlobalDebug('chapter4 found. Rendering sections...', false);
                 try {
                     renderFullStory();
                     renderMindmap();
@@ -1274,7 +1274,7 @@ function checkAnswers(type) {
         showGlobalDebug('Review KnowledgeCompass clicked.', false);
     }
 
-        // Search function: looks for answer in chapter3.json
+        // Search function: looks for answer in chapter4.json
         function performSearch(query) {
             if (!query) {
                 searchAnswer.textContent = 'Please enter a question.';
@@ -1285,8 +1285,8 @@ function checkAnswers(type) {
             let foundType = '';
             let foundChapter = '';
             if (window.chapterData && window.chapterData.id) {
-                // Use already loaded chapterData and fetch full chapter3.json if needed
-                fetch('chapter3.json')
+                // Use already loaded chapterData and fetch full chapter4.json if needed
+                fetch('chapter4.json')
                     .then(res => res.json())
                     .then(data => {
                         if (!data.chapters || !Array.isArray(data.chapters)) {
