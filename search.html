@@ -111,8 +111,9 @@
                     filesLoaded++;
                     if (filesLoaded === chapterFiles.length) {
                         if (foundResults.length) {
-                            searchStatus.textContent = `Found ${foundResults.length} result(s).`;
-                            searchResults.innerHTML = foundResults.join('<hr class="my-4">');
+                            const topResults = foundResults.slice(0, 3);
+                            searchStatus.textContent = `Showing top ${topResults.length} of ${foundResults.length} result(s).`;
+                            searchResults.innerHTML = topResults.join('<hr class="my-4">');
                         } else {
                             searchStatus.textContent = 'No results found.';
                             searchResults.innerHTML = '';
@@ -129,52 +130,11 @@
         const chapters = Array.isArray(data.chapters) ? data.chapters : Object.values(data);
         chapters.forEach(chapter => {
             const chapterTitle = chapter.title || chapter.unitName || filename.replace('.json','');
-            // Story
-            if (chapter.story) {
-                chapter.story.forEach(s => {
-                    if (s.text && s.text.toLowerCase().includes(query)) results.push(renderResult('Anecdote', chapterTitle, s.text, filename, query));
-                    if (s.storyParts) s.storyParts.forEach(part => {
-                        if (part.text && part.text.toLowerCase().includes(query)) results.push(renderResult('Anecdote', chapterTitle, part.text, filename, query));
-                    });
-                });
-            }
-            // Mindmap
             if (chapter.mindmap) {
                 chapter.mindmap.forEach(node => {
-                    if (node.title && node.title.toLowerCase().includes(query)) results.push(renderResult('Mindmap', chapterTitle, node.title, filename, query));
-                    if (node.definition && node.definition.toLowerCase().includes(query)) results.push(renderResult('Mindmap', chapterTitle, node.definition, filename, query));
-                    if (node.explanation && node.explanation.toLowerCase().includes(query)) results.push(renderResult('Mindmap', chapterTitle, node.explanation, filename, query));
-                });
-            }
-            // Flashcards
-            if (chapter.flashcards) {
-                chapter.flashcards.forEach(fc => {
-                    if (fc.front && fc.front.toLowerCase().includes(query)) results.push(renderResult('Flashcard', chapterTitle, fc.front, filename, query));
-                    if (fc.back && fc.back.toLowerCase().includes(query)) results.push(renderResult('Flashcard', chapterTitle, fc.back, filename, query));
-                });
-            }
-            // Exercises
-            if (chapter.exercises) {
-                for (const type in chapter.exercises) {
-                    (chapter.exercises[type] || []).forEach(ex => {
-                        if (ex.question && ex.question.toLowerCase().includes(query)) results.push(renderResult('Exercise', chapterTitle, ex.question, filename, query));
-                        if (ex.text && ex.text.toLowerCase().includes(query)) results.push(renderResult('Exercise', chapterTitle, ex.text, filename, query));
-                        if (ex.answer && ex.answer.toLowerCase().includes(query)) results.push(renderResult('Exercise', chapterTitle, ex.answer, filename, query));
-                    });
-                }
-            }
-            // Long Answer
-            if (chapter.longAnswerQuestions) {
-                chapter.longAnswerQuestions.forEach(la => {
-                    if (la.title && la.title.toLowerCase().includes(query)) results.push(renderResult('Long Answer', chapterTitle, la.title, filename, query));
-                    if (la.text && la.text.toLowerCase().includes(query)) results.push(renderResult('Long Answer', chapterTitle, la.text, filename, query));
-                });
-            }
-            // Case Study
-            if (chapter.caseStudy) {
-                chapter.caseStudy.forEach(cs => {
-                    if (cs.title && cs.title.toLowerCase().includes(query)) results.push(renderResult('Case Study', chapterTitle, cs.title, filename, query));
-                    if (cs.scenario && cs.scenario.toLowerCase().includes(query)) results.push(renderResult('Case Study', chapterTitle, cs.scenario, filename, query));
+                    if (node.definition && node.definition.toLowerCase().includes(query)) {
+                        results.push(renderResult('Definition', chapterTitle, node.definition, filename, query));
+                    }
                 });
             }
         });

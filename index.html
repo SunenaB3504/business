@@ -123,12 +123,13 @@
     </div>
     <!-- Search Modal -->
     <div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg p-8 max-w-lg w-full shadow-lg relative">
-            <button onclick="closeSearchModal()" class="absolute top-2 right-2 text-2xl text-gray-400 hover:text-gray-700">&times;</button>
+        <div id="search-modal-overlay" class="absolute inset-0" onclick="closeSearchModal()"></div>
+        <div class="bg-white rounded-lg p-8 max-w-lg w-full shadow-lg relative flex flex-col" style="z-index:51; height:60vh; max-height:60vh; overflow-y:auto;">
+            <button onclick="closeSearchModal()" class="absolute top-2 right-2 text-2xl text-gray-400 hover:text-gray-700" style="z-index:52;">&times;</button>
             <h2 class="text-xl font-bold mb-4">Search Questions</h2>
             <input type="text" id="search-input" placeholder="Type or use mic..." class="w-full border rounded px-3 py-2 mb-4">
             <button onclick="startAudioSearch()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 mb-4">🎤 Speak</button>
-            <div id="search-results" class="mt-2"></div>
+            <div id="search-results" class="mt-2 flex-1 overflow-y-auto"></div>
         </div>
     </div>
     <!-- Password Reset Modal -->
@@ -243,8 +244,121 @@
     }
     // --- Search Engine (Demo) ---
     function startAudioSearch() {
-        alert('Audio search not implemented in this demo.');
+        // --- Voice search for modal ---
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        let searchStatus = document.getElementById('search-status');
+        if (!searchStatus) {
+            searchStatus = document.createElement('div');
+            searchStatus.id = 'search-status';
+            searchStatus.className = 'text-gray-600 text-sm mb-2';
+            searchResults.parentNode.insertBefore(searchStatus, searchResults);
+        }
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            alert('Speech recognition not supported in this browser.');
+            return;
+        }
+        if (window._modalRecognition) {
+            window._modalRecognition.stop();
+            window._modalRecognition = null;
+        }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        window._modalRecognition = recognition;
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            searchInput.value = transcript;
+            performModalSearch(transcript);
+        };
+        recognition.onerror = function(event) {
+            searchStatus.textContent = 'Audio input error: ' + event.error;
+        };
+        recognition.onend = function() {
+            window._modalRecognition = null;
+        };
+        recognition.start();
+        searchStatus.textContent = 'Listening...';
     }
+
+    // --- Modal Search Logic (from search.html, mindmap definition only) ---
+    const chapterFiles = [
+        'chapter1.json','chapter2.json','chapter3.json','chapter4.json','chapter5.json','chapter6.json','chapter7.json','chapter8.json','chapter9.json','chapter10.json','chapter11.json'
+    ];
+    const searchInputModal = document.getElementById('search-input');
+    const searchResultsModal = document.getElementById('search-results');
+    let searchStatusModal = document.getElementById('search-status');
+    if (!searchStatusModal) {
+        searchStatusModal = document.createElement('div');
+        searchStatusModal.id = 'search-status';
+        searchStatusModal.className = 'text-gray-600 text-sm mb-2';
+        searchResultsModal.parentNode.insertBefore(searchStatusModal, searchResultsModal);
+    }
+    function performModalSearch(query) {
+        if (!query) {
+            searchStatusModal.textContent = 'Please enter a search term.';
+            searchResultsModal.innerHTML = '';
+            return;
+        }
+        searchStatusModal.textContent = 'Searching all chapters...';
+        searchResultsModal.innerHTML = '';
+        let foundResults = [];
+        let filesLoaded = 0;
+        chapterFiles.forEach(filename => {
+            fetch(filename)
+                .then(res => res.json())
+                .then(data => {
+                    const results = findInChapterModal(data, filename, query);
+                    if (results.length) foundResults = foundResults.concat(results);
+                })
+                .catch(() => {})
+                .finally(() => {
+                    filesLoaded++;
+                    if (filesLoaded === chapterFiles.length) {
+                        if (foundResults.length) {
+                            searchStatusModal.textContent = `Found ${foundResults.length} result(s).`;
+                            searchResultsModal.innerHTML = foundResults.join('<hr class="my-4">');
+                        } else {
+                            searchStatusModal.textContent = 'No results found.';
+                            searchResultsModal.innerHTML = '';
+                        }
+                    }
+                });
+        });
+    }
+    function findInChapterModal(data, filename, query) {
+        query = query.toLowerCase();
+        let results = [];
+        const chapters = Array.isArray(data.chapters) ? data.chapters : Object.values(data);
+        chapters.forEach(chapter => {
+            const chapterTitle = chapter.title || chapter.unitName || filename.replace('.json','');
+            if (chapter.mindmap) {
+                chapter.mindmap.forEach(node => {
+                    if (node.definition && node.definition.toLowerCase().includes(query)) {
+                        results.push(renderResultModal('Definition', chapterTitle, node.definition, filename, query));
+                    }
+                });
+            }
+        });
+        return results;
+    }
+    function renderResultModal(section, chapterTitle, text, filename, query) {
+        const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        const highlighted = text.replace(re, '<span style="background:#fef08a;font-weight:bold;">$1</span>');
+        return `<div class="search-result-block" style="background:#f9fafb;border-radius:0.5rem;margin-bottom:1rem;padding:1rem;box-shadow:0 2px 8px #e0e7ef;">
+            <div class="text-xs text-gray-500 mb-1">${section} | <b>${chapterTitle}</b> (${filename})</div>
+            <div>${highlighted}</div>
+        </div>`;
+    }
+    // Attach search on Enter and button click
+    if (searchInputModal) {
+        searchInputModal.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') performModalSearch(searchInputModal.value.trim());
+        });
+    }
+    // Optionally, you can add a search button in the modal to call performModalSearch(searchInputModal.value.trim());
     // --- Mail Integration (Demo) ---
     function sendMail() {
         alert('Mail sent! (Demo)');
