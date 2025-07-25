@@ -1,0 +1,553 @@
+{
+  "chapters": [
+    {
+      "caseStudy": [
+        {
+          "questions": [
+            {
+              "answer": "The consumer right violated in this scenario is the Right to Seek Redressal. This right ensures that consumers have access to remedies against unfair trade practices, restrictive trade practices, or unscrupulous exploitation if a product or service falls short of their expectations. KnowledgeCompass's initial failure to resolve the recurring payment issue and the lack of a functional grievance mechanism directly infringed upon this right, leaving Mr. Sharma without an effective avenue for resolution.",
+              "marks": 4,
+              "question": "Identify and explain the specific consumer right that was violated in Mr. Sharma's case.",
+              "type": "explain",
+              "wordLimit": 100
+            },
+            {
+              "answer": "KnowledgeCompass's recurring billing error and the unresponsiveness of its customer support, coupled with the difficulty in cancelling the subscription, can be categorized as a 'Deficiency in Service'. As per the Consumer Protection Act 2019, deficiency refers to any fault, imperfection, shortcoming, or inadequacy in the quality, nature, and manner of performance of a service. The consistent failure to provide the promised service (smooth subscription management, effective customer support, and accurate billing) constitutes a clear deficiency.",
+              "marks": 3,
+              "question": "Based on the scenario, what kind of malpractice or issue did KnowledgeCompass exhibit, as defined by the Consumer Protection Act 2019?",
+              "type": "identify",
+              "wordLimit": 75
+            },
+            {
+              "answer": "Mr. Sharma fulfilled several consumer responsibilities: 1. He 'Read labels carefully' by checking his bank statements and noticing the recurring deduction. 2. He 'Asserted himself' by contacting KnowledgeCompass's customer support multiple times. 3. He 'Filed a complaint' by escalating the matter to the consumer forum when direct communication failed. His proactive steps demonstrate an informed and responsible consumer seeking a fair resolution.",
+              "marks": 4,
+              "question": "Describe two consumer responsibilities that Mr. Sharma effectively fulfilled during this ordeal.",
+              "type": "explain",
+              "wordLimit": 100
+            },
+            {
+              "answer": "To prevent such incidents, KnowledgeCompass could implement robust 'Self-regulation by Business' by establishing clear, accessible, and responsive customer grievance cells, ensuring prompt resolution of billing issues, and providing easy subscription management tools. Additionally, fostering 'Consumer Awareness' by clearly outlining subscription terms, cancellation policies, and contact information for support would empower users and reduce misunderstandings. Regularly auditing their billing systems and customer service efficiency would also align with ethical business practices.",
+              "marks": 5,
+              "question": "Suggest two 'Ways and Means of Consumer Protection' that KnowledgeCompass could implement to avoid such issues in the future and enhance customer trust.",
+              "type": "explain",
+              "wordLimit": 120
+            }
+          ],
+          "scenario": "Mr. Rohit Sharma, a loyal user of KnowledgeCompass's premium online learning platform, subscribed to a 6-month 'Advanced AI & Machine Learning' course for ₹15,000. The course was excellent, and he completed it successfully. However, after the 6-month period, he noticed that his credit card was automatically charged for another 6-month subscription, despite him not opting for auto-renewal and having completed the course. He checked his account settings, which indicated that auto-renewal was turned off. Mr. Sharma immediately contacted KnowledgeCompass's customer support via email and phone. For weeks, he received automated replies or was put on hold indefinitely. His emails went unanswered, and the customer support phone line disconnected repeatedly. Despite multiple attempts, he could not get in touch with a human representative to address the erroneous charge and get a refund. Feeling frustrated and cheated, and with the ₹15,000 deduction still unresolved, Mr. Sharma decided to approach a consumer forum.",
+          "title": "KnowledgeCompass and the Unintended Auto-Renewal: A Consumer Grievance"
+        }
+      ],
+      "exercises": {
+        "mcq": [
+          {
+            "correctAnswerIndex": 2,
+            "explanation": "When a business firm sets up a consumer grievance cell, it is providing a mechanism for consumers to express their dissatisfaction and seek resolution. This directly supports the 'Right to be Heard', which ensures consumers have the freedom to file a complaint and be listened to in case of dissatisfaction with a product or service.",
+            "keywords": [
+              "Consumer Rights",
+              "Right to be Heard",
+              "Grievance Cell",
+              "Consumer Protection Act"
+            ],
+            "options": [
+              "Right to Safety",
+              "Right to be Informed",
+              "Right to be Heard",
+              "Right to Seek Redressal"
+            ],
+            "question": "Under which consumer right does a business firm set up a consumer grievance cell?",
+            "topic": "Consumer Rights"
+          },
+          {
+            "correctAnswerIndex": 0,
+            "explanation": "Agmark is a certification mark employed on agricultural products in India, ensuring their quality and purity. ISI mark is for industrial products, FPO for processed fruit products, and BIS Hallmark for gold jewelry. Therefore, Agmark is the correct quality mark for agricultural products.",
+            "keywords": [
+              "Quality Marks",
+              "Agricultural Products",
+              "Agmark",
+              "Certification"
+            ],
+            "options": [
+              "Agmark",
+              "ISI Mark",
+              "BIS Hallmark",
+              "FPO Mark"
+            ],
+            "question": "Which quality certification mark is used for agricultural products in India?",
+            "topic": "Standardization Marks"
+          },
+          {
+            "correctAnswerIndex": 2,
+            "explanation": "As per the Consumer Protection Rules 2021, a State Commission has the jurisdiction to entertain complaints where the value of goods or services paid as consideration exceeds fifty lakh rupees but does not exceed two crore rupees. The District Commission handles up to fifty lakh, and the National Commission handles above two crore.",
+            "keywords": [
+              "State Commission",
+              "Jurisdiction",
+              "Consumer Protection Act",
+              "Redressal Agencies"
+            ],
+            "options": [
+              "Does not exceed fifty lakh rupees",
+              "Exceeds two crore rupees",
+              "Exceeds fifty lakh rupees but does not exceed two crore rupees",
+              "Any value, regardless of the amount"
+            ],
+            "question": "What is the jurisdiction of cases that can be filed in a State Commission under the Consumer Protection Act 2019?",
+            "topic": "Redressal Mechanism"
+          },
+          {
+            "correctAnswerIndex": 1,
+            "explanation": "The 'Right to be Informed' allows consumers to have complete information about a product, including its ingredients, date of manufacture, price, etc. Labels and packaging are the primary means through which manufacturers provide this essential information. Therefore, 'Labeling' is the component of the product mix that directly supports this right.",
+            "keywords": [
+              "Product Mix",
+              "Right to be Informed",
+              "Labeling",
+              "Packaging",
+              "Consumer Rights"
+            ],
+            "options": [
+              "Branding",
+              "Labeling",
+              "Packaging",
+              "Pricing"
+            ],
+            "question": "Name the component of product mix that primarily helps the consumer to exercise the 'Right to Information'.",
+            "topic": "Consumer Rights"
+          }
+        ],
+        "oneWord": [
+          {
+            "correctAnswer": "Spurious goods",
+            "explanation": "Spurious goods are defined as products that are falsely claimed to be genuine. This often involves counterfeit items or products that are misrepresented as coming from a reputable brand or source, thereby misleading consumers.",
+            "keywords": [
+              "Spurious",
+              "Goods",
+              "Genuine",
+              "Counterfeit",
+              "Misleading"
+            ],
+            "question": "What term is used to describe goods that are falsely claimed to be genuine?",
+            "topic": "Key Terms in CPA"
+          },
+          {
+            "correctAnswer": "Jago Grahak Jago",
+            "explanation": "The 'Jago Grahak Jago' (Wake Up, Consumer Wake Up) campaign is a significant initiative by the Department of Consumer Affairs, Government of India, aimed at creating widespread awareness among consumers about their rights, responsibilities, and available redressal mechanisms.",
+            "keywords": [
+              "Consumer Awareness",
+              "Campaign",
+              "Government",
+              "India",
+              "Department of Consumer Affairs"
+            ],
+            "question": "Name the well-known consumer awareness campaign undertaken by the Department of Consumer Affairs, Government of India.",
+            "topic": "Consumer Awareness"
+          },
+          {
+            "correctAnswer": "ISI Mark",
+            "explanation": "The ISI mark is a mandatory certification mark for electrical appliances and many other industrial products in India. It indicates that the product conforms to Indian Standards, ensuring its safety and quality. Consumers are advised to look for this mark on electrical goods.",
+            "keywords": [
+              "ISI Mark",
+              "Electrical Goods",
+              "Quality Mark",
+              "Standardization",
+              "Safety"
+            ],
+            "question": "Which quality certification mark should consumers look for on electrical goods to ensure safety and quality?",
+            "topic": "Standardization Marks"
+          }
+        ],
+        "shortAnswer1": [
+          {
+            "answer": "The Consumer Protection Act 2019 defines a 'consumer' as a person who buys any goods or avails services for a consideration, which has been paid or promised, or partly paid and partly promised, or under any scheme of deferred payment. This definition is broad and includes any user of such goods or beneficiary of services if such use is made with the approval of the buyer. It applies to both offline and online transactions, teleshopping, direct selling, or multilevel marketing. However, anyone buying goods or availing services for resale or commercial purposes is explicitly excluded.",
+            "explanation": "This answer clearly defines a consumer as per the Consumer Protection Act 2019, covering all crucial aspects like consideration, inclusion of users/beneficiaries, and applicability to various transaction types, while also mentioning the key exclusion.",
+            "feedback": {
+              "correct": "Excellent! Your definition of a consumer under CPA 2019 is comprehensive, covering all key aspects and exclusions.",
+              "incorrect": "Review the definition of 'consumer' under the Consumer Protection Act 2019. Remember to include criteria like 'consideration' and clarify who is excluded."
+            },
+            "keywords": [
+              "Consumer Protection Act 2019",
+              "Consumer Definition",
+              "Consideration",
+              "Offline Transactions",
+              "Online Transactions",
+              "Commercial Purpose"
+            ],
+            "question": "Who is a consumer as per the Consumer Protection Act 2019?",
+            "topic": "Consumer Definition"
+          }
+        ],
+        "shortAnswer2": [
+          {
+            "answer": "The proposal by FSSAI for hotels and food outlets to declare the kind of oil/fat used in cooking reinforces the 'Right to be Informed'. This right ensures that consumers have complete and accurate information about the products or services they intend to buy. By mandating the declaration of cooking oil, FSSAI empowers consumers to make informed choices, especially those with dietary restrictions, allergies, or health concerns, thus protecting their health and ensuring transparency in food preparation.",
+            "explanation": "This answer correctly identifies the 'Right to be Informed' and provides a clear explanation of how the FSSAI proposal supports this right, highlighting its benefits for consumer choice and health. It connects the practical measure directly to the legal right.",
+            "feedback": {
+              "correct": "Precisely! You correctly identified the Right to be Informed and explained its relevance to the FSSAI proposal, demonstrating a strong understanding.",
+              "incorrect": "Revisit the consumer rights. Think about which right focuses on giving consumers full details about products and services. Then, explain how the FSSAI proposal relates to that specific right."
+            },
+            "keywords": [
+              "Right to be Informed",
+              "FSSAI",
+              "Consumer Rights",
+              "Food Safety",
+              "Transparency",
+              "Informed Choice"
+            ],
+            "question": "FSSAI (Food Safety and Standards Authority of India) has made a proposal for hotels and other food outlets to declare the kind of oil/fat used in cooking each of the food items on their menus. Name and explain the Consumer Right being reinforced by this proposal.",
+            "topic": "Consumer Rights and Responsibilities"
+          },
+          {
+            "answer": "Two significant reliefs available to consumers under the Consumer Protection Act 2019 are: 1. To remove the defect in goods or deficiency in service: The consumer court can order the opposite party to rectify the identified defect in the product or address the inadequacy in the service provided. 2. To refund the price paid for the product, or the charges paid for the service: If removal of defect or replacement is not feasible or desired by the consumer, the court can order a full refund of the amount paid by the consumer.",
+            "explanation": "This answer clearly lists two distinct reliefs as requested and provides a brief but accurate explanation for each, demonstrating knowledge of the Consumer Protection Act's provisions for consumer redressal.",
+            "feedback": {
+              "correct": "Well done! You have identified and explained two key reliefs available under the CPA, showing a good grasp of consumer remedies.",
+              "incorrect": "Review the various types of relief available to consumers under the Consumer Protection Act. Focus on tangible actions that can be ordered by the consumer courts."
+            },
+            "keywords": [
+              "Consumer Protection Act",
+              "Relief",
+              "Redressal",
+              "Defect Removal",
+              "Refund",
+              "Deficiency"
+            ],
+            "question": "State any two reliefs available to consumers under the Consumer Protection Act 2019.",
+            "topic": "Redressal Mechanism"
+          }
+        ],
+        "trueFalse": [
+          {
+            "correctAnswer": false,
+            "explanation": "The phrase 'caveat emptor' literally means 'let the buyer beware'. It represents an older market approach where the responsibility for checking the quality and suitability of goods primarily rested with the buyer. The modern approach, 'caveat venditor' ('let the seller beware'), places more responsibility on the seller.",
+            "question": "The phrase 'caveat emptor' implies 'Let the seller beware'. "
+          },
+          {
+            "correctAnswer": true,
+            "explanation": "Yes, the Consumer Protection Act 2019 was enacted to replace the older Consumer Protection Act 1986. The new Act aimed to widen the scope of consumer protection, incorporate modern business practices like e-commerce, and provide for a central authority (CCPA) and more efficient redressal mechanisms.",
+            "question": "The Consumer Protection Act 2019 has replaced the Consumer Protection Act 1986."
+          },
+          {
+            "correctAnswer": false,
+            "explanation": "Under the Consumer Protection Act 2019, a person who obtains goods or avails services for resale or any commercial purpose is explicitly not treated as a consumer. The Act is designed to protect end-consumers, not business entities engaging in commercial transactions.",
+            "question": "As per the Consumer Protection Act 2019, consumers who obtain goods or avail services for commercial purposes are covered under its scope."
+          }
+        ]
+      },
+      "flashcards": [
+        {
+          "back": "The concept of safeguarding the interests of consumers, protecting them from unethical malpractices by businesses, and providing a swift redressal of their grievances.",
+          "front": "Consumer Protection"
+        },
+        {
+          "back": "Legal entitlements conferred upon consumers by the Consumer Protection Act 2019 to empower them and protect their interests.",
+          "front": "Consumer Rights"
+        },
+        {
+          "back": "Duties that consumers should adhere to while purchasing, using, and consuming goods and services to ensure their own protection and fair market practices.",
+          "front": "Consumer Responsibilities"
+        },
+        {
+          "back": "Any allegation in writing made by a complainant for obtaining relief with respect to restrictive trade practice, defect in goods, or deficiency in services provided, overcharging, or offering goods/services injurious to life and safety.",
+          "front": "Complaint (as per CPA 2019)"
+        },
+        {
+          "back": "One or more consumers, any voluntary consumer association, central or state government, the central authority, a legal heir, legal representative, or a parent/legal representative in case of a minor.",
+          "front": "Complainant (as per CPA 2019)"
+        },
+        {
+          "back": "Goods that are falsely claimed to be genuine, often involving counterfeit items.",
+          "front": "Spurious Goods"
+        },
+        {
+          "back": "A trade practice for the purpose of promoting sale, use, or supply of any goods or service that falsely represents its quality, standard, quantity, composition, style, or model.",
+          "front": "Unfair Trade Practice"
+        },
+        {
+          "back": "A trade practice which manipulates price or affects the flow of supplies in the market relating to goods and services in such a manner that an unjustified cost is imposed on the consumer.",
+          "front": "Restrictive Trade Practice"
+        },
+        {
+          "back": "Any fault, imperfection, shortcoming or inadequacy in quality, nature and manner of performance in relation to goods or a product.",
+          "front": "Defect (in Goods)"
+        },
+        {
+          "back": "Any fault, imperfection, shortcoming or inadequacy in quality, nature and manner of performance in relation to any service, including an act of negligence, omission, or withholding relevant information causing loss or injury to the consumer.",
+          "front": "Deficiency (in Services)"
+        },
+        {
+          "back": "Responsibility of a product manufacturer or seller of any product or service to compensate for any harm caused to a consumer by a defective product manufactured or sold or by deficiency in services.",
+          "front": "Product Liability"
+        },
+        {
+          "back": "The consumer has a right to be protected against goods and services which are hazardous to life, health, and property.",
+          "front": "Right to Safety"
+        },
+        {
+          "back": "The consumer has a right to have complete information about the product he intends to buy, including its ingredients, date of manufacture, price, quantity, and directions for use.",
+          "front": "Right to be Informed"
+        },
+        {
+          "back": "The consumer has the freedom to access a variety of products at competitive prices, implying marketers should offer a wide range of choices in terms of quality, brand, prices, and size.",
+          "front": "Right to be Assured (Right to Choose)"
+        },
+        {
+          "back": "The consumer has a right to file a complaint and to be heard in case of dissatisfaction with a good or a service.",
+          "front": "Right to be Heard"
+        },
+        {
+          "back": "The consumer has a right to get relief against unfair trade practices, restrictive trade practices, or unscrupulous exploitation if the product or a service falls short of expectations.",
+          "front": "Right to Seek Redressal"
+        },
+        {
+          "back": "The consumer has a right to acquire knowledge and to be a well-informed consumer throughout life, being aware of rights and available reliefs.",
+          "front": "Right to Consumer Education"
+        },
+        {
+          "back": "An old market approach meaning 'Let the buyer beware,' where the buyer was responsible for checking the quality of goods.",
+          "front": "Caveat Emptor"
+        },
+        {
+          "back": "A modern market approach meaning 'Let the seller beware,' implying that sellers are responsible for the quality and safety of their products/services.",
+          "front": "Caveat Venditor"
+        },
+        {
+          "back": "A toll-free national consumer helpline number launched by the Government of India to assist consumers with their grievances (1800114000).",
+          "front": "National Consumer Helpline"
+        },
+        {
+          "back": "A three-tier quasi-judicial machinery for redressal of consumer grievances, established at the district, state, and national levels under the Consumer Protection Act.",
+          "front": "Redressal Agencies"
+        }
+      ],
+      "id": "chapter11",
+      "longAnswerQuestions": [
+        {
+          "answer150Words": "Consumer protection is vital for businesses for several reasons. Firstly, it aligns with the 'long-term interest of business'. Satisfied customers not only make repeat purchases but also advocate for the business through positive word-of-mouth, which is invaluable for expanding the customer base and ensuring sustained profitability. Secondly, businesses 'use society's resources' and thus have a responsibility to provide safe, quality products and services that do not erode public trust. Thirdly, it's a matter of 'social responsibility'; consumers are key stakeholders, and their interests must be well taken care of, reflecting the firm's ethical commitment. Fourthly, there's a 'moral justification' for businesses to avoid exploitation, adulteration, or misleading practices. Lastly, adhering to consumer protection principles helps 'avoid government intervention'. Businesses engaging in unfair trade practices risk legal action, fines, and reputation damage, which can severely impact their operations. Proactive consumer protection fosters a healthy market environment and sustained success.",
+          "answer200Words": "Consumer protection holds immense importance from a business perspective, extending beyond mere compliance to strategic advantage. Fundamentally, it serves the 'long-term interest of business'. A satisfied customer base is the bedrock of repeat sales and organic growth, as happy customers become brand ambassadors, generating positive feedback and expanding market share. This principle underscores that enduring profit maximization is inextricably linked to customer satisfaction. Moreover, businesses inherently 'use society's resources', imbuing them with a societal obligation to deliver products and services that uphold public interest and confidence. This encompasses ensuring product safety and ethical sourcing. This leads to the third point: 'social responsibility'. As consumers constitute a critical stakeholder group, safeguarding their welfare is paramount, akin to fulfilling duties towards employees or shareholders. Ethically, there is a 'moral justification' for businesses to abstain from exploitative practices such as adulteration, misleading advertising, or black marketing. Such ethical conduct builds trust and a strong brand image. Finally, proactive consumer protection helps 'avoid government intervention'. Unscrupulous practices invite regulatory scrutiny, legal penalties, and irreparable damage to corporate image. Voluntary adherence to consumer interests, therefore, becomes a prudent business strategy, cultivating a reputation for integrity and ensuring smooth, unobstructed operations.",
+          "answer50To75Words": "Consumer protection is crucial for businesses. It fosters 'long-term interest' by ensuring customer satisfaction, leading to repeat sales and positive word-of-mouth. Businesses also have a 'social responsibility' as they use societal resources, thus needing to serve public interest. Morally, exploiting consumers is indefensible. Lastly, prioritizing consumer protection helps 'avoid government intervention', preventing legal issues and reputational damage, ensuring a stable and ethical market presence for the business.",
+          "text": "Explain the importance of consumer protection from the point of view of a business."
+        },
+        {
+          "answer150Words": "Consumers in India are endowed with six fundamental rights under the Consumer Protection Act 2019: 1. Right to Safety: Protection against hazardous goods and services. 2. Right to be Informed: Access to complete product information. 3. Right to be Assured (Choose): Freedom to select from a variety of products at competitive prices. 4. Right to be Heard: The ability to file complaints and have them considered. 5. Right to Seek Redressal: Entitlement to relief against unfair practices, including replacement, refund, or compensation. 6. Right to Consumer Education: The right to acquire knowledge and remain an informed consumer. Alongside these rights, consumers also bear responsibilities: being aware of product information, looking for quality marks (ISI, FPO, Hallmark), using products safely, reading labels carefully, asserting themselves for fair deals, demanding cash memos, filing complaints, forming consumer societies, and respecting the environment.",
+          "answer200Words": "The Consumer Protection Act 2019 empowers consumers with six crucial rights. The 'Right to Safety' ensures protection from goods and services that are hazardous to life, health, or property. The 'Right to be Informed' guarantees access to comprehensive information about products, including ingredients, price, and usage instructions. The 'Right to be Assured' or 'Right to Choose' provides the freedom to select from a wide array of products at competitive prices. The 'Right to be Heard' allows consumers to voice grievances and have their complaints addressed, leading many businesses to establish grievance cells. The 'Right to Seek Redressal' ensures remedies like product replacement, defect removal, or compensation for losses due to unfair practices. Finally, the 'Right to Consumer Education' encourages lifelong learning about consumer rights and available reliefs. To make these rights effective, consumers must also act responsibly. Key responsibilities include: being an aware and informed buyer; opting for standardized goods with quality marks; understanding risks and following instructions; carefully reading labels for crucial details; asserting their rights to ensure fair dealings; insisting on cash memos as proof of purchase; filing complaints for shortcomings; forming consumer societies to amplify their voice; and being environmentally conscious by avoiding waste and pollution.",
+          "answer50To75Words": "Consumers have six core rights: Safety (protection from hazards), Informed (full product details), Assured/Choose (variety at fair prices), Heard (lodge complaints), Seek Redressal (get remedies), and Consumer Education (knowledge about rights). Simultaneously, consumers must act responsibly: be aware, buy standardized goods, read labels, ask for cash memos, file complaints, and form consumer associations. Rights without responsibilities are ineffective for true protection.",
+          "text": "Explain the rights and responsibilities of consumers."
+        },
+        {
+          "answer150Words": "The objective of consumer protection can be achieved through multiple avenues. Firstly, 'Self-regulation by Business' encourages ethical practices and responsive grievance cells within companies, reflecting their long-term interest in customer satisfaction. Secondly, 'Business Associations' like FICCI and CII set codes of conduct for their members, promoting fair dealings. Thirdly, 'Consumer Awareness' campaigns, such as 'Jago Grahak Jago', educate consumers about their rights and responsibilities, empowering them to voice concerns. Fourthly, 'Consumer Organisations' play a vital role by educating the public, conducting comparative product testing, providing legal aid, and filing complaints on behalf of consumers. Lastly, the 'Government' establishes legal frameworks like the Consumer Protection Act 2019, sets up redressal agencies (District, State, National Commissions), and operates helplines to enforce consumer rights and ensure protection against malpractices.",
+          "answer200Words": "Achieving comprehensive consumer protection requires a multi-faceted approach involving various stakeholders. One crucial way is through 'Self-regulation by Business'. Enlightened businesses recognize that prioritizing customer satisfaction aligns with their long-term interests. This involves adopting ethical standards, setting up effective customer service, and establishing grievance redressal cells to address consumer problems proactively. Another means is through 'Business Associations' such as FICCI and CII, which formulate codes of conduct and guidelines for their member firms, fostering responsible business practices across industries. 'Consumer Awareness' is paramount; an informed consumer is empowered to protect their interests. Government initiatives like the 'Jago Grahak Jago' campaign, along with efforts from NGOs, educate consumers about their rights and responsibilities. 'Consumer Organisations' and NGOs play a significant role by acting as advocates: they educate the public, conduct comparative testing of products, provide legal assistance, and even file complaints and public interest litigation on behalf of consumers. Finally, the 'Government' provides the legal framework, notably the Consumer Protection Act 2019. This Act establishes a three-tier redressal machinery (District, State, and National Commissions) to provide swift and inexpensive grievance resolution and sets up regulatory bodies like the Central Consumer Protection Authority (CCPA) to enforce consumer rights and penalize unfair trade practices.",
+          "answer50To75Words": "Consumer protection is achieved through several means. 'Self-regulation by business' and 'Business Associations' promote ethical practices. 'Consumer Awareness' campaigns empower consumers. 'Consumer Organisations' educate, test products, and provide legal aid. Finally, the 'Government' enacts laws like the CPA 2019, establishing a three-tier redressal system and regulating markets to safeguard consumer interests comprehensively.",
+          "text": "What are various ways in which the objective of consumer protection can be achieved?"
+        },
+        {
+          "answer150Words": "The Consumer Protection Act 2019 establishes a three-tier quasi-judicial machinery for redressing consumer grievances, ensuring speedy and inexpensive resolution. At the base is the 'District Commission', which handles complaints where the value of goods or services does not exceed fifty lakh rupees. Parties dissatisfied with its order can appeal to the State Commission within 45 days. Above this is the 'State Commission', established by respective state governments, with jurisdiction over complaints valuing between fifty lakh rupees and two crore rupees. Appeals from the State Commission can be made to the National Commission within 30 days. At the apex is the 'National Commission', holding territorial jurisdiction over the entire country, entertaining complaints where the value of goods or services exceeds two crore rupees. Its orders can be challenged in the Supreme Court of India within 30 days. This tiered system provides accessible and effective avenues for consumers to seek justice.",
+          "answer200Words": "The Consumer Protection Act 2019 provides a robust three-tier quasi-judicial mechanism for the effective and inexpensive redressal of consumer grievances. This machinery operates at the District, State, and National levels. Firstly, the 'District Commission' has jurisdiction to entertain complaints where the value of goods or services paid as consideration does not exceed fifty lakh rupees. It can also encourage mediation for dispute settlement. If a party is dissatisfied with the District Commission's order, an appeal can be filed with the State Commission within 45 days. Secondly, the 'State Commission', established by each state government, handles complaints where the value of goods and services exceeds fifty lakh rupees but does not exceed two crore rupees. An appeal against the State Commission's order can be made to the National Commission within 30 days. Lastly, the 'National Commission' serves as the highest consumer court, with jurisdiction over complaints where the value of goods or services exceeds two crore rupees and also hears appeals from State Commissions. Decisions of the National Commission can be appealed to the Supreme Court of India within 30 days. This structured system ensures that consumers have access to appropriate legal recourse based on the financial value of their complaint, facilitating prompt justice.",
+          "answer50To75Words": "The Consumer Protection Act 2019 provides a three-tier redressal mechanism. The 'District Commission' handles cases up to ₹50 lakh. Appeals go to the 'State Commission', which handles cases between ₹50 lakh and ₹2 crore. The 'National Commission' is for cases exceeding ₹2 crore, with appeals possible to the Supreme Court. This system ensures accessible and speedy grievance resolution for consumers.",
+          "text": "Explain the redressal mechanism available to consumers under the Consumer Protection Act, 2019."
+        },
+        {
+          "answer150Words": "Consumer organizations and Non-Governmental Organizations (NGOs) play a pivotal role in protecting and promoting consumer interests in India. Their functions are multifaceted: Firstly, they 'educate the general public' about consumer rights and responsibilities through training programs, seminars, and publications like periodicals, empowering consumers to be more aware. Secondly, they 'carry out comparative testing' of consumer products in accredited laboratories. By publishing these results, they help consumers make informed choices between competing brands, highlighting quality and value. Thirdly, they 'encourage consumers to protest' against unethical and exploitative trade practices, galvanizing collective action. Fourthly, they provide crucial 'legal assistance' to consumers, offering aid and advice for seeking legal remedies. Finally, and significantly, they actively 'file complaints in appropriate consumer courts', sometimes on behalf of individual consumers, but often taking the initiative to file cases 'in the interest of the general public', addressing widespread malpractices, thereby acting as a collective voice for consumer rights.",
+          "answer200Words": "Consumer organizations and Non-Governmental Organizations (NGOs) are instrumental in safeguarding and advancing consumer interests in India. They perform a diverse range of functions that empower consumers and hold businesses accountable. Primarily, these organizations focus on 'educating the general public' about their rights and responsibilities. They achieve this through various initiatives such as organizing training programs, seminars, workshops, and publishing informative periodicals and other materials that detail consumer problems, legal reporting, and available reliefs. Secondly, they undertake 'comparative testing of consumer products' in accredited laboratories. By scientifically evaluating and publishing the relative qualities of competing brands, they provide invaluable unbiased information, enabling consumers to make well-informed purchasing decisions. Thirdly, these organizations play an advocacy role by 'encouraging consumers to strongly protest and take action' against unscrupulous, exploitative, and unfair trade practices of sellers. Fourthly, they provide essential 'legal assistance to consumers', offering aid, legal advice, and guidance in navigating the complex process of seeking legal remedies. Finally, a significant function is their active involvement in 'filing complaints in appropriate consumer courts'. They not only represent individual consumers but also take the initiative to file cases 'in the interest of the general public', addressing systemic issues and widespread malpractices, thereby ensuring that justice is accessible and that consumer voices are heard collectively.",
+          "answer50To75Words": "Consumer organizations and NGOs actively protect consumer interests. They 'educate the public' on rights, 'carry out comparative product testing' to inform choices, and 'encourage protest' against malpractices. They also provide 'legal assistance' and 'file complaints' in consumer courts, often for the general public's benefit, acting as crucial advocates for consumer welfare.",
+          "text": "Explain the role of consumer organisations and NGOs in protecting and promoting consumer’s interest."
+        }
+      ],
+      "mindmap": [
+        {
+          "definition": "The concept of safeguarding consumers' interests from unethical business practices and providing swift redressal for grievances.",
+          "example": "KnowledgeCompass prioritizes consumer protection by ensuring clear terms of service for its online courses and prompt customer support, building user trust and preventing issues like misleading course descriptions.",
+          "explanation": "Consumer protection is essential to shield consumers from various malpractices in the market, ensuring their well-being and fair treatment against exploitation by manufacturers, sellers, and service providers. It transitions the market from 'caveat emptor' to 'caveat venditor'.",
+          "keyPoints": [
+            "Safeguards from unethical practices (e.g., adulteration, misleading ads)",
+            "Provides swift grievance redressal",
+            "Ensures physical safety from unsafe products",
+            "Promotes access to accurate information",
+            "Encourages corporate social responsibility",
+            "Vital for business survival and growth by building trust"
+          ],
+          "title": "Importance of Consumer Protection",
+          "points": [
+            {
+              "example": "A KnowledgeCompass user, unaware of their right to a refund for a defective course, might suffer financial loss due to 'consumer ignorance'. Consumer protection educates them to prevent this.",
+              "explanation": "Many consumers are unaware of their rights and the available reliefs, making them vulnerable to exploitation. Additionally, consumers are often unorganized, lacking a collective voice against widespread malpractices by powerful sellers.",
+              "keyPoints": [
+                "Consumer Ignorance about rights and reliefs",
+                "Unorganised Consumers lacking collective strength",
+                "Widespread Exploitation by unscrupulous trade practices (e.g., defective goods, black-marketing)"
+              ],
+              "title": "From Consumers' Point of View",
+              "definition": null,
+              "otherInfo": null
+            },
+            {
+              "example": "KnowledgeCompass's commitment to excellent customer service and fair course pricing leads to loyal users and positive word-of-mouth, essential for its 'long-term interest' and avoiding 'government intervention'.",
+              "explanation": "Businesses benefit from consumer protection as satisfied customers ensure long-term sales. They also have a social and moral obligation to society, whose resources they utilize. Proactive protection can prevent negative government intervention.",
+              "keyPoints": [
+                "Long-term Interest of Business (satisfied customers, repeat sales, good feedback)",
+                "Business uses Society's Resources (responsibility to public interest)",
+                "Social Responsibility towards stakeholders (consumers are important group)",
+                "Moral Justification (ethical duty to avoid exploitation)",
+                "Government Intervention (avoiding legal actions and tarnished image)"
+              ],
+              "title": "From Business' Point of View",
+              "definition": null,
+              "otherInfo": null
+            }
+          ]
+        },
+        {
+          "definition": "Legal entitlements conferred upon consumers by the Consumer Protection Act 2019 to empower them and protect their interests.",
+          "example": "KnowledgeCompass ensures its online courses are safe from malware ('Right to Safety'), provides detailed syllabi and tech requirements ('Right to be Informed'), offers diverse learning plans ('Right to be Assured/Choose'), has a dedicated help desk ('Right to be Heard'), facilitates easy refunds for justified complaints ('Right to Seek Redressal'), and educates users on platform usage ('Right to Consumer Education').",
+          "explanation": "The Consumer Protection Act 2019 provides a set of six fundamental rights to consumers, designed to empower them against unfair trade practices and ensure their well-being in the marketplace.",
+          "keyPoints": [
+            "Right to Safety (protection from hazardous goods/services)",
+            "Right to be Informed (complete information about products/services)",
+            "Right to be Assured / Choose (access to variety at competitive prices)",
+            "Right to be Heard (file complaints and be heard)",
+            "Right to Seek Redressal (relief against unfair practices)",
+            "Right to Consumer Education (acquire knowledge to be an informed consumer)"
+          ],
+          "title": "Consumer Rights (under CPA 2019)",
+          "points": []
+        },
+        {
+          "definition": "Duties expected from consumers to ensure fair dealings and self-protection, complementing their rights.",
+          "example": "A KnowledgeCompass user should verify course content before purchase ('Be Aware'), check for official certifications ('Buy Standardised Goods'), read terms and conditions ('Learn Risks', 'Read Labels'), and insist on a payment receipt ('Ask for Cash Memo') for any subscriptions.",
+          "explanation": "For consumer protection to be effective, consumers must also understand and act upon their responsibilities. Rights alone cannot ensure protection; active participation and diligence from consumers are vital.",
+          "keyPoints": [
+            "Be Aware about various goods/services",
+            "Buy Standardised Goods (e.g., ISI, FPO, Hallmark)",
+            "Learn about Risks associated with products/services",
+            "Read Labels Carefully for info on price, weight, dates",
+            "Assert Yourself to ensure fair deals",
+            "Be Honest in dealings and discourage unscrupulous practices",
+            "Ask for a Cash Memo as proof of purchase",
+            "File a Complaint in appropriate forum if shortcomings exist",
+            "Form Consumer Societies to safeguard collective interests",
+            "Respect the Environment by avoiding waste and pollution"
+          ],
+          "title": "Consumer Responsibilities",
+          "points": []
+        },
+        {
+          "definition": "Various strategies and mechanisms employed by different stakeholders to achieve consumer welfare and safeguard interests.",
+          "example": "KnowledgeCompass implements internal 'Self-regulation' protocols for content quality, participates in EdTech 'Business Associations', supports 'Consumer Awareness' campaigns for online safety, and actively engages with user feedback channels, complementing 'Government' initiatives.",
+          "explanation": "Consumer protection is a shared responsibility, and its objectives are achieved through a combination of efforts from businesses, consumer groups, and the government.",
+          "keyPoints": [
+            "Self-regulation by Business (ethical practices, grievance cells)",
+            "Business Associations (codes of conduct for members)",
+            "Consumer Awareness (educating consumers about rights/responsibilities, e.g., Jago Grahak Jago)",
+            "Consumer Organisations (educating, testing, legal aid, filing complaints)",
+            "Government (enacting laws, setting up redressal agencies, helplines)"
+          ],
+          "title": "Ways and Means of Consumer Protection",
+          "points": []
+        },
+        {
+          "definition": "A three-tier quasi-judicial machinery established under the Consumer Protection Act 2019 for the speedy and inexpensive redressal of consumer grievances.",
+          "example": "If a KnowledgeCompass user has a dispute beyond the company's internal resolution, they can approach the 'District Commission' for issues up to ₹50 lakh, 'State Commission' for higher values, or the 'National Commission' for disputes over ₹2 crore, ensuring their grievances are heard by a legal body.",
+          "explanation": "The Consumer Protection Act 2019 provides a structured system of quasi-judicial bodies at different levels to hear and resolve consumer complaints efficiently.",
+          "keyPoints": [
+            "District Commission",
+            "State Commission",
+            "National Commission"
+          ],
+          "title": "Redressal Agencies under CPA, 2019",
+          "points": [
+            {
+              "example": "A KnowledgeCompass user disputing a ₹30,000 course fee refund would initially approach the District Commission.",
+              "explanation": "The District Commission has jurisdiction over complaints where the value of goods or services does not exceed fifty lakh rupees. It can also direct parties towards mediation for settlement.",
+              "keyPoints": [
+                "Jurisdiction: value of goods/services up to ₹50 lakh",
+                "Can refer disputes for mediation",
+                "Appeal to State Commission within 45 days"
+              ],
+              "title": "District Commission",
+              "definition": null,
+              "otherInfo": null
+            },
+            {
+              "example": "A KnowledgeCompass institutional client disputing a ₹1 crore licensing agreement issue would approach the State Commission.",
+              "explanation": "The State Commission is established by respective state governments and handles complaints where the value of goods and services exceeds fifty lakh rupees but does not exceed two crore rupees.",
+              "keyPoints": [
+                "Jurisdiction: value of goods/services exceeding ₹50 lakh but not exceeding ₹2 crore",
+                "Appeal to National Commission within 30 days"
+              ],
+              "title": "State Commission",
+              "definition": null,
+              "otherInfo": null
+            },
+            {
+              "example": "A nationwide class-action lawsuit against KnowledgeCompass for a widespread service issue exceeding ₹5 crore would be heard by the National Commission.",
+              "explanation": "The National Commission has territorial jurisdiction over the whole country and entertains complaints where the value of goods or services exceeds two crore rupees.",
+              "keyPoints": [
+                "Jurisdiction: value of goods/services exceeding ₹2 crore",
+                "Appeal to Supreme Court of India within 30 days"
+              ],
+              "title": "National Commission",
+              "definition": null,
+              "otherInfo": null
+            }
+          ]
+        },
+        {
+          "definition": "Non-profit organizations dedicated to protecting and promoting consumer interests, often acting as advocates and educators for consumers.",
+          "example": "A consumer NGO might partner with KnowledgeCompass to conduct workshops on digital literacy and online course safety, educating users on their rights and responsible online behavior.",
+          "explanation": "Consumer organizations and NGOs play a crucial role in empowering consumers, ensuring their rights are protected, and holding businesses accountable for their practices, especially in areas where individual consumers might lack resources or knowledge.",
+          "keyPoints": [
+            "Educating the general public about consumer rights (training, seminars, workshops)",
+            "Publishing periodicals and other publications (consumer problems, legal reports)",
+            "Carrying out comparative testing of consumer products (quality assessment)",
+            "Encouraging consumers to protest against unscrupulous practices",
+            "Providing legal assistance to consumers (aid, advice)",
+            "Filing complaints in appropriate consumer courts (on behalf of individuals or general public interest)"
+          ],
+          "title": "Role of Consumer Organisations and NGOs",
+          "points": []
+        }
+      ],
+      "story": [
+        {
+          "storyParts": [
+            {
+              "richHtml": "<p class=\"mb-2 text-slate-700 dark:text-slate-300\">The soft glow of the data analytics dashboard illuminated Neil's concerned face. It had been a challenging quarter for KnowledgeCompass, their EdTech startup. Growth was phenomenal, but a recurring issue with course access for a small segment of users was causing a ripple of dissatisfaction.</p>",
+              "speaker": null,
+              "text": "The soft glow of the data analytics dashboard illuminated Neil's concerned face. It had been a challenging quarter for KnowledgeCompass, their EdTech startup. Growth was phenomenal, but a recurring issue with course access for a small segment of users was causing a ripple of dissatisfaction."
+            },
+            {
+              "richHtml": "<p class=\"mb-2\"><strong class=\"text-primary-500\">Neil:</strong> \"Kanishq, look at these customer support tickets. The 'course access' complaints are spiking again. It's only 2% of our user base, but their sentiment is sharply negative. Our reputation is our most valuable asset, built on trust and accessibility. This feels like a direct violation of our users' 'Right to be Assured' of the service they paid for.\"</p>",
+              "speaker": "Neil",
+              "text": "Kanishq, look at these customer support tickets. The 'course access' complaints are spiking again. It's only 2% of our user base, but their sentiment is sharply negative. Our reputation is our most valuable asset, built on trust and accessibility. This feels like a direct violation of our users' 'Right to be Assured' of the service they paid for."
+            },
+            {
+              "richHtml": "<p class=\"mb-2\"><strong class=\"text-primary-500\">Kanishq:</strong> \"I've noticed, Neil. Our 'Right to be Heard' mechanism, our customer support, isn't resolving these fast enough. Users are feeling ignored, and that's exactly what consumer protection aims to prevent. Remember our 'caveat venditor' philosophy? It's on us to ensure the buyer's satisfaction, not just their purchase.\"</p>",
+              "speaker": "Kanishq",
+              "text": "I've noticed, Neil. Our 'Right to be Heard' mechanism, our customer support, isn't resolving these fast enough. Users are feeling ignored, and that's exactly what consumer protection aims to prevent. Remember our 'caveat venditor' philosophy? It's on us to ensure the buyer's satisfaction, not just their purchase."
+            },
+            {
+              "richHtml": "<p class=\"mb-2\"><strong class=\"text-primary-500\">Neil:</strong> \"Precisely. And if we don't address this proactively, we risk more than just churn; we risk government intervention. The 'Consumer Protection Act 2019' is clear. We need to demonstrate 'self-regulation' and that our internal processes are robust. We promised them the 'Right to Information' about course access, and if it's faulty, the 'Right to Seek Redressal'.\"</p>",
+              "speaker": "Neil",
+              "text": "Precisely. And if we don't address this proactively, we risk more than just churn; we risk government intervention. The 'Consumer Protection Act 2019' is clear. We need to demonstrate 'self-regulation' and that our internal processes are robust. We promised them the 'Right to Information' about course access, and if it's faulty, the 'Right to Seek Redressal'."
+            },
+            {
+              "richHtml": "<p class=\"mb-2\"><strong class=\"text-primary-500\">Kanishq:</strong> \"My thoughts exactly. I've already alerted the tech team for an immediate fix to the access bug. For the affected users, beyond fixing the issue, we'll offer a free month's extension or a credit for another course. It’s about more than just rectifying the error; it's about compensating them for the 'deficiency in service' and rebuilding trust. This is our 'social responsibility'.\"</p>",
+              "speaker": "Kanishq",
+              "text": "My thoughts exactly. I've already alerted the tech team for an immediate fix to the access bug. For the affected users, beyond fixing the issue, we'll offer a free month's extension or a credit for another course. It’s about more than just rectifying the error; it's about compensating them for the 'deficiency in service' and rebuilding trust. This is our 'social responsibility'."
+            },
+            {
+              "richHtml": "<p class=\"mb-2\"><strong class=\"text-primary-500\">Neil:</strong> \"Good. Let's also launch a campaign on 'consumer education' within our platform – simple guides on how to troubleshoot common issues and where to reach us. An informed user is a confident user. This incident, though small, is a stark reminder of the importance of consumer protection, not just for our users, but for KnowledgeCompass's long-term success.\"</p>",
+              "speaker": "Neil",
+              "text": "Good. Let's also launch a campaign on 'consumer education' within our platform – simple guides on how to troubleshoot common issues and where to reach us. An informed user is a confident user. This incident, though small, is a stark reminder of the importance of consumer protection, not just for our users, but for KnowledgeCompass's long-term success."
+            },
+            {
+              "richHtml": "<p class=\"mb-2 text-slate-700 dark:text-slate-300\">Kanishq nodded. They knew that in the fiercely competitive EdTech market, prioritizing the consumer wasn't just good ethics; it was smart business. KnowledgeCompass had grown from a garage startup by focusing on user value, and they wouldn't compromise that core principle for anything.</p>",
+              "speaker": null,
+              "text": "Kanishq nodded. They knew that in the fiercely competitive EdTech market, prioritizing the consumer wasn't just good ethics; it was smart business. KnowledgeCompass had grown from a garage startup by focusing on user value, and they wouldn't compromise that core principle for anything."
+            }
+          ],
+          "title": "KnowledgeCompass: Navigating Customer Trust Through Consumer Protection"
+        }
+      ],
+      "title": "Marketing Management",
+      "unitName": "Marketing Management",
+      "unitNumber": 11
+    }
+  ]
+}

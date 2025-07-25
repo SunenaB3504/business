@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📘</text></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Attach SpeechService to window for browser global use -->
+    <script type="module">
+      import { SpeechService } from './services/speechService.js';
+      window.SpeechService = SpeechService;
+    </script>
+    <style>
+        /* Flashcard flip CSS */
+        .flashcard-container {
+            perspective: 1000px;
+            width: 24rem; /* Equivalent to w-96 */
+            height: 11rem; /* Equivalent to h-44 */
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Tailwind shadow-lg */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            border: 1px solid #fcd34d; /* Tailwind border-yellow-400 */
+            background-color: #fffbeb; /* Tailwind bg-yellow-100 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem; /* Tailwind text-lg */
+            font-weight: 600; /* Tailwind font-semibold */
+            cursor: pointer;
+        }
+        .flashcard-container.is-flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .flashcard-front {
+            background-color: #fffbeb; /* Tailwind bg-yellow-100 */
+            color: #333;
+            border-radius: 0.5rem;
+        }
+        .flashcard-back {
+            background-color: #dbeafe; /* Tailwind bg-blue-100 */
+            color: #333;
+            transform: rotateY(180deg);
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-900 text-white py-6 px-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+                <h1 id="mainHeading" class="text-3xl font-bold mb-1">Business Studies</h1>
+                <p id="unitSubheading" class="text-lg"></p>
+
+            </div>
+            <nav class="mt-4 md:mt-0 flex flex-wrap gap-6">
+                <a href="index.html" class="text-white font-semibold hover:underline focus:outline-none">Home</a>
+                <button id="searchNavBtn" class="text-white font-semibold hover:underline focus:outline-none">Search</button>
+            </nav>
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative">
+            <button id="closeSearchModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-4 text-blue-900">Search the Contents</h3>
+            <div class="mb-4 flex gap-2">
+                <input id="searchInput" type="text" class="border rounded px-3 py-2 w-full" placeholder="Type your question here..." style="color: black; background: #f9fafb;" />
+                <button id="audioInputBtn" class="px-3 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-600" title="Ask by voice">🎤</button>
+                <button id="searchModalBtn" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Search</button>
+            </div>
+            <div id="searchAnswer" class="text-gray-900 text-base"></div>
+        </div>
+    </div>
+        </div>
+    </header>
+    <main class="p-8 max-w-3xl mx-auto bg-white shadow-lg mt-8 rounded-lg">
+
+        <!-- KnowledgeCompass Section -->
+        
+        
+
+        <!-- Dramatic Story Section -->
+
+    <script>
+    // SpeechService is now attached to window via <script type="module"> in <head>
+    
+    </script>
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Anecdote</h2>
+            <div class="accordion-item bg-blue-50 rounded-lg p-4 mb-4 shadow">
+                <button id="storyAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-blue-100 hover:bg-blue-200 font-semibold rounded-t focus:outline-none" aria-expanded="false">
+                  Anecdote (Show/Hide)
+                </button>
+                <div id="storyAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                  <div id="storyAudioPlayer" class="mb-4 flex items-center gap-2">
+                    <button id="playFullStoryAudio" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">🔊 Play</button>
+                    <button id="pauseFullStoryAudio" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">⏸ Pause</button>
+                    <button id="stopFullStoryAudio" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">⏹ Stop</button>
+                    <span id="storyAudioStatus" class="text-xs text-gray-500"></span>
+                  </div>
+                  <div id="fullStoryContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mindmap Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Mindmap (Drilldown)</h2>
+            <div id="mindmap-content" class="bg-yellow-50 rounded-lg p-4 mb-4 shadow"></div>
+        </section>
+
+        <!-- Flippable Flashcards Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Flippable Flashcards</h2>
+            <div class="flex items-center mb-2">
+                <span id="flashcard-count" class="text-gray-600 text-sm"></span>
+            </div>
+            <div id="flashcards" class="flex flex-wrap gap-4 justify-center"></div>
+            <div class="mt-4 flex gap-2">
+                <button id="prevFlashcardBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Previous</button>
+                <button id="nextFlashcardBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Next</button>
+            </div>
+        </section>
+        <!-- Exercises Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Exercises</h2>
+            <div id="exercises" class="bg-indigo-50 rounded-lg p-4 shadow space-y-6"></div>
+        </section>
+        <!-- Long Answer Questions Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Long Answer Questions</h2>
+            <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
+                <div id="long-answer-content" class="mb-4"></div>
+                <div class="flex gap-4">
+                    <button id="playLongAnswerBtn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                    <button id="pauseLongAnswerBtn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button id="stopLongAnswerBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                </div>
+            </div>
+        </section>
+        <!-- Case Study Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">Case Study</h2>
+            <div class="bg-blue-50 rounded-lg p-4 mb-4 shadow">
+                <div id="case-content" class="mb-4"></div>
+                <div class="flex gap-4">
+                    <button id="playCaseStudyBtn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Play</button>
+                    <button id="pauseCaseStudyBtn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Pause</button>
+                    <button id="stopCaseStudyBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Stop</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-blue-900 text-white text-center py-4 mt-8 rounded-b-lg">
+        &copy; 2025 GENZ Study Business | For Neil's Educational Needs
+    </footer>
+
+    <script>
+    // --- Search Modal Logic ---
+    // (All logic and variable declarations are now inside DOMContentLoaded event below)
+
+    if (searchNavBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
+        searchNavBtn.onclick = function() {
+            searchModal.classList.remove('hidden');
+            searchInput.value = '';
+            searchAnswer.textContent = '';
+        };
+        closeSearchModal.onclick = function() {
+            searchModal.classList.add('hidden');
+            if (recognition) recognition.stop();
+        };
+        audioInputBtn.onclick = function() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Speech recognition not supported in this browser.');
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-IN';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            recognition.onresult = function(event) {
+                searchInput.value = event.results[0][0].transcript;
+            };
+            recognition.onerror = function(event) {
+                alert('Audio input error: ' + event.error);
+            };
+            recognition.start();
+        };
+        searchModalBtn.onclick = function() {
+            performSearch(searchInput.value);
+        };
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+    }
+
+    // --- Search Logic: Search chapter10.json for answer ---
+    function performSearch(query) {
+        if (!query || !query.trim()) {
+            searchAnswer.textContent = 'Please enter a question.';
+            return;
+        }
+        fetch('chapter10.json')
+            .then(res => res.json())
+            .then(data => {
+                let answer = findAnswerInContent(data, query);
+                searchAnswer.innerHTML = answer ? answer : '<span class="text-red-600">No answer found for your question.</span>';
+            })
+            .catch(() => {
+                searchAnswer.innerHTML = '<span class="text-red-600">Error loading content data.</span>';
+            });
+    }
+
+    // --- Helper: Find answer in chapter10.json ---
+    function findAnswerInContent(data, query) {
+        query = query.toLowerCase();
+        // Search all chapters, sections, exercises, flashcards, etc.
+        let results = [];
+        for (const chapter of (Array.isArray(data.chapters) ? data.chapters : Object.values(data))) {
+            // Search story
+            if (chapter.story) {
+                for (const s of chapter.story) {
+                    if (s.text && s.text.toLowerCase().includes(query)) results.push(`<b>Story:</b> ${s.text}`);
+                }
+            }
+            // Search mindmap
+            if (chapter.mindmap) {
+                for (const node of chapter.mindmap) {
+                    if (node.title && node.title.toLowerCase().includes(query)) results.push(`<b>Mindmap:</b> ${node.title}`);
+                    if (node.definition && node.definition.toLowerCase().includes(query)) results.push(`<b>Definition:</b> ${node.definition}`);
+                    if (node.explanation && node.explanation.toLowerCase().includes(query)) results.push(`<b>Explanation:</b> ${node.explanation}`);
+                }
+            }
+            // Search flashcards
+            if (chapter.flashcards) {
+                for (const fc of chapter.flashcards) {
+                    if (fc.front && fc.front.toLowerCase().includes(query)) results.push(`<b>Flashcard:</b> ${fc.front} <br><i>${fc.back}</i>`);
+                    if (fc.back && fc.back.toLowerCase().includes(query)) results.push(`<b>Flashcard:</b> ${fc.front} <br><i>${fc.back}</i>`);
+                }
+            }
+            // Search exercises
+            if (chapter.exercises) {
+                for (const type in chapter.exercises) {
+                    for (const ex of chapter.exercises[type] || []) {
+                        if (ex.question && ex.question.toLowerCase().includes(query)) results.push(`<b>Exercise:</b> ${ex.question}<br><i>${ex.answer || ''}</i>`);
+                        if (ex.text && ex.text.toLowerCase().includes(query)) results.push(`<b>Exercise:</b> ${ex.text}<br><i>${ex.answer || ''}</i>`);
+                        if (ex.answer && ex.answer.toLowerCase().includes(query)) results.push(`<b>Answer:</b> ${ex.answer}`);
+                    }
+                }
+            }
+            // Search long answers
+            if (chapter.longAnswerQuestions) {
+                for (const la of chapter.longAnswerQuestions) {
+                    if (la.title && la.title.toLowerCase().includes(query)) results.push(`<b>Long Answer:</b> ${la.title}<br><i>${la.text}</i>`);
+                    if (la.text && la.text.toLowerCase().includes(query)) results.push(`<b>Long Answer:</b> ${la.title}<br><i>${la.text}</i>`);
+                }
+            }
+            // Search case studies
+            if (chapter.caseStudy) {
+                for (const cs of chapter.caseStudy) {
+                    if (cs.title && cs.title.toLowerCase().includes(query)) results.push(`<b>Case Study:</b> ${cs.title}<br><i>${cs.scenario}</i>`);
+                    if (cs.scenario && cs.scenario.toLowerCase().includes(query)) results.push(`<b>Case Study:</b> ${cs.title}<br><i>${cs.scenario}</i>`);
+                }
+            }
+        }
+        return results.length ? results.join('<hr class="my-2">') : null;
+    }
+    // --- Global Variable Declarations ---
+    let chapterData = null;
+    let flashcards = [];
+    let flashIndex = 0;
+
+    let storySynth = window.speechSynthesis;
+    let storyUtterances = [];
+    let storyIndex = 0;
+    let storyPaused = false;
+    let currentStoryUtterance = null;
+
+    let longAnswerSynth = window.speechSynthesis;
+    let longAnswerUtterances = [];
+    let longAnswerIndex = 0;
+    let longAnswerPaused = false;
+    let currentLongAnswerUtterance = null;
+
+    let caseStudySynth = window.speechSynthesis;
+    let caseStudyUtterances = [];
+    let caseStudyIndex = 0;
+    let caseStudyPaused = false;
+    let currentCaseStudyUtterance = null;
+
+let availableVoices = [];
+let voiceNeil = null, voiceKanishq = null, voiceNarrator = null, voiceSystem = null;
+
+    // --- Debug/Error Area ---
+    function showGlobalDebug(msg, isError) {
+        const area = document.getElementById('global-debug-area');
+        const messagesDiv = document.getElementById('debug-messages');
+        if (area && messagesDiv) {
+            area.style.display = 'block';
+            const p = document.createElement('p');
+            p.textContent = msg;
+            p.style.color = isError ? 'red' : 'black';
+            messagesDiv.appendChild(p);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
+        }
+    }
+
+    function clearGlobalDebug() {
+        const messagesDiv = document.getElementById('debug-messages');
+        if (messagesDiv) {
+            messagesDiv.innerHTML = '';
+            document.getElementById('global-debug-area').style.display = 'none';
+        }
+    }
+
+    // --- Web Speech API Voice Management ---
+function populateVoiceList() {
+    availableVoices = window.speechSynthesis.getVoices();
+    // Helper functions
+    const isMale = v => (v.gender === 'male') || (v.name && v.name.toLowerCase().includes('male')) || (v.name && /dan|john|mike|paul|david|tom|neil|kanishq|alex|fred|george|james|peter|steve|matt|mark|richard|robert|sam|will|ben|chris|ed|ian|jack|joe|kevin|luke|nick|oliver|ryan|scott|tim|tony|adam|brian|charlie|daniel|eric|frank|greg|harry|jason|jeff|josh|justin|liam|logan|mason|nathan|noah|owen|patrick|ray|ron|sean|shawn|simon|stuart|todd|tyler|zac|zach/.test(v.name.toLowerCase()));
+    const isFemale = v => (v.gender === 'female') || (v.name && v.name.toLowerCase().includes('female')) || (v.name && /amy|emma|olivia|ava|isabella|sophia|mia|charlotte|amelia|ella|abigail|emily|harper|lily|madison|chloe|grace|zoe|hannah|sarah|anna|jessica|ashley|elizabeth|melissa|nicole|rachel|samantha|stephanie|victoria|alexis|alyssa|brianna|kayla|lauren|megan|natasha|susan|tina|wendy|yvonne|zoey/.test(v.name.toLowerCase()));
+    const isGB = v => v.lang === 'en-GB';
+    const isUS = v => v.lang === 'en-US';
+    const isEnglish = v => v.lang && v.lang.startsWith('en');
+
+    // Kanishq
+    voiceKanishq = availableVoices.find(v => isGB(v) && isMale(v)) ||
+                   availableVoices.find(v => isEnglish(v) && !isUS(v) && isMale(v)) ||
+                   availableVoices.find(v => isMale(v)) ||
+                   availableVoices.find(v => isEnglish(v)) ||
+                   availableVoices[0];
+
+    // Neil
+    voiceNeil = availableVoices.find(v => isUS(v) && isMale(v) && v !== voiceKanishq) ||
+                availableVoices.find(v => isMale(v) && v !== voiceKanishq) ||
+                voiceKanishq;
+
+    // Narrator
+    voiceNarrator = availableVoices.find(v => isEnglish(v) && isFemale(v)) ||
+                    availableVoices.find(v => v !== voiceNeil && v !== voiceKanishq) ||
+                    voiceKanishq;
+
+    // System
+    voiceSystem = voiceNeil;
+
+    showGlobalDebug(`Voices selected: Neil=${voiceNeil ? voiceNeil.name : 'none'}, Kanishq=${voiceKanishq ? voiceKanishq.name : 'none'}, Narrator=${voiceNarrator ? voiceNarrator.name : 'none'}`, false);
+}
+
+populateVoiceList();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+    // --- Fetch chapter10.json and render all sections ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // Accordion logic for Dramatic Story
+        const storyBtn = document.getElementById('storyAccordionBtn');
+        const storyContent = document.getElementById('storyAccordionContent');
+        storyBtn.addEventListener('click', () => {
+          const expanded = storyBtn.getAttribute('aria-expanded') === 'true';
+          storyBtn.setAttribute('aria-expanded', !expanded);
+          storyContent.classList.toggle('hidden');
+        });
+
+        // Set dynamic subheading for unit
+        const mainHeading = document.getElementById('mainHeading');
+        const unitSubheading = document.getElementById('unitSubheading');
+
+        showGlobalDebug('Fetching chapter10.json...', false);
+        fetch('chapter10.json')
+            .then(function(res) {
+                if (!res.ok) {
+                    showGlobalDebug('ERROR: Failed to fetch content.json. Status: ' + res.status, true);
+                    throw new Error('Failed to fetch content.json');
+                }
+                showGlobalDebug('chapter10.json fetched successfully.', false);
+                return res.json();
+            })
+            .then(function(data) {
+                showGlobalDebug('Parsing chapter10.json and searching for chapter10...', false);
+                if (!data.chapters || !Array.isArray(data.chapters)) {
+                    showGlobalDebug('ERROR: chapter10.json does not contain a "chapters" array.', true);
+                    return;
+                }
+                chapterData = data.chapters.find(function(ch) { return ch.id === 'chapter10'; });
+                if (!chapterData) {
+                    showGlobalDebug('ERROR: chapter10 not found in chapter10.json.', true);
+                    return;
+                }
+                // Set subheading dynamically
+                if (unitSubheading && chapterData.unitNumber && chapterData.unitName) {
+                    unitSubheading.textContent = `Unit ${chapterData.unitNumber}: ${chapterData.unitName}`;
+                } else if (unitSubheading && chapterData.title) {
+                    unitSubheading.textContent = chapterData.title;
+                }
+                showGlobalDebug('chapter10 found. Rendering sections...', false);
+                try {
+                    renderFullStory();
+                    renderMindmap();
+                    flashcards = chapterData.flashcards || [];
+                    renderFlashcard();
+                    renderExercises();
+                    renderLongAnswer();
+                    renderCaseStudy();
+                } catch (e) {
+                    showGlobalDebug('ERROR: Exception during rendering: ' + e.message, true);
+                    console.error(e);
+                }
+            })
+            .catch(function(err) {
+                showGlobalDebug('ERROR: Exception during fetch or render: ' + err.message, true);
+                console.error(err);
+            });
+
+
+        // --- Event Listeners ---
+        // Attach only if elements exist
+        const prevFlashcardBtn = document.getElementById('prevFlashcardBtn');
+        if (prevFlashcardBtn) prevFlashcardBtn.addEventListener('click', prevFlashcard);
+        const nextFlashcardBtn = document.getElementById('nextFlashcardBtn');
+        if (nextFlashcardBtn) nextFlashcardBtn.addEventListener('click', nextFlashcard);
+
+        // Long Answer Questions audio controls
+        const playLongAnswerBtn = document.getElementById('playLongAnswerBtn');
+        if (playLongAnswerBtn) playLongAnswerBtn.addEventListener('click', playLongAnswer);
+        const pauseLongAnswerBtn = document.getElementById('pauseLongAnswerBtn');
+        if (pauseLongAnswerBtn) pauseLongAnswerBtn.addEventListener('click', pauseLongAnswer);
+        const stopLongAnswerBtn = document.getElementById('stopLongAnswerBtn');
+        if (stopLongAnswerBtn) stopLongAnswerBtn.addEventListener('click', stopLongAnswer);
+
+        // Case Study audio controls
+        const playCaseStudyBtn = document.getElementById('playCaseStudyBtn');
+        if (playCaseStudyBtn) playCaseStudyBtn.addEventListener('click', playCaseStudy);
+        const pauseCaseStudyBtn = document.getElementById('pauseCaseStudyBtn');
+        if (pauseCaseStudyBtn) pauseCaseStudyBtn.addEventListener('click', pauseCaseStudy);
+        const stopCaseStudyBtn = document.getElementById('stopCaseStudyBtn');
+        if (stopCaseStudyBtn) stopCaseStudyBtn.addEventListener('click', stopCaseStudy);
+
+
+            // Search modal logic
+            const searchBtn = document.getElementById('searchBtn');
+            const searchModal = document.getElementById('searchModal');
+            const closeSearchModal = document.getElementById('closeSearchModal');
+            const searchInput = document.getElementById('searchInput');
+            const audioInputBtn = document.getElementById('audioInputBtn');
+            const searchAnswer = document.getElementById('searchAnswer');
+            let recognition = null;
+            const searchModalBtn = document.getElementById('searchModalBtn');
+            if (searchBtn && searchModal && closeSearchModal && searchInput && audioInputBtn && searchModalBtn && searchAnswer) {
+                searchBtn.addEventListener('click', function() {
+                    searchModal.classList.remove('hidden');
+                    searchInput.value = '';
+                    searchAnswer.textContent = '';
+                });
+                closeSearchModal.addEventListener('click', function() {
+                    searchModal.classList.add('hidden');
+                });
+                searchModal.addEventListener('click', function(e) {
+                    if (e.target === searchModal) {
+                        searchModal.classList.add('hidden');
+                    }
+                });
+                // Search on Enter
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch(searchInput.value.trim());
+                    }
+                });
+                // Search on button click
+                searchModalBtn.addEventListener('click', function() {
+                    performSearch(searchInput.value.trim());
+                });
+                // Audio input
+                audioInputBtn.addEventListener('click', function() {
+                    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                        searchAnswer.textContent = 'Speech recognition not supported on this browser.';
+                        return;
+                    }
+                    if (recognition) {
+                        recognition.stop();
+                        recognition = null;
+                    }
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    recognition = new SpeechRecognition();
+                    recognition.lang = 'en-IN';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        searchInput.value = transcript;
+                        performSearch(transcript);
+                    };
+                    recognition.onerror = function(event) {
+                        searchAnswer.textContent = 'Audio input error: ' + event.error;
+                    };
+                    recognition.onend = function() {
+                        recognition = null;
+                    };
+                    recognition.start();
+                    searchAnswer.textContent = 'Listening...';
+                });
+            }
+        });
+        // (All search modal logic and modal audio controls are now inside the DOMContentLoaded event above. Removed duplicate and misplaced code.)
+
+    // --- Dramatic Story: Single Collapsible with Audio ---
+    function renderFullStory() {
+        const fullStoryDiv = document.getElementById('fullStoryContent');
+        if (!chapterData || !chapterData.story || !chapterData.story[0] || !chapterData.story[0].storyParts) {
+            fullStoryDiv.innerHTML = '<em>No anecdote available.</em>';
+            return;
+        }
+        // Render all storyParts as a single block, using richHtml if present
+        let html = '';
+        chapterData.story[0].storyParts.forEach((part, idx) => {
+            if (part.richHtml) {
+                html += `<div class="mb-2">${part.richHtml}</div>`;
+            } else {
+                html += `<div class="mb-2"><span class="font-semibold">${part.speaker}:</span> ${part.text}</div>`;
+            }
+        });
+        fullStoryDiv.innerHTML = html;
+
+        // --- Improved SpeechService-based TTS for Anecdote ---
+        if (!window.SpeechService) {
+            document.getElementById('storyAudioStatus').textContent = 'SpeechService not loaded. Please check your setup.';
+            return;
+        }
+        if (!window.speechService) {
+            window.speechService = new window.SpeechService();
+        }
+        const speechService = window.speechService;
+
+        // Prepare utterances: one per story part, with speaker
+        let storyUtterances = chapterData.story[0].storyParts.map(part => ({
+            text: part.text,
+            speaker: part.speaker || 'Narrator'
+        }));
+        let currentIdx = 0;
+        let isPaused = false;
+        let isPlaying = false;
+        let isStopped = true;
+
+        function playFrom(idx) {
+            if (idx >= storyUtterances.length) {
+                document.getElementById('storyAudioStatus').textContent = 'Finished.';
+                isPlaying = false;
+                isStopped = true;
+                return;
+            }
+            isPlaying = true;
+            isStopped = false;
+            const { text, speaker } = storyUtterances[idx];
+            speechService.speak(
+                text,
+                speaker,
+                () => {
+                    document.getElementById('storyAudioStatus').textContent = `Playing (${speaker})...`;
+                },
+                () => {
+                    if (!isPaused && !isStopped) {
+                        playFrom(idx + 1);
+                    }
+                },
+                () => {
+                    document.getElementById('storyAudioStatus').textContent = 'Error playing audio.';
+                }
+            );
+        }
+
+        document.getElementById('playFullStoryAudio').onclick = function() {
+            if (isPaused) {
+                isPaused = false;
+                isStopped = false;
+                speechService.resume();
+                document.getElementById('storyAudioStatus').textContent = 'Resumed.';
+            } else if (!isPlaying || isStopped) {
+                isPaused = false;
+                isStopped = false;
+                isPlaying = true;
+                currentIdx = 0;
+                playFrom(currentIdx);
+            }
+        };
+        document.getElementById('pauseFullStoryAudio').onclick = function() {
+            if (isPlaying && !isPaused && !isStopped) {
+                speechService.pause();
+                isPaused = true;
+                document.getElementById('storyAudioStatus').textContent = 'Paused.';
+            }
+        };
+        document.getElementById('stopFullStoryAudio').onclick = function() {
+            if (isPlaying && !isStopped) {
+                speechService.stop();
+                isPaused = false;
+                isPlaying = false;
+                isStopped = true;
+                currentIdx = 0;
+                document.getElementById('storyAudioStatus').textContent = 'Stopped.';
+            }
+        };
+    // End of renderFullStory
+    }
+
+    function playStory() {
+        if (!storySynth.speaking && storyIndex < storyUtterances.length) {
+            storyPaused = false;
+            currentStoryUtterance = storyUtterances[storyIndex];
+            storySynth.speak(currentStoryUtterance);
+        } else if (storySynth.paused && currentStoryUtterance) {
+            storyPaused = false;
+            storySynth.resume();
+        }
+    }
+
+    function pauseStory() {
+        if (storySynth.speaking && !storySynth.paused) {
+            storyPaused = true;
+            storySynth.pause();
+        }
+    }
+
+    function stopStory() {
+        if (storySynth.speaking) {
+            storySynth.cancel();
+        }
+        storyIndex = 0;
+        storyPaused = false;
+        currentStoryUtterance = null;
+    }
+
+    // --- Mindmap Drilldown Render ---
+    function renderMindmap() {
+        const mindmapDiv = document.getElementById('mindmap-content');
+        if (!chapterData || !chapterData.mindmap || !chapterData.mindmap.length) {
+            mindmapDiv.innerHTML = '<em>No mindmap available.</em>';
+            return;
+        }
+        mindmapDiv.innerHTML = '';
+        chapterData.mindmap.forEach((root, idx) => {
+            mindmapDiv.appendChild(createMindmapNode(root, 0, `root-${idx}`));
+        });
+    }
+
+    function createMindmapNode(node, level, idPrefix) {
+        const container = document.createElement('div');
+        container.className = `mb-2 ml-${level * 4}`;
+        const header = document.createElement('button');
+        header.className = 'w-full text-left font-semibold py-2 px-3 rounded bg-yellow-100 hover:bg-yellow-200 border border-yellow-300';
+        header.textContent = node.title || 'Untitled';
+        header.setAttribute('aria-expanded', 'false');
+        header.setAttribute('aria-controls', `${idPrefix}-body`);
+        header.onclick = function() {
+            body.classList.toggle('hidden');
+            header.setAttribute('aria-expanded', body.classList.contains('hidden') ? 'false' : 'true');
+        };
+        container.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'hidden bg-white border border-yellow-200 rounded p-3 mt-1';
+        body.id = `${idPrefix}-body`;
+
+        // Details for this node
+        if (node.definition) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Definition:</strong> ${node.definition}</div>`;
+        }
+        if (node.explanation) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Explanation:</strong> ${node.explanation}</div>`;
+        }
+        if (node.example) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Example:</strong> ${node.example}</div>`;
+        }
+        if (node.keyPoints && node.keyPoints.length) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Key Points:</strong><ul class=\"list-disc ml-6\">${node.keyPoints.map(kp => `<li>${kp}</li>`).join('')}</ul></div>`;
+        }
+        if (node.otherInfo) {
+            body.innerHTML += `<div class=\"mb-2\"><strong>Other Info:</strong> ${node.otherInfo}</div>`;
+        }
+
+        // Drilldown for sub-points
+        if (node.points && node.points.length) {
+            body.innerHTML += `<div class=\"mt-2\"><strong>Sub-Points:</strong></div>`;
+            node.points.forEach((subNode, subIdx) => {
+                body.appendChild(createMindmapNode(subNode, level + 1, `${idPrefix}-sub${subIdx}`));
+            });
+        }
+        container.appendChild(body);
+        return container;
+    }
+
+    // --- Flashcards Render ---
+    function renderFlashcard() {
+        const fcDiv = document.getElementById('flashcards');
+        const countSpan = document.getElementById('flashcard-count');
+
+        fcDiv.innerHTML = '';
+        if (!flashcards.length) {
+            if (countSpan) countSpan.textContent = 'No flashcards available.';
+            return;
+        }
+        if (countSpan) countSpan.textContent = `${flashIndex + 1} / ${flashcards.length}`;
+        const cardData = flashcards[flashIndex];
+        // Flippable card
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'flashcard-container';
+        const cardInner = document.createElement('div');
+        cardInner.className = 'flashcard-inner';
+        const cardFront = document.createElement('div');
+        cardFront.className = 'flashcard-face flashcard-front';
+        cardFront.innerHTML = `<span>${cardData.front}</span>`;
+        const cardBack = document.createElement('div');
+        cardBack.className = 'flashcard-face flashcard-back';
+        cardBack.innerHTML = `<span>${cardData.back}</span>`;
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardContainer.appendChild(cardInner);
+        cardContainer.addEventListener('click', function() {
+            this.classList.toggle('is-flipped');
+        });
+        fcDiv.appendChild(cardContainer);
+    }
+
+    function prevFlashcard() {
+        flashIndex = (flashIndex - 1 + flashcards.length) % flashcards.length;
+        renderFlashcard();
+    }
+
+    function nextFlashcard() {
+        flashIndex = (flashIndex + 1) % flashcards.length;
+        renderFlashcard();
+    }
+
+    // --- Exercises Render ---
+    function renderExercises() {
+        const exercisesDiv = document.getElementById('exercises');
+        if (!chapterData || !chapterData.exercises) {
+            exercisesDiv.innerHTML = '<em>No exercises available.</em>';
+            return;
+        }
+        let html = '';
+        // Accordion for MCQ
+        if (chapterData.exercises.mcq && chapterData.exercises.mcq.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="mcqAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Multiple Choice Questions (Show/Hide)</button>
+                <div id="mcqAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.mcq.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="space-y-1">
+                                ${q.options.map((option, optIdx) => `<label class="block"><input type="radio" name="mcq${i}" value="${optIdx}" class="mr-2">${option}</label>`).join('')}
+                            </div>
+                            <div id="mcq-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>
+                    `).join('')}
+                    <button id="checkMCQBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // Accordion for True/False
+        if (chapterData.exercises.trueFalse && chapterData.exercises.trueFalse.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="tfAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">True/False Questions (Show/Hide)</button>
+                <div id="tfAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.trueFalse.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="space-x-4">
+                                <label class="inline-flex items-center"><input type="radio" name="tf${i}" value="true" class="mr-1"> True</label>
+                                <label class="inline-flex items-center"><input type="radio" name="tf${i}" value="false" class="mr-1"> False</label>
+                            </div>
+                            <div id="tf-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>
+                    `).join('')}
+                    <button id="checkTFBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // One Word (now as an accordion)
+        if (chapterData.exercises.oneWord && chapterData.exercises.oneWord.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="oneWordAccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">One Word Answers (Show/Hide)</button>
+                <div id="oneWordAccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.oneWord.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <input type="text" id="oneword${i}" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your answer here">
+                            <div id="oneword-feedback-${i}" class="mt-2 text-sm font-semibold hidden"></div>
+                        </div>
+                    `).join('')}
+                    <button id="checkOneWordBtn" class="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Check Answers</button>
+                </div>
+            </div>`;
+        }
+        // Accordion for Short Answer 1
+        if (chapterData.exercises.shortAnswer1 && chapterData.exercises.shortAnswer1.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short1AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 1) (Show/Hide)</button>
+                <div id="short1AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer1.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="bg-gray-50 border rounded px-3 py-2 mt-2"><strong>Answer:</strong> ${q.answer || ''}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+        // Accordion for Short Answer 2
+        if (chapterData.exercises.shortAnswer2 && chapterData.exercises.shortAnswer2.length > 0) {
+            html += `<div class="accordion-item mb-4">
+                <button id="short2AccordionBtn" class="accordion-header w-full text-left px-4 py-3 bg-indigo-100 hover:bg-indigo-200 font-semibold rounded-t focus:outline-none">Short Answer Questions (Type 2) (Show/Hide)</button>
+                <div id="short2AccordionContent" class="accordion-content px-4 py-3 bg-white border border-t-0 rounded-b hidden">
+                    ${chapterData.exercises.shortAnswer2.map((q, i) => `
+                        <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                            <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+                            <div class="bg-gray-50 border rounded px-3 py-2 mt-2"><strong>Answer:</strong> ${q.answer || ''}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+        exercisesDiv.innerHTML = html;
+        // Accordion logic
+        const mcqBtn = document.getElementById('mcqAccordionBtn');
+        const mcqContent = document.getElementById('mcqAccordionContent');
+        if (mcqBtn && mcqContent) {
+            mcqBtn.onclick = () => mcqContent.classList.toggle('hidden');
+        }
+        const tfBtn = document.getElementById('tfAccordionBtn');
+        const tfContent = document.getElementById('tfAccordionContent');
+        if (tfBtn && tfContent) {
+            tfBtn.onclick = () => tfContent.classList.toggle('hidden');
+        }
+        const short1Btn = document.getElementById('short1AccordionBtn');
+        const short1Content = document.getElementById('short1AccordionContent');
+        if (short1Btn && short1Content) {
+            short1Btn.onclick = () => short1Content.classList.toggle('hidden');
+        }
+        const short2Btn = document.getElementById('short2AccordionBtn');
+        const short2Content = document.getElementById('short2AccordionContent');
+        if (short2Btn && short2Content) {
+            short2Btn.onclick = () => short2Content.classList.toggle('hidden');
+        }
+        const oneWordBtn = document.getElementById('oneWordAccordionBtn');
+        const oneWordContent = document.getElementById('oneWordAccordionContent');
+        if (oneWordBtn && oneWordContent) {
+            oneWordBtn.onclick = () => oneWordContent.classList.toggle('hidden');
+        }
+        // Check answer buttons
+        const checkMCQBtn = document.getElementById('checkMCQBtn');
+        if (checkMCQBtn) checkMCQBtn.onclick = function() { checkAnswers('mcq'); };
+        const checkTFBtn = document.getElementById('checkTFBtn');
+        if (checkTFBtn) checkTFBtn.onclick = function() { checkAnswers('trueFalse'); };
+        const checkShort1Btn = document.getElementById('checkShort1Btn');
+        if (checkShort1Btn) checkShort1Btn.onclick = function() { checkAnswers('shortAnswer1'); };
+        const checkShort2Btn = document.getElementById('checkShort2Btn');
+        if (checkShort2Btn) checkShort2Btn.onclick = function() { checkAnswers('shortAnswer2'); };
+        const checkOneWordBtn = document.getElementById('checkOneWordBtn');
+        if (checkOneWordBtn) checkOneWordBtn.onclick = function() { checkAnswers('oneWord'); };
+    }
+
+function checkAnswers(type) {
+    if (type === 'mcq' && chapterData.exercises.mcq) {
+        chapterData.exercises.mcq.forEach((q, i) => {
+            const selected = document.querySelector(`input[name='mcq${i}']:checked`);
+            const feedback = document.getElementById(`mcq-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`MCQ feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            if (!selected) {
+                feedback.textContent = 'Please select an option.';
+                feedback.classList.add('text-red-600');
+            } else {
+                const selectedValue = parseInt(selected.value);
+                if (q.correctAnswerIndex !== undefined && selectedValue === q.correctAnswerIndex) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else if (q.correctAnswerIndex !== undefined) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.options[q.correctAnswerIndex]}.</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else {
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
+                }
+            }
+        });
+    }
+    if (type === 'trueFalse' && chapterData.exercises.trueFalse) {
+        chapterData.exercises.trueFalse.forEach((q, i) => {
+            const selected = document.querySelector(`input[name='tf${i}']:checked`);
+            const feedback = document.getElementById(`tf-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`True/False feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            if (!selected) {
+                feedback.textContent = 'Please select True or False.';
+                feedback.classList.add('text-red-600');
+            } else {
+                const selectedValue = selected.value === 'true';
+                if (q.correctAnswer !== undefined && selectedValue === q.correctAnswer) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else if (q.correctAnswer !== undefined) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: ${q.correctAnswer}.</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else {
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
+                }
+            }
+        });
+    }
+    if (type === 'oneWord' && chapterData.exercises.oneWord) {
+        chapterData.exercises.oneWord.forEach((q, i) => {
+            const input = document.getElementById(`oneword${i}`);
+            const feedback = document.getElementById(`oneword-feedback-${i}`);
+            if (!feedback) {
+                showGlobalDebug(`One Word feedback element not found for index ${i}`, true);
+                return;
+            }
+            feedback.classList.remove('text-green-700', 'text-red-600', 'text-gray-600');
+            feedback.classList.remove('hidden');
+            feedback.style.display = 'block';
+            const userAnswer = input.value.trim();
+            if (!userAnswer) {
+                feedback.textContent = 'Please enter your answer.';
+                feedback.classList.add('text-red-600');
+            } else {
+                if (q.correctAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
+                    feedback.innerHTML = `<span class='text-green-700'>Correct!</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else if (q.correctAnswer) {
+                    feedback.innerHTML = `<span class='text-red-600'>Incorrect. The correct answer was: "${q.correctAnswer}".</span>`;
+                    if (q.explanation) {
+                        feedback.innerHTML += `<br><span class='text-gray-700'><b>Explanation:</b> ${q.explanation}</span>`;
+                    }
+                } else {
+                    feedback.textContent = 'Answer submitted (no correctness check available).';
+                    feedback.classList.add('text-gray-600');
+                }
+            }
+        });
+    }
+    // For short answers, just show a message for now
+    if (type === 'shortAnswer1' && chapterData.exercises.shortAnswer1) {
+        chapterData.exercises.shortAnswer1.forEach((q, i) => {
+            const input = document.getElementById(`short1${i}`);
+            if (input) {
+                input.classList.add('border-green-400');
+            }
+        });
+        showGlobalDebug('Short Answer 1: Answers submitted. Manual review required.', false);
+    }
+    if (type === 'shortAnswer2' && chapterData.exercises.shortAnswer2) {
+        chapterData.exercises.shortAnswer2.forEach((q, i) => {
+            const input = document.getElementById(`short2${i}`);
+            if (input) {
+                input.classList.add('border-green-400');
+            }
+        });
+        showGlobalDebug('Short Answer 2: Answers submitted. Manual review required.', false);
+    }
+}
+
+    // --- Long Answer Questions Render and TTS ---
+    function renderLongAnswer() {
+        const laDiv = document.getElementById('long-answer-content');
+        if (!chapterData || !chapterData.longAnswerQuestions) {
+            laDiv.innerHTML = '<em>No long answer questions available.</em>';
+            return;
+        }
+        laDiv.innerHTML = chapterData.longAnswerQuestions.map((s, idx) => {
+            let answerBtns = '';
+            let answerBlocks = '';
+            const answerTypes = [
+                { key: 'answer50To75Words', label: 'Show 50-75 Words Answer' },
+                { key: 'answer150Words', label: 'Show 150 Words Answer' },
+                { key: 'answer200Words', label: 'Show 200 Words Answer' }
+            ];
+            answerTypes.forEach(type => {
+                if (s[type.key]) {
+                    const btnId = `show-${type.key}-${idx}`;
+                    const ansId = `ans-${type.key}-${idx}`;
+                    answerBtns += `<button id=\"${btnId}\" class=\"ml-2 mb-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs\" onclick=\"document.getElementById('${ansId}').classList.toggle('hidden')\">${type.label}</button>`;
+                    answerBlocks += `<div id=\"${ansId}\" class=\"hidden bg-blue-50 border border-blue-200 rounded p-2 mt-1 text-sm\">${s[type.key]}</div>`;
+                }
+            });
+            // Add question number before the title and remove 'undefined' if present
+            const title = (s.title && s.title !== 'undefined') ? s.title : '';
+            const text = (s.text && s.text !== 'undefined') ? s.text : '';
+            return `<div class=\"mb-6\"><strong>Q${idx + 1}. ${title}:</strong> ${text}<br>${answerBtns}${answerBlocks}</div>`;
+        }).join('');
+
+        // Remove global utterances, will generate per-window on play
+        longAnswerUtterances = [];
+    }
+
+    function playLongAnswer() {
+        // Find the currently visible answer block
+        const laDiv = document.getElementById('long-answer-content');
+        if (!laDiv) return;
+        // Find the first visible answer block (50-75, 150, or 200 words)
+        let foundText = '';
+        let foundTitle = '';
+        let foundSpeaker = 'Narrator';
+        // Find the parent question title
+        const questionBlocks = laDiv.querySelectorAll('div.mb-6');
+        for (let i = 0; i < questionBlocks.length; i++) {
+            const block = questionBlocks[i];
+            // Find visible answer block inside
+            const answerBlocks = block.querySelectorAll('div[id^="ans-"]');
+            for (let j = 0; j < answerBlocks.length; j++) {
+                const ansBlock = answerBlocks[j];
+                if (!ansBlock.classList.contains('hidden')) {
+                    // Found visible answer
+                    foundText = ansBlock.textContent;
+                    // Get question title and text
+                    const strong = block.querySelector('strong');
+                    foundTitle = strong ? strong.textContent : '';
+                    // Try to get speaker from chapterData
+                    if (chapterData && chapterData.longAnswerQuestions && chapterData.longAnswerQuestions[i]) {
+                        foundSpeaker = chapterData.longAnswerQuestions[i].speaker || (i % 2 === 0 ? 'Neil' : 'Kanishq');
+                    }
+                    break;
+                }
+            }
+            if (foundText) break;
+        }
+        if (!foundText) {
+            showGlobalDebug('No visible answer block found to play.', true);
+            return;
+        }
+        // Prepare utterance
+        const utterance = new SpeechSynthesisUtterance(`${foundTitle}: ${foundText}`);
+        if (foundSpeaker === 'Neil') {
+            utterance.voice = voiceNeil;
+            utterance.pitch = 1.2;
+            utterance.rate = 1;
+        } else if (foundSpeaker === 'Kanishq') {
+            utterance.voice = voiceKanishq;
+            utterance.pitch = 1.3;
+            utterance.rate = 1.05;
+        } else if (foundSpeaker === 'Narrator') {
+            utterance.voice = voiceNarrator;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+        } else if (foundSpeaker === 'System') {
+            utterance.voice = voiceSystem;
+            utterance.pitch = 1.1;
+            utterance.rate = 0.95;
+        } else {
+            utterance.voice = voiceNeil;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+        }
+        utterance.onend = () => {
+            stopLongAnswer();
+        };
+        utterance.onerror = (event) => {
+            showGlobalDebug(`Speech synthesis error for long answer: ${event.error}`, true);
+        };
+        longAnswerSynth.speak(utterance);
+    }
+
+    function pauseLongAnswer() {
+        if (longAnswerSynth.speaking && !longAnswerSynth.paused) {
+            longAnswerPaused = true;
+            longAnswerSynth.pause();
+        }
+    }
+
+    function stopLongAnswer() {
+        if (longAnswerSynth.speaking) {
+            longAnswerSynth.cancel();
+        }
+        longAnswerIndex = 0;
+        longAnswerPaused = false;
+        currentLongAnswerUtterance = null;
+    }
+
+    // --- Case Study Section ---
+    function renderCaseStudy() {
+        const caseDiv = document.getElementById('case-content');
+        if (!chapterData || !chapterData.caseStudy) {
+            caseDiv.innerHTML = '<em>No case study available.</em>';
+            return;
+        }
+        // Horizontal buttons for each case study
+        let caseStudyBtns = chapterData.caseStudy.map((cs, idx) => {
+            const btnId = `show-case-study-${idx}`;
+            return `<button id="${btnId}" class="case-study-tab px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs mx-1 mb-2">Case Study ${idx + 1}</button>`;
+        }).join('');
+
+        // Case study windows (hidden by default)
+        let caseStudyWindows = chapterData.caseStudy.map((cs, idx) => {
+            const blockId = `case-study-block-${idx}`;
+            let questionsHtml = '';
+            if (cs.questions && cs.questions.length) {
+                questionsHtml = cs.questions.map((q, i) => `
+                    <div class="mb-2">
+                        <strong>Q${i+1} (${q.marks} marks, ${q.wordLimit} words):</strong> ${q.question}
+                        <textarea class="border rounded px-3 py-2 w-full mt-1" rows="2" placeholder="Type your answer here"></textarea>
+                    </div>
+                `).join('');
+            }
+            // Prepare answers block for each question
+            let answersHtml = '';
+            if (cs.questions && cs.questions.length) {
+                answersHtml = cs.questions.map((q, i) => {
+                    if (q.answer) {
+                        return `<div class='mt-2 p-2 bg-green-50 border border-green-200 rounded text-sm font-medium'><b>Q${i+1} Answer:</b> ${q.answer}</div>`;
+                    } else {
+                        return `<div class='mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-sm font-medium'><b>Q${i+1} Answer:</b> <em>No answer available.</em></div>`;
+                    }
+                }).join('');
+            }
+            const perspectiveBtnId = `show-perspective-${idx}`;
+            const perspectiveBlockId = `perspective-block-${idx}`;
+            return `
+                <div id="${blockId}" class="hidden mb-6 p-4 bg-white rounded shadow">
+                    <h4 class="font-semibold mb-1">${cs.title}</h4>
+                    <p class="mb-2"><b>Scenario:</b> ${cs.scenario}</p>
+                    ${questionsHtml}
+                    <button id='${perspectiveBtnId}' class='mt-4 px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-xs'>Check my Perspective</button>
+                    <div id='${perspectiveBlockId}' class='hidden mt-2'>${answersHtml}</div>
+                </div>
+            `;
+        }).join('');
+
+        caseDiv.innerHTML = `<div class="flex flex-wrap">${caseStudyBtns}</div>${caseStudyWindows}`;
+        // Add event listeners for show/hide buttons
+        chapterData.caseStudy.forEach((cs, idx) => {
+            const btnId = `show-case-study-${idx}`;
+            const blockId = `case-study-block-${idx}`;
+            const perspectiveBtnId = `show-perspective-${idx}`;
+            const perspectiveBlockId = `perspective-block-${idx}`;
+            const btn = document.getElementById(btnId);
+            const block = document.getElementById(blockId);
+            const perspectiveBtn = document.getElementById(perspectiveBtnId);
+            const perspectiveBlock = document.getElementById(perspectiveBlockId);
+            if (btn && block) {
+                btn.onclick = function() {
+                    // Hide all case study windows first
+                    chapterData.caseStudy.forEach((_, i) => {
+                        const otherBlock = document.getElementById(`case-study-block-${i}`);
+                        if (otherBlock) otherBlock.classList.add('hidden');
+                    });
+                    block.classList.remove('hidden');
+                };
+            }
+            if (perspectiveBtn && perspectiveBlock) {
+                perspectiveBtn.onclick = function() {
+                    perspectiveBlock.classList.toggle('hidden');
+                };
+            }
+        });
+        // Remove global utterances, will generate per-window on play
+        caseStudyUtterances = [];
+    }
+
+    function playCaseStudy() {
+        // Find the currently visible case study window
+        const caseDiv = document.getElementById('case-content');
+        if (!caseDiv) return;
+        const blocks = caseDiv.querySelectorAll('div[id^="case-study-block-"]');
+        let foundIdx = -1;
+        for (let i = 0; i < blocks.length; i++) {
+            if (!blocks[i].classList.contains('hidden')) {
+                foundIdx = i;
+                break;
+            }
+        }
+        if (foundIdx === -1) {
+            showGlobalDebug('No visible case study window found to play.', true);
+            return;
+        }
+        // Prepare utterance for this case study
+        const cs = chapterData.caseStudy[foundIdx];
+        let text = `${cs.title}: ${cs.scenario}`;
+        if (cs.questions && cs.questions.length) {
+            text += ' Questions: ' + cs.questions.map(q => q.question).join(' ');
+        }
+        let speaker = cs.speaker || (foundIdx % 2 === 0 ? 'Neil' : 'Kanishq');
+        const utterance = new SpeechSynthesisUtterance(text);
+        // Use same logic as playLongAnswer for speaker-to-voice mapping
+        if (speaker === 'Neil') {
+            utterance.voice = voiceNeil;
+            utterance.pitch = 1.2;
+            utterance.rate = 1;
+        } else if (speaker === 'Kanishq') {
+            utterance.voice = voiceKanishq;
+            utterance.pitch = 1.3;
+            utterance.rate = 1.05;
+        } else if (speaker === 'Narrator') {
+            utterance.voice = voiceNarrator;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+        } else if (speaker === 'System') {
+            utterance.voice = voiceSystem;
+            utterance.pitch = 1.1;
+            utterance.rate = 0.95;
+        } else {
+            utterance.voice = voiceNeil;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+        }
+        utterance.onend = () => {
+            stopCaseStudy();
+        };
+        utterance.onerror = (event) => {
+            showGlobalDebug(`Speech synthesis error for case study: ${event.error}`, true);
+        };
+        caseStudySynth.speak(utterance);
+    }
+
+    function pauseCaseStudy() {
+        if (caseStudySynth.speaking && !caseStudySynth.paused) {
+            caseStudyPaused = true;
+            caseStudySynth.pause();
+        }
+    }
+
+    function stopCaseStudy() {
+        if (caseStudySynth.speaking) {
+            caseStudySynth.cancel();
+        }
+        caseStudyIndex = 0;
+        caseStudyPaused = false;
+        currentCaseStudyUtterance = null;
+    }
+
+    // --- Placeholder Modal Functions ---
+    function openCompanyModal() {
+        alert('Review KnowledgeCompass modal would open here!');
+        showGlobalDebug('Review KnowledgeCompass clicked.', false);
+    }
+
+        // Search function: looks for answer in chapter10.json
+        function performSearch(query) {
+            if (!query) {
+                searchAnswer.textContent = 'Please enter a question.';
+                return;
+            }
+            // Search all chapters for matching question
+            let found = null;
+            let foundType = '';
+            let foundChapter = '';
+            if (window.chapterData && window.chapterData.id) {
+                // Use already loaded chapterData and fetch full chapter10.json if needed
+                fetch('chapter10.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.chapters || !Array.isArray(data.chapters)) {
+                            searchAnswer.textContent = 'No chapters found.';
+                            return;
+                        }
+                        for (const chapter of data.chapters) {
+                            // MCQ
+                            if (chapter.exercises && chapter.exercises.mcq) {
+                                for (const q of chapter.exercises.mcq) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'MCQ';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // True/False
+                            if (!found && chapter.exercises && chapter.exercises.trueFalse) {
+                                for (const q of chapter.exercises.trueFalse) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'True/False';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // One Word
+                            if (!found && chapter.exercises && chapter.exercises.oneWord) {
+                                for (const q of chapter.exercises.oneWord) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'One Word';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Short Answer 1
+                            if (!found && chapter.exercises && chapter.exercises.shortAnswer1) {
+                                for (const q of chapter.exercises.shortAnswer1) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Short Answer 1';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Short Answer 2
+                            if (!found && chapter.exercises && chapter.exercises.shortAnswer2) {
+                                for (const q of chapter.exercises.shortAnswer2) {
+                                    if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Short Answer 2';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            // Case Study
+                            if (!found && chapter.caseStudy) {
+                                for (const cs of chapter.caseStudy) {
+                                    if (cs.scenario && cs.scenario.toLowerCase().includes(query.toLowerCase())) {
+                                        found = cs;
+                                        foundType = 'Case Study';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                    if (!found && cs.questions) {
+                                        for (const q of cs.questions) {
+                                            if (q.question && q.question.toLowerCase().includes(query.toLowerCase())) {
+                                                found = q;
+                                                foundType = 'Case Study Question';
+                                                foundChapter = chapter.title || chapter.id;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // Long Answer
+                            if (!found && chapter.longAnswerQuestions) {
+                                for (const q of chapter.longAnswerQuestions) {
+                                    if (q.text && q.text.toLowerCase().includes(query.toLowerCase())) {
+                                        found = q;
+                                        foundType = 'Long Answer';
+                                        foundChapter = chapter.title || chapter.id;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (found) break;
+                        }
+                        if (found) {
+                            let answerHtml = `<div class='mb-2'><b>Chapter:</b> ${foundChapter}</div><div class='mb-2'><b>Type:</b> ${foundType}</div>`;
+                            if (found.question) answerHtml += `<div class='mb-2'><b>Question:</b> ${found.question}</div>`;
+                            if (found.text) answerHtml += `<div class='mb-2'><b>Question:</b> ${found.text}</div>`;
+                            if (found.options) answerHtml += `<div class='mb-2'><b>Options:</b> ${found.options.join(', ')}</div>`;
+                            if (found.correctAnswer !== undefined) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.correctAnswer}</div>`;
+                            if (found.correctAnswerIndex !== undefined && found.options) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.options[found.correctAnswerIndex]}</div>`;
+                            if (found.answer) answerHtml += `<div class='mb-2'><b>Answer:</b> ${found.answer}</div>`;
+                            if (found.explanation) answerHtml += `<div class='mb-2'><b>Explanation:</b> ${found.explanation}</div>`;
+                            if (found.answer50To75Words) answerHtml += `<div class='mb-2'><b>50-75 Words Answer:</b> ${found.answer50To75Words}</div>`;
+                            if (found.answer150Words) answerHtml += `<div class='mb-2'><b>150 Words Answer:</b> ${found.answer150Words}</div>`;
+                            if (found.answer200Words) answerHtml += `<div class='mb-2'><b>200 Words Answer:</b> ${found.answer200Words}</div>`;
+                            searchAnswer.innerHTML = answerHtml;
+                        } else {
+                            searchAnswer.textContent = 'No answer found for your question.';
+                        }
+                    })
+                    .catch(() => {
+                        searchAnswer.textContent = 'Error searching for answer.';
+                    });
+            } else {
+                searchAnswer.textContent = 'Content not loaded.';
+            }
+        }
+    </script>
+</body>
+</html>
